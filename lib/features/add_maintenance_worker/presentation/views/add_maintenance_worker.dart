@@ -1,6 +1,8 @@
+import 'package:dashboard/core/utils/app_router.dart';
 import 'package:dashboard/core/widgets/custom_text_button.dart';
 import 'package:dashboard/core/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AddMaintenanceWorker extends StatefulWidget {
   const AddMaintenanceWorker({super.key});
@@ -28,8 +30,8 @@ class _AddMaintenanceWorkerState extends State<AddMaintenanceWorker> {
           child: Column(
             children: [
               CustomTextFormFiled(nameWorker: nameWorker),
-               SizedBox(
-                height: size.height *0.05,
+              SizedBox(
+                height: size.height * 0.05,
               ),
               SizedBox(
                 width: size.width * 0.1,
@@ -37,7 +39,9 @@ class _AddMaintenanceWorkerState extends State<AddMaintenanceWorker> {
                 child: CustomTextButton(
                   backGroundColor: Colors.green,
                   label: "Add Worker",
-                  onPressed: () {},
+                  onPressed: () {
+                    GoRouter.of(context).push(AppRouter.kShowAllTeams);
+                  },
                 ),
               ),
             ],
