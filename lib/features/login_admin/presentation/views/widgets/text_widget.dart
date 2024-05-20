@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
 
 class TextWidget extends StatelessWidget {
-  final text;
+final String text;
   const TextWidget({
     super.key,
-    required this.screenWidth,
-    this.text,
+   
+  required  this.text,
   });
 
-  final double screenWidth;
+ 
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: screenWidth * 0.3,
+    final width = MediaQuery.of(context).size.width;
+    return SizedBox(
+      width: width *0.3,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: screenWidth * 0.015),
+                fontSize: 15),
           ),
           const Text(
             ' (required)',

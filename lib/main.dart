@@ -1,9 +1,15 @@
 import 'package:dashboard/core/utils/app_router.dart';
-import 'package:dashboard/features/add_maintenance_worker/presentation/views/add_maintenance_worker.dart';
-import 'package:dashboard/features/home_page/presentation/home_page.dart';
-import 'package:flutter/material.dart';
+import 'package:dashboard/core/utils/my_bloc_observer.dart';
+import 'package:dashboard/core/utils/service_locator.dart';
+import 'package:dashboard/core/utils/shared_preference_store.dart';
 
-void main() {
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+void main() async{
+  Bloc.observer = MyBlocObserver();
+ await initSharedPrefernce();
+  setupServiceLocator();
   runApp(const MyApp());
 }
 
@@ -14,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.blue),
+      theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.white),
       debugShowCheckedModeBanner: false,
       routerConfig: AppRouter.router,
     );
