@@ -1,6 +1,6 @@
 import 'package:dashboard/constants.dart';
 import 'package:dashboard/core/utils/custom_alert_dialog.dart';
-import 'package:dashboard/core/widgets/custom_error.dart';
+
 import 'package:dashboard/core/widgets/custom_progress_indicator.dart';
 
 import 'package:dashboard/core/widgets/custom_text_button.dart';
