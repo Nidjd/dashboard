@@ -1,53 +1,14 @@
-import 'package:dashboard/core/utils/app_router.dart';
-import 'package:dashboard/core/widgets/custom_text_button.dart';
-import 'package:dashboard/core/widgets/custom_text_form_field.dart';
+import 'package:dashboard/features/add_maintenance_worker/presentation/views/widgets/add_maintenance_worker_body.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-class AddMaintenanceWorker extends StatefulWidget {
+
+class AddMaintenanceWorker extends StatelessWidget {
   const AddMaintenanceWorker({super.key});
 
   @override
-  State<AddMaintenanceWorker> createState() => _AddMaintenanceWorkerState();
-}
-
-class _AddMaintenanceWorkerState extends State<AddMaintenanceWorker> {
-  TextEditingController nameWorker = TextEditingController();
-
-  @override
-  void dispose() {
-    nameWorker.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Column(
-            children: [
-              CustomTextFormFiled(nameWorker: nameWorker),
-              SizedBox(
-                height: size.height * 0.05,
-              ),
-              SizedBox(
-                width: size.width * 0.1,
-                height: size.height * 0.05,
-                child: CustomTextButton(
-                  backGroundColor: Colors.green,
-                  label: "Add Worker",
-                  onPressed: () {
-                    GoRouter.of(context).push(AppRouter.kShowAllTeams);
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+    return const Scaffold(
+      body: AddMaintenanceWorkerBody(),
     );
   }
 }

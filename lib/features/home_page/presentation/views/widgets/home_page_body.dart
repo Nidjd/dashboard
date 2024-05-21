@@ -1,5 +1,6 @@
 import 'package:dashboard/core/widgets/custom_text_button.dart';
 import 'package:dashboard/features/add_maintenance_worker/presentation/views/add_maintenance_worker.dart';
+
 import 'package:flutter/material.dart';
 
 class HomePageBody extends StatefulWidget {
@@ -14,6 +15,7 @@ class HomePageBody extends StatefulWidget {
 class _HomePageBodyState extends State<HomePageBody> {
   List<Widget> pages = [
     const AddMaintenanceWorker(),
+   
   ];
   int indexPage = 0;
 
@@ -44,9 +46,10 @@ class _HomePageBodyState extends State<HomePageBody> {
                     child: CustomTextButton(
                       backGroundColor: Colors.green,
                       label: "Add Maintenance Worker",
-                      onPressed: ()=> changeIndexOfPages(0),
+                      onPressed: () => changeIndexOfPages(0),
                     ),
                   ),
+                  
                 ],
               ),
             ),

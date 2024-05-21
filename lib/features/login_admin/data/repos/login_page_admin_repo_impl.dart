@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dashboard/core/errors/failures.dart';
 import 'package:dashboard/core/utils/api_service.dart';
-import 'package:dashboard/core/utils/shared_preference_store.dart';
+
 import 'package:dashboard/features/login_admin/data/models/admin_inforation_login/admin_inforation_login.dart';
 import 'package:dashboard/features/login_admin/data/repos/login_page_admin_repo.dart';
 import 'package:dio/dio.dart';
@@ -17,7 +17,7 @@ class LoginPageAdminRepoImpl implements LoginPageAdminRepo {
   }) async {
     try {
       
-      var response = await _apiService.post(
+      var response = await _apiService.postForLogin(
           endPoint: "login", email: email, password: password);
       
       AdminInforationLogin adminInforationLogin =
