@@ -34,8 +34,8 @@ class _AddNameForWorkerSectionState extends State<AddNameForWorkerSection> {
     return BlocListener<AddWorkerCubit, AddWorkerState>(
       child: Column(
         children: [
-          CustomTextFormFiled(
-            nameWorker: nameWorker,
+          CustomTextFormFiled(controller: nameWorker, label: 'add worker',
+            
           ),
           SizedBox(
             height: size.height * 0.05,
@@ -70,7 +70,7 @@ class _AddNameForWorkerSectionState extends State<AddNameForWorkerSection> {
         if (state is AddWorkerSuccess) {
           showCustomAlertDialog(context, "Information !",
               "Email : ${state.information.email} , Password : ${state.information.password}");
-        } else if(state is AddWorkerLoading){
+        } else if (state is AddWorkerLoading) {
           const CustomProgressIndicator();
         }
       },

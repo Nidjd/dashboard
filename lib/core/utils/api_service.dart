@@ -21,23 +21,52 @@ class ApiService {
     return response.data;
   }
 
-  Future<Map<String, dynamic>> postForAddWorker(
-      {required String endPoint,
-      required String name,
-      required int id,
-      required String token,}) async {
+  Future<Map<String, dynamic>> postForAddWorker({
+    required String endPoint,
+    required String name,
+    required int id,
+    required String token,
+  }) async {
+    var response = await _dio.post('$_baseUrl$endPoint',
+        data: {
+          "name": name,
+          "team_id": id,
+        },
+        options: Options(
+          headers: {
+            "Authorization": token,
+          },
+        ));
+    return response.data;
+  }
+
+  Future<Map<String, dynamic>> postElectronicDevice({
+    required String endPoint,
+    required String token,
+    required String name,
+    required int size,
+    required String warning,
+    required String notes,
+    required String wayOfWork,
+    required String warranteState,
+    required String warantyDate,
+  }) async {
     var response = await _dio.post(
       '$_baseUrl$endPoint',
       data: {
-        "name": name,
-        "team_id": id,
+        "name":name,
+        "size":size,
+        "warning":warning,
+        "notes":notes,
+        "way_of_work":wayOfWork,
+        "warranty_state":warranteState,
+        "warranty_date":warantyDate
       },
-      options: Options(
-        headers: {
-          "Authorization":token,
-        },
-      )
+      options: Options(headers: {
+        "Authorization": "Bearer $token",
+      }),
     );
+
     return response.data;
   }
 

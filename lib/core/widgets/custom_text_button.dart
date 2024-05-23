@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
 
 class CustomTextButton extends StatelessWidget {
+  final String label;
+  final VoidCallback onPressed;
+  final TextStyle textStyle;
+  final Color backGroundColor;
+
   const CustomTextButton({
     super.key,
-    required this.backGroundColor,
     required this.label,
     required this.onPressed,
+    this.textStyle = const TextStyle(),
+    this.backGroundColor = Colors.transparent,
   });
-  final Color backGroundColor;
-  final String label;
-  final void Function() onPressed;
+
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
+      style: TextButton.styleFrom(
+        backgroundColor: backGroundColor,
+        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
-        )),
-        backgroundColor: MaterialStatePropertyAll(
-          backGroundColor,
         ),
       ),
       onPressed: onPressed,
       child: Text(
         label,
-        style:
-            const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        style: textStyle,
       ),
     );
   }
