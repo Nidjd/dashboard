@@ -1,4 +1,5 @@
 import 'package:dashboard/core/widgets/custom_text_button.dart';
+import 'package:dashboard/features/show_teams/presentation/views/show_teams.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dashboard/features/add_electrical/presentation/views/add_electrical.dart';
@@ -14,7 +15,11 @@ class HomePageBody extends StatefulWidget {
 }
 
 class _HomePageBodyState extends State<HomePageBody> {
-  List<Widget> pages = [const AddMaintenanceWorker(), const AddElectrical()];
+  List<Widget> pages = [
+    const AddMaintenanceWorker(),
+    const AddElectrical(),
+    ShowTeam(),
+  ];
   int indexPage = 0;
 
   void changeIndexOfPages(int index) {
@@ -78,6 +83,13 @@ class _HomePageBodyState extends State<HomePageBody> {
                     ],
                   ),
                 ),
+                const Divider(
+                  color: Colors.blue,
+                  height: 20,
+                  thickness: 2,
+                  indent: 0,
+                  endIndent: 0,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Row(
@@ -104,6 +116,46 @@ class _HomePageBodyState extends State<HomePageBody> {
                       ),
                     ],
                   ),
+                ),
+                const Divider(
+                  color: Colors.blue,
+                  height: 20,
+                  thickness: 2,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        //radius: .0,
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          Icons.groups,
+                          color: Colors.grey[500],
+                          size: 20,
+                        ),
+                      ),
+                      CustomTextButton(
+                        backGroundColor: Colors.transparent,
+                        label: "الفرق ",
+                        onPressed: () => changeIndexOfPages(2),
+                        textStyle: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(
+                  color: Colors.blue,
+                  height: 20,
+                  thickness: 2,
+                  indent: 0,
+                  endIndent: 0,
                 ),
               ],
             ),
