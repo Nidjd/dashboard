@@ -38,36 +38,25 @@ class _AddNameForWorkerSectionState extends State<AddNameForWorkerSection> {
         child: Row(
           children: [
             SizedBox(
-                width: size.width * 0.3,
+                width: size.width * 0.2,
                 child: const Text(
-                  "Teams",
+                  "الفرق ",
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 40),
                 )),
             SizedBox(
-              width: size.width * 0.16,
-            ),
-            SizedBox(
-              width: size.width * 0.25,
-              height: size.height * 0.06,
-              child: CustomTextFormFiled(
-                controller: nameWorker,
-                label: 'Enter Worker Name',
-              ),
-            ),
-            SizedBox(
-              width: size.width * 0.01,
+              width: size.width * 0.32,
             ),
             SizedBox(
               // width: size.width * 0.1,
-              height: size.height * 0.07,
+              height: size.height * 0.09,
               child: Row(
                 children: [
-                  CustomTextButton(
+                   CustomTextButton(
                     backGroundColor: Colors.blue.shade500,
-                    label: "Add Worker",
+                    label: "اضافة عامل ",
                     icon: const Icon(
                       Icons.add,
                       size: 12,
@@ -77,11 +66,11 @@ class _AddNameForWorkerSectionState extends State<AddNameForWorkerSection> {
                     onPressed: () async {
                       if (idSelectedItem == null) {
                         showCustomAlertDialog(
-                            context, "Warning !", "Please Select a team");
+                            context, "تحذير !", "رجاء اختر الفريق ");
                       } else {
                         if (nameWorker.text.isEmpty) {
-                          showCustomAlertDialog(context, "Warning",
-                              "Please enter the name of the worker !");
+                          showCustomAlertDialog(
+                              context, "تحذير", "رجاء ادخل اسم العامل  !");
                         } else if (nameWorker.text.isNotEmpty) {
                           await BlocProvider.of<AddWorkerCubit>(context)
                               .addNewWorker(
@@ -93,6 +82,18 @@ class _AddNameForWorkerSectionState extends State<AddNameForWorkerSection> {
                     },
                   ),
                 ],
+              ),
+            ),
+            SizedBox(
+              width: size.width * 0.01,
+            ),
+            SizedBox(
+              width: size.width * 0.15,
+              height: size.height * 0.08,
+              child: CustomTextFormFiled(
+                controller: nameWorker,
+                label: 'ادخل اسم العامل',
+                sizee: 0.1,
               ),
             ),
           ],
