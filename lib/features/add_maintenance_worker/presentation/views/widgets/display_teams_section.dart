@@ -38,29 +38,29 @@ class DisplayTeamsSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Team Name",
+                  "اسم الفريق ",
                   style: TextStyle(
                       color: Colors.grey[600], fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "Team ID",
+                  "معرّف الفريق",
                   style: TextStyle(
                       color: Colors.grey[600], fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "Team Members Number",
+                  "عدد اعضاء الفريق ",
                   style: TextStyle(
                       color: Colors.grey[600], fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "Last Visit",
+                  "عدد المهمات المنجزة",
                   style: TextStyle(
                       color: Colors.grey[600], fontWeight: FontWeight.bold),
                 ),
               ],
             ),
           ),
-          Divider(
+          const Divider(
             color: Colors.grey,
             height: 20,
             thickness: 2,
