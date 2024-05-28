@@ -52,11 +52,6 @@ class DisplayTeamsSection extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.grey[600], fontWeight: FontWeight.bold),
                 ),
-                Text(
-                  "عدد المهمات المنجزة",
-                  style: TextStyle(
-                      color: Colors.grey[600], fontWeight: FontWeight.bold),
-                ),
               ],
             ),
           ),
