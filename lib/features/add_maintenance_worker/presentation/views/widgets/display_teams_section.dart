@@ -12,6 +12,88 @@ class DisplayTeamsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var teams = [
+      TeamIteam(
+        name: 'Team 1',
+        id: 1,
+        memberCount: 5,
+        numberOfTeam: 4,
+      ),
+      TeamIteam(
+        name: 'Team 2',
+        id: 2,
+        memberCount: 5,
+        numberOfTeam: 4,
+      ),
+      TeamIteam(
+        name: 'Team 3',
+        id: 3,
+        memberCount: 5,
+        numberOfTeam: 3,
+      ),
+      TeamIteam(
+        name: 'Team 4',
+        id: 1,
+        memberCount: 5,
+        numberOfTeam: 4,
+      ),
+      TeamIteam(
+        name: 'Team 5',
+        id: 2,
+        memberCount: 5,
+        numberOfTeam: 4,
+      ),
+      TeamIteam(
+        name: 'Team 6',
+        id: 3,
+        memberCount: 5,
+        numberOfTeam: 3,
+      ),
+      TeamIteam(
+        name: 'Team 7',
+        id: 1,
+        memberCount: 5,
+        numberOfTeam: 4,
+      ),
+      TeamIteam(
+        name: 'Team 8',
+        id: 2,
+        memberCount: 5,
+        numberOfTeam: 4,
+      ),
+      TeamIteam(
+        name: 'Team 9',
+        id: 3,
+        memberCount: 5,
+        numberOfTeam: 3,
+      ),
+      TeamIteam(
+        name: 'Team 10',
+        id: 1,
+        memberCount: 5,
+        numberOfTeam: 4,
+      ),
+      TeamIteam(
+        name: 'Team 11',
+        id: 2,
+        memberCount: 5,
+        numberOfTeam: 4,
+      ),
+      TeamIteam(
+        name: 'Team 12',
+        id: 3,
+        memberCount: 5,
+        numberOfTeam: 3,
+      ),
+      TeamIteam(
+        name: 'Team 122',
+        id: 12,
+        memberCount: 5,
+        numberOfTeam: 4,
+      ),
+
+      // Add more teams as needed
+    ];
     // return BlocBuilder<GetTeamsCubit, GetTeamsState>(
     //   builder: (context, state) {
     //     if (state is GetTeamsFailure) {
@@ -62,12 +144,48 @@ class DisplayTeamsSection extends StatelessWidget {
             indent: 0,
             endIndent: 0,
           ),
-           const ListTile(
-            leading: Text("Team 1"),
-           ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: teams.length,
+              itemBuilder: (context, index) {
+                final team = teams[index];
+                return Padding(
+                  padding: const EdgeInsets.only(
+                      left: 40.0, right: 8.0, top: 4.0, bottom: 40.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        team.name,
+                        style: TextStyle(
+                            color: Colors.grey[400],
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        team.id.toString(),
+                        style: TextStyle(
+                            color: Colors.grey[400],
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        team.numberOfTeam.toString(),
+                        style: TextStyle(
+                            color: Colors.grey[400],
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                );
+                // return ListTile(
+                //   leading: Text(team.name),
+                //   subtitle: Text(team.id.toString()),
+                //   trailing: Text(team.numberOfTeam.toString()),
+                // );
+              },
+            ),
+          )
         ],
       ),
-     
     ));
     // } else {
     //   return const CustomProgressIndicator();
