@@ -33,7 +33,7 @@ class DisplayTeamsSection extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 8.0, right: 8.0, top: 4.0),
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 4.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -60,23 +60,19 @@ class DisplayTeamsSection extends StatelessWidget {
               ],
             ),
           ),
-          Divider(
+          const Divider(
             color: Colors.grey,
             height: 20,
             thickness: 2,
             indent: 0,
             endIndent: 0,
-          )
+          ),
+           const ListTile(
+            leading: Text("Team 1"),
+           ),
         ],
       ),
-      // child: ListView.builder(
-      //   itemBuilder: (context, index) => TeamIteam(
-      //     name: state.teams[index].teamName ?? "",
-      //     id: state.teams[index].id!,
-      //     numberOfTeam: state.teams[index].currentWorkersCount!,
-      //   ),
-      //   itemCount: state.teams.length,
-      // ),
+     
     ));
     // } else {
     //   return const CustomProgressIndicator();
@@ -85,3 +81,11 @@ class DisplayTeamsSection extends StatelessWidget {
   //   );
   // }
 }
+// child: ListView.builder(
+      //   itemBuilder: (context, index) => TeamIteam(
+      //     name: state.teams[index].teamName ?? "",
+      //     id: state.teams[index].id!,
+      //     numberOfTeam: state.teams[index].currentWorkersCount!,
+      //   ),
+      //   itemCount: state.teams.length,
+      // ),

@@ -36,6 +36,7 @@ class _AddNameForWorkerSectionState extends State<AddNameForWorkerSection> {
       child: Padding(
         padding: const EdgeInsets.only(top: 20, bottom: 20),
         child: Row(
+        
           children: [
             SizedBox(
                 width: size.width * 0.3,
@@ -46,9 +47,7 @@ class _AddNameForWorkerSectionState extends State<AddNameForWorkerSection> {
                       fontWeight: FontWeight.bold,
                       fontSize: 40),
                 )),
-            SizedBox(
-              width: size.width * 0.16,
-            ),
+            
             SizedBox(
               width: size.width * 0.25,
               height: size.height * 0.06,
@@ -61,7 +60,7 @@ class _AddNameForWorkerSectionState extends State<AddNameForWorkerSection> {
               width: size.width * 0.01,
             ),
             SizedBox(
-              // width: size.width * 0.1,
+              
               height: size.height * 0.07,
               child: Row(
                 children: [
