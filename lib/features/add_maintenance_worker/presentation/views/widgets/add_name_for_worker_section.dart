@@ -36,10 +36,9 @@ class _AddNameForWorkerSectionState extends State<AddNameForWorkerSection> {
       child: Padding(
         padding: const EdgeInsets.only(top: 20, bottom: 20),
         child: Row(
-        
           children: [
             SizedBox(
-                width: size.width * 0.2,
+                width: size.width * 0.15,
                 child: const Text(
                   "الفرق ",
                   style: TextStyle(
@@ -48,25 +47,14 @@ class _AddNameForWorkerSectionState extends State<AddNameForWorkerSection> {
                       fontSize: 40),
                 )),
             SizedBox(
-              width: size.width * 0.16,
-            ),
-            SizedBox(
               width: size.width * 0.25,
-              height: size.height * 0.06,
-              child: CustomTextFormFiled(
-                controller: nameWorker,
-                label: 'Enter Worker Name',
-              ),
-            ),
-            SizedBox(
-              width: size.width * 0.01,
             ),
             SizedBox(
               // width: size.width * 0.1,
               height: size.height * 0.07,
               child: Row(
                 children: [
-                   CustomTextButton(
+                  CustomTextButton(
                     backGroundColor: Colors.blue.shade500,
                     label: "اضافة عامل ",
                     icon: const Icon(
@@ -100,12 +88,12 @@ class _AddNameForWorkerSectionState extends State<AddNameForWorkerSection> {
               width: size.width * 0.01,
             ),
             SizedBox(
-              width: size.width * 0.15,
-              height: size.height * 0.08,
+              width: size.width * 0.2,
+              height: size.height * 0.06,
               child: CustomTextFormFiled(
+                sizee: 0.2,
                 controller: nameWorker,
                 label: 'ادخل اسم العامل',
-                sizee: 0.1,
               ),
             ),
           ],
