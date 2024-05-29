@@ -1,4 +1,5 @@
 import 'package:dashboard/core/widgets/custom_text_button.dart';
+import 'package:dashboard/features/show_teams/presentation/views/show_teams.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dashboard/features/add_electrical/presentation/views/add_electrical.dart';
@@ -14,7 +15,11 @@ class HomePageBody extends StatefulWidget {
 }
 
 class _HomePageBodyState extends State<HomePageBody> {
-  List<Widget> pages = [const AddMaintenanceWorker(), const AddElectrical()];
+  List<Widget> pages = [
+    const AddMaintenanceWorker(),
+    const AddElectrical(),
+    ShowTeam(),
+  ];
   int indexPage = 0;
 
   void changeIndexOfPages(int index) {
@@ -25,17 +30,16 @@ class _HomePageBodyState extends State<HomePageBody> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Row(
+    final size = MediaQuery.of(context).size;
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: SafeArea(
+          child: Row(
         children: [
           Container(
             width: 250,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.teal, Colors.teal[300]!],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
+              color: Colors.white,
               boxShadow: const [
                 BoxShadow(
                   color: Colors.black12,
@@ -44,39 +48,116 @@ class _HomePageBodyState extends State<HomePageBody> {
                 ),
               ],
             ),
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
-              child: Column(
-                children: [
-                  Padding(
+            child: Column(
+              children: [
+                Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: CustomTextButton(
-                      backGroundColor: Colors.transparent,
-                      label: "إضافة عامل",
-                      onPressed: () => changeIndexOfPages(0),
-                      textStyle: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                    child: Container(
+                      width: size.width * 0.5,
+                      height: size.height * 0.3,
+                      child: Image.asset("images/x.png"),
+                    )),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        //radius: .0,
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          Icons.engineering,
+                          color: Colors.grey[500],
+                          size: 20,
+                        ),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: CustomTextButton(
-                      backGroundColor: Colors.transparent,
-                      label: "إضافة جهاز الكتروني",
-                      onPressed: () => changeIndexOfPages(1),
-                      textStyle: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                      CustomTextButton(
+                        backGroundColor: Colors.transparent,
+                        label: "إضافة عامل",
+                        onPressed: () => changeIndexOfPages(0),
+                        textStyle: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                const Divider(
+                  color: Colors.blue,
+                  height: 20,
+                  thickness: 2,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CircleAvatar(
+                        //radius: .0,
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          Icons.kitchen,
+                          color: Colors.grey[500],
+                          size: 20,
+                        ),
+                      ),
+                      CustomTextButton(
+                        backGroundColor: Colors.transparent,
+                        label: "إضافة جهاز الكتروني",
+                        onPressed: () => changeIndexOfPages(1),
+                        textStyle: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(
+                  color: Colors.blue,
+                  height: 20,
+                  thickness: 2,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        //radius: .0,
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          Icons.groups,
+                          color: Colors.grey[500],
+                          size: 20,
+                        ),
+                      ),
+                      CustomTextButton(
+                        backGroundColor: Colors.transparent,
+                        label: "الفرق ",
+                        onPressed: () => changeIndexOfPages(2),
+                        textStyle: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(
+                  color: Colors.blue,
+                  height: 20,
+                  thickness: 2,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+              ],
             ),
           ),
           Expanded(
@@ -98,9 +179,7 @@ class _HomePageBodyState extends State<HomePageBody> {
             ),
           ),
         ],
-      ),
+      )),
     );
   }
 }
-
-

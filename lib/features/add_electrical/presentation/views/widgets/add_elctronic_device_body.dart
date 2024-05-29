@@ -7,6 +7,7 @@ import 'package:dashboard/features/add_electrical/presentation/manager/cubit/add
 import 'package:dashboard/features/add_electrical/presentation/views/widgets/forms_section.dart';
 import 'package:dashboard/features/add_electrical/presentation/views/widgets/qr_code_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddElectricalBody extends StatefulWidget {
@@ -43,12 +44,14 @@ class _DeviceFormState extends State<AddElectricalBody> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return BlocConsumer<AddElectronicDeviceCubit, AddElectronicDeviceState>(
       listener: (context, state) {
         if (state is AddElectronicDeviceSuccess) {
           showDialog(
             context: context,
             builder: (context) => Container(
+              width: 2,
               child: QrCodePage(
                 data: state.qrCodeModel.qrCode!.qrBase64!,
               ),
@@ -62,62 +65,115 @@ class _DeviceFormState extends State<AddElectricalBody> {
         } else if (state is AddElectronicDeviceFailure) {
           return CustomError(message: state.errMessage);
         } else {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('إضافة جهاز إلكتروني'),
-              backgroundColor: Colors.teal,
-            ),
-            body: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: _formKey,
-                child: ListView(
-                  children: <Widget>[
-                    FormsSection(
-                        nameController: _nameController,
-                        sizeController: _sizeController,
-                        warningsController: _warningsController,
-                        notesController: _notesController,
-                        howToUseController: _howToUseController,
-                        warrantyStatusController: _warrantyStatusController,
-                        warrantyDurationController:
-                            _warrantyDurationController),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          if (_sizeController is String) {
-                            showCustomAlertDialog(
-                              context,
-                              "!!!",
-                              "the size must be integer",
-                            );
-                          } else {
-                            String token = prefs.getString('token')!;
-                            await BlocProvider.of<AddElectronicDeviceCubit>(
-                                    context)
-                                .addNewElectronicDevice(
-                              endPoint: "addelectrical",
-                              token: token,
-                              name: _nameController.text,
-                              size: int.parse(_sizeController.text),
-                              warning: _warningsController.text,
-                              notes: _notesController.text,
-                              wayOfWork: _howToUseController.text,
-                              warranteState: _warrantyStatusController.text,
-                              warantyDate: _warrantyDurationController.text,
-                            );
-                          }
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 50, vertical: 15),
-                        textStyle: const TextStyle(fontSize: 18),
+          return
+              // Scaffold(
+              //   // appBar: AppBar(
+              //   //   title: const Text('إضافة جهاز إلكتروني'),
+              //   //   backgroundColor: Colors.teal,
+              //   // ),
+              //   body:
+              //   Padding(
+              // padding: const EdgeInsets.all(16.0),
+              // child:
+
+              Padding(
+            padding: const EdgeInsets.only(right: 2.0, left: 2.0),
+            child: Container(
+              width: size.width * 0.59, // Set the desired width of the box
+              height: size.height * 1, // Set the desired height of the box
+              decoration: BoxDecoration(
+                color: Colors.white, // Set the background color
+                borderRadius:
+                    BorderRadius.circular(2.0), // Apply rounded corners
+                border: Border.all(
+                  color: Colors.grey, // Set the color of the border
+                  width: 2.0, // Set the thickness of the border
+                ),
+              ),
+
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.all(10.0),
+                        width: size.width * 0.6,
+                        child: Text(
+                          //textDirection: TextDirection.ltr,
+
+                          "جهاز جديد",
+                          style: TextStyle(
+                              color: Colors.grey[600],
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
                       ),
-                      child: const Text('إضافة الجهاز'),
-                    ),
-                  ],
+                      const Divider(
+                        color: Colors.grey,
+                        height: 20,
+                        thickness: 2,
+                        indent: 0,
+                        endIndent: 0,
+                      ),
+                      FormsSection(
+                          nameController: _nameController,
+                          sizeController: _sizeController,
+                          warningsController: _warningsController,
+                          notesController: _notesController,
+                          howToUseController: _howToUseController,
+                          warrantyStatusController: _warrantyStatusController,
+                          warrantyDurationController:
+                              _warrantyDurationController),
+                      Container(
+                        padding: EdgeInsets.only(right: 9.0),
+                        height: size.height * 0.08,
+                        width: size.width * 0.15,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              if (_sizeController is String) {
+                                showCustomAlertDialog(
+                                  context,
+                                  "!!!",
+                                  "the size must be integer",
+                                );
+                              } else {
+                                String token = prefs.getString('token')!;
+                                await BlocProvider.of<AddElectronicDeviceCubit>(
+                                        context)
+                                    .addNewElectronicDevice(
+                                  endPoint: "addelectrical",
+                                  token: token,
+                                  name: _nameController.text,
+                                  size: int.parse(_sizeController.text),
+                                  warning: _warningsController.text,
+                                  notes: _notesController.text,
+                                  wayOfWork: _howToUseController.text,
+                                  warranteState: _warrantyStatusController.text,
+                                  warantyDate: _warrantyDurationController.text,
+                                );
+                              }
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            backgroundColor: Colors.blue,
+                            // padding: const EdgeInsets.symmetric(
+                            //     horizontal: 50, vertical: 15),
+                            textStyle: const TextStyle(fontSize: 18),
+                          ),
+                          child: const Text('إضافة الجهاز',
+                              style: TextStyle(
+                                color: Colors.white,
+                              )),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -5,8 +5,8 @@ import 'package:dashboard/features/add_maintenance_worker/presentation/views/wid
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DisplayTeamsSection extends StatelessWidget {
-  const DisplayTeamsSection({
+class DisplayTeams extends StatelessWidget {
+  const DisplayTeams({
     super.key,
   });
 
@@ -33,7 +33,7 @@ class DisplayTeamsSection extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 4.0),
+            padding: EdgeInsets.only(left: 8.0, right: 8.0, top: 4.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -52,6 +52,11 @@ class DisplayTeamsSection extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.grey[600], fontWeight: FontWeight.bold),
                 ),
+                Text(
+                  "عدد المهمات المنجزة",
+                  style: TextStyle(
+                      color: Colors.grey[600], fontWeight: FontWeight.bold),
+                ),
               ],
             ),
           ),
@@ -61,13 +66,17 @@ class DisplayTeamsSection extends StatelessWidget {
             thickness: 2,
             indent: 0,
             endIndent: 0,
-          ),
-           const ListTile(
-            leading: Text("Team 1"),
-           ),
+          )
         ],
       ),
-     
+      // child: ListView.builder(
+      //   itemBuilder: (context, index) => TeamIteam(
+      //     name: state.teams[index].teamName ?? "",
+      //     id: state.teams[index].id!,
+      //     numberOfTeam: state.teams[index].currentWorkersCount!,
+      //   ),
+      //   itemCount: state.teams.length,
+      // ),
     ));
     // } else {
     //   return const CustomProgressIndicator();
@@ -76,11 +85,3 @@ class DisplayTeamsSection extends StatelessWidget {
   //   );
   // }
 }
-// child: ListView.builder(
-      //   itemBuilder: (context, index) => TeamIteam(
-      //     name: state.teams[index].teamName ?? "",
-      //     id: state.teams[index].id!,
-      //     numberOfTeam: state.teams[index].currentWorkersCount!,
-      //   ),
-      //   itemCount: state.teams.length,
-      // ),

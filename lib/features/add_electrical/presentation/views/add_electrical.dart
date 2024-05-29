@@ -11,11 +11,21 @@ class AddElectrical extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider(
-        create: (context) =>
-            AddElectronicDeviceCubit(getIt.get<AddElectronicDeviceRepoImpl>()),
-        child: const AddElectricalBody(),
+    final size = MediaQuery.of(context).size;
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        body: BlocProvider(
+          create: (context) => AddElectronicDeviceCubit(
+              getIt.get<AddElectronicDeviceRepoImpl>()),
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              // SizedBox(width: size.width * 0.4),
+              const AddElectricalBody(),
+            ],
+          ),
+        ),
       ),
     );
   }
