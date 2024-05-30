@@ -125,7 +125,7 @@ class DisplayTeamsSection extends StatelessWidget {
                       color: Colors.grey[600], fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "معرّف الفريق",
+                  "عنوان  الفريق",
                   style: TextStyle(
                       color: Colors.grey[600], fontWeight: FontWeight.bold),
                 ),
@@ -149,32 +149,43 @@ class DisplayTeamsSection extends StatelessWidget {
               itemCount: teams.length,
               itemBuilder: (context, index) {
                 final team = teams[index];
-                return Padding(
-                  padding: const EdgeInsets.only(
-                      left: 40.0, right: 8.0, top: 4.0, bottom: 40.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        team.name,
-                        style: TextStyle(
-                            color: Colors.grey[400],
-                            fontWeight: FontWeight.bold),
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 40.0, right: 8.0, top: 4.0, bottom: 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            team.name,
+                            style: TextStyle(
+                                color: Colors.grey[400],
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            team.id.toString(),
+                            style: TextStyle(
+                                color: Colors.grey[400],
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            team.numberOfTeam.toString(),
+                            style: TextStyle(
+                                color: Colors.grey[400],
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
-                      Text(
-                        team.id.toString(),
-                        style: TextStyle(
-                            color: Colors.grey[400],
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        team.numberOfTeam.toString(),
-                        style: TextStyle(
-                            color: Colors.grey[400],
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+                    ),
+                    Divider(
+                      color: Colors.grey.shade100,
+                      height: 20,
+                      thickness: 2,
+                      indent: 0,
+                      endIndent: 0,
+                    ),
+                  ],
                 );
                 // return ListTile(
                 //   leading: Text(team.name),
