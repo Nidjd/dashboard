@@ -15,23 +15,20 @@ class AddMaintenanceWorkerBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(0),
-        child: Column(
-          children: [
-            BlocProvider(
-              create: (context) =>
-                  AddWorkerCubit(getIt.get<AddMaintenanceWorkerRepoImpl>()),
-              child: const AddNameForWorkerSection(),
-            ),
-            BlocProvider(
-              create: (context) =>
-                  GetTeamsCubit(getIt.get<AddMaintenanceWorkerRepoImpl>())
-                    ..getDataOfTeams(),
-              child: const DisplayTeamsSection(),
-            ),
-          ],
-        ),
+      child: Column(
+        children: [
+          BlocProvider(
+            create: (context) =>
+                AddWorkerCubit(getIt.get<AddMaintenanceWorkerRepoImpl>()),
+            child: const AddNameForWorkerSection(),
+          ),
+          BlocProvider(
+            create: (context) =>
+                GetTeamsCubit(getIt.get<AddMaintenanceWorkerRepoImpl>())
+                  ..getDataOfTeams(),
+            child: const DisplayTeamsSection(),
+          ),
+        ],
       ),
     );
   }
