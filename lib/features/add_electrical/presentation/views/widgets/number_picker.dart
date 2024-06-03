@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 
+
 class IntegerExample extends StatefulWidget {
   const IntegerExample({super.key});
 
@@ -17,7 +18,7 @@ class IntegerExampleState extends State<IntegerExample> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
-          icon: Icon(Icons.remove),
+          icon: const Icon(Icons.remove),
           onPressed: () => setState(() {
             _currentIntValue = (_currentIntValue - 1)
                 .clamp(0, 10); // Clamp the value between 0 and 10
@@ -33,7 +34,7 @@ class IntegerExampleState extends State<IntegerExample> {
           onChanged: (value) => setState(() => _currentIntValue = value),
         ),
         IconButton(
-          icon: Icon(Icons.add),
+          icon: const Icon(Icons.add),
           onPressed: () => setState(() {
             _currentIntValue = (_currentIntValue + 1)
                 .clamp(0, 10); // Clamp the value between 0 and 10

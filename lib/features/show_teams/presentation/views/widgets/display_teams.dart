@@ -66,7 +66,8 @@ class DisplayTeams extends StatelessWidget {
             thickness: 2,
             indent: 0,
             endIndent: 0,
-          )
+          ),
+          const ListTile(),
         ],
       ),
       // child: ListView.builder(

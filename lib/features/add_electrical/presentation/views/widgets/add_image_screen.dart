@@ -9,7 +9,7 @@ class AddImageScreen extends StatefulWidget {
   const AddImageScreen({super.key});
 
   @override
-  _AddImageScreenState createState() => _AddImageScreenState();
+  State<AddImageScreen> createState() => _AddImageScreenState();
 }
 
 class _AddImageScreenState extends State<AddImageScreen> {
@@ -61,7 +61,7 @@ class _AddImageScreenState extends State<AddImageScreen> {
                 decoration: BoxDecoration(
                   color: Colors.grey[100],
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.camera_alt,
                   color: Colors.blue,
                   size: 50.0,
@@ -69,12 +69,12 @@ class _AddImageScreenState extends State<AddImageScreen> {
               ),
             )),
           ),
-          SizedBox(width: 40),
+          const SizedBox(width: 40),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Expanded(
                 child: pickimage == null
-                    ? Text(
+                    ? const Text(
                         "data",
                         style: TextStyle(color: Colors.white),
                       )
