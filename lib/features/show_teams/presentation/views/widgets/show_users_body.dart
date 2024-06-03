@@ -13,24 +13,21 @@ class ShowUsersBody extends StatelessWidget {
         child: SafeArea(
             child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Container(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: SizedBox(
-                    width: size.width,
-                    child: const Text(
-                      "أعضاء الفريق ",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30),
-                    )),
-              ),
-              displayUsers(),
-            ]),
-          ),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        Padding(
+          padding: const EdgeInsets.only(bottom: 20.0),
+          child: SizedBox(
+              width: size.width,
+              child: const Text(
+                "أعضاء الفريق ",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30),
+              )),
+                        ),
+                        displayUsers(),
+                      ]),
         )));
   }
 }

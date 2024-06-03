@@ -143,9 +143,9 @@ class DisplayTeams extends StatelessWidget {
             indent: 0,
             endIndent: 0,
           ),
-<<<<<<< HEAD
+
           const ListTile(),
-=======
+
           Expanded(
             child: ListView.builder(
               itemCount: teams.length,
@@ -189,30 +189,16 @@ class DisplayTeams extends StatelessWidget {
                     ],
                   ),
                 );
-                // return ListTile(
-                //   leading: Text(team.name),
-                //   subtitle: Text(team.id.toString()),
-                //   trailing: Text(team.numberOfTeam.toString()),
-                // );
+               
               },
             ),
           )
->>>>>>> 480568fedf7508504da52b213052c7e6c15d7d65
+
         ],
       ),
-      // child: ListView.builder(
-      //   itemBuilder: (context, index) => TeamIteam(
-      //     name: state.teams[index].teamName ?? "",
-      //     id: state.teams[index].id!,
-      //     numberOfTeam: state.teams[index].currentWorkersCount!,
-      //   ),
-      //   itemCount: state.teams.length,
-      // ),
+      
     ));
-    // } else {
-    //   return const CustomProgressIndicator();
+
   }
-  //     },
-  //   );
-  // }
+ 
 }

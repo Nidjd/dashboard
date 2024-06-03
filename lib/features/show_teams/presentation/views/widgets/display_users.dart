@@ -178,29 +178,15 @@ class displayUsers extends StatelessWidget {
                     ),
                   ],
                 );
-                // return ListTile(
-                //   leading: Text(team.name),
-                //   subtitle: Text(team.id.toString()),
-                //   trailing: Text(team.numberOfTeam.toString()),
-                // );
+                
               },
             ),
           ),
         ],
       ),
-      // child: ListView.builder(
-      //   itemBuilder: (context, index) => TeamIteam(
-      //     name: state.teams[index].teamName ?? "",
-      //     id: state.teams[index].id!,
-      //     numberOfTeam: state.teams[index].currentWorkersCount!,
-      //   ),
-      //   itemCount: state.teams.length,
-      // ),
+    
     ));
-    // } else {
-    //   return const CustomProgressIndicator();
+   
   }
-  //     },
-  //   );
-  // }
+ 
 }

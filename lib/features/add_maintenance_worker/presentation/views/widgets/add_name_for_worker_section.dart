@@ -50,7 +50,7 @@ class _AddNameForWorkerSectionState extends State<AddNameForWorkerSection> {
               width: size.width * 0.25,
             ),
             SizedBox(
-              // width: size.width * 0.1,
+      
               height: size.height * 0.07,
               child: Row(
                 children: [
@@ -94,6 +94,7 @@ class _AddNameForWorkerSectionState extends State<AddNameForWorkerSection> {
                 sizee: 0.2,
                 controller: nameWorker,
                 label: 'ادخل اسم العامل',
+                
               ),
             ),
           ],
