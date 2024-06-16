@@ -1,5 +1,3 @@
-
-
 import 'package:dashboard/core/widgets/custom_error.dart';
 import 'package:dashboard/core/widgets/custom_progress_indicator.dart';
 import 'package:dashboard/core/widgets/custom_text_button.dart';
@@ -8,7 +6,6 @@ import 'package:dashboard/features/login_admin/presentation/views/widgets/login_
 import 'package:dashboard/features/login_admin/presentation/views/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 class FormSection extends StatefulWidget {
   const FormSection({
@@ -44,7 +41,9 @@ class _FormSectionState extends State<FormSection> {
     var adminLoginCubt = BlocProvider.of<LoginAdminCubit>(context);
     void loginAdmin() async {
       await adminLoginCubt.loginAdmin(
-          email: emailController.text, password: passwordController.text,context: context);
+          email: emailController.text,
+          password: passwordController.text,
+          context: context);
     }
 
     return BlocBuilder<LoginAdminCubit, LoginAdminState>(
@@ -97,8 +96,6 @@ class _FormSectionState extends State<FormSection> {
                       if (keyForm.currentState!.validate()) {
                         if (emailValidate()) {
                           loginAdmin();
-                         
-                          
                         }
                       }
                     },
