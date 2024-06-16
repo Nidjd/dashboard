@@ -100,12 +100,12 @@ class _DeviceFormState extends State<AddElectricalBody> {
                       Container(
                         padding: EdgeInsets.all(10.0),
                         width: size.width * 0.6,
-                        child: Text(
+                        child: const Text(
                           //textDirection: TextDirection.ltr,
 
                           "جهاز جديد",
                           style: TextStyle(
-                              color: Colors.grey[600],
+                              color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
                         ),
