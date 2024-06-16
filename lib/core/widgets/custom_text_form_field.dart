@@ -6,24 +6,24 @@ class CustomTextFormFiled extends StatelessWidget {
     required this.controller,
     required this.label,
     this.sizee,
-    this.option,
+    this.option, this.keyboardType,
   });
 
   final TextEditingController controller;
   final String label;
   final double? sizee;
   final bool? option;
+  final TextInputType? keyboardType;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return SizedBox(
+    return Container(
       width: size.width * sizee!,
       child: TextFormField(
+        keyboardType:keyboardType,
         controller: controller,
-        
         decoration: InputDecoration(
             labelText: label,
-            
             border: option == false
                 ? const UnderlineInputBorder(
                     borderSide: BorderSide(
