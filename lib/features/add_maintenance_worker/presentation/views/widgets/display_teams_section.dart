@@ -73,9 +73,9 @@ class _DisplayTeamsSectionState extends State<DisplayTeamsSection> {
                                     bottom: 20.0),
                                 child: GestureDetector(
                                   onTap: () {
-                                    idSelectedItem = state.teams[index].id;
+                                    
                                     setState(() {
-                                      
+                                      idSelectedItem = state.teams[index].id;
                                     });
                                   },
                                   child: Container(

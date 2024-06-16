@@ -24,7 +24,7 @@ class ShowTeamsBody extends StatelessWidget {
                       fontSize: 40),
                 )),
           ),
-          DisplayTeams(),
+          const DisplayTeams(),
         ])));
   }
 }

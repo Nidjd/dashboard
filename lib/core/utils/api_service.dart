@@ -54,13 +54,13 @@ class ApiService {
     var response = await _dio.post(
       '$_baseUrl$endPoint',
       data: {
-        "name":name,
-        "size":size,
-        "warning":warning,
-        "notes":notes,
-        "way_of_work":wayOfWork,
-        "warranty_state":warranteState,
-        "warranty_date":warantyDate
+        "name": name,
+        "size": size,
+        "warning": warning,
+        "notes": notes,
+        "way_of_work": wayOfWork,
+        "warranty_state": warranteState,
+        "warranty_date": warantyDate
       },
       options: Options(headers: {
         "Authorization": "Bearer $token",
@@ -81,6 +81,62 @@ class ApiService {
       ),
     );
     // print(response.data);
+    return response.data;
+  }
+
+  Future<List<dynamic>> getTeams({
+    required String endPoint,
+    required String token,
+  }) async {
+    var response = await _dio.get(
+      '$_baseUrl$endPoint',
+      options: Options(
+        headers: {"Authorization": token},
+      ),
+    );
+    // print(response.data);
+    return response.data;
+  }
+
+  Future<dynamic> getWorkers({
+    required String endPoint,
+    required String token,
+    required int teamId,
+  }) async {
+    var response2 = await _dio.get(
+      '$_baseUrl$endPoint',
+      data: {},
+      queryParameters: {
+        "team_id": teamId,
+      },
+      options: Options(
+        headers: {"Authorization": token},
+      ),
+    );
+
+    return response2.data;
+  }
+
+  Future<dynamic> deleteWorker(
+      {required String endPoint,
+      required int id,
+      required String token}) async {
+   
+    var response = await _dio.delete(
+      '$_baseUrl$endPoint',
+      queryParameters: {
+        "worker_id": id,
+      },
+      options: Options(
+        headers: {
+          "Authorization": token,
+        },
+        method: "DELETE",
+        contentType: Headers.jsonContentType,
+        responseType: ResponseType.json,
+      ),
+    );
+    
     return response.data;
   }
 }

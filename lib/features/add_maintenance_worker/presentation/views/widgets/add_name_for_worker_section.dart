@@ -77,6 +77,9 @@ class _AddNameForWorkerSectionState extends State<AddNameForWorkerSection> {
                             name: nameWorker.text,
                             id: idSelectedItem!,
                           );
+                          setState(() {
+                            
+                          });
                         }
                       }
                     },

@@ -1,192 +1,125 @@
-import 'package:dashboard/features/add_maintenance_worker/presentation/views/widgets/team_item.dart';
+import 'package:dashboard/core/widgets/custom_error.dart';
+import 'package:dashboard/core/widgets/custom_progress_indicator.dart';
+import 'package:dashboard/features/show_teams/presentation/manager/show_workers_cubit/show_workers_cubit.dart';
+import 'package:dashboard/features/show_teams/presentation/views/widgets/delete_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class displayUsers extends StatelessWidget {
-  const displayUsers({super.key});
+class DisplayUsers extends StatelessWidget {
+  const DisplayUsers({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    var teams = [
-      TeamIteam(
-        name: 'Team 1',
-        id: 1,
-        memberCount: 5,
-        numberOfTeam: 4,
-      ),
-      TeamIteam(
-        name: 'Team 2',
-        id: 1,
-        memberCount: 5,
-        numberOfTeam: 4,
-      ),
-      TeamIteam(
-        name: 'Team 3',
-        id: 3,
-        memberCount: 5,
-        numberOfTeam: 3,
-      ),
-      TeamIteam(
-        name: 'Team 4',
-        id: 1,
-        memberCount: 5,
-        numberOfTeam: 4,
-      ),
-      TeamIteam(
-        name: 'Team 5',
-        id: 2,
-        memberCount: 5,
-        numberOfTeam: 4,
-      ),
-      TeamIteam(
-        name: 'Team 6',
-        id: 3,
-        memberCount: 5,
-        numberOfTeam: 3,
-      ),
-      TeamIteam(
-        name: 'Team 7',
-        id: 1,
-        memberCount: 5,
-        numberOfTeam: 4,
-      ),
-      TeamIteam(
-        name: 'Team 8',
-        id: 2,
-        memberCount: 5,
-        numberOfTeam: 4,
-      ),
-      TeamIteam(
-        name: 'Team 9',
-        id: 3,
-        memberCount: 5,
-        numberOfTeam: 3,
-      ),
-      TeamIteam(
-        name: 'Team 1',
-        id: 1,
-        memberCount: 5,
-        numberOfTeam: 4,
-      ),
-      TeamIteam(
-        name: 'Team 1',
-        id: 2,
-        memberCount: 5,
-        numberOfTeam: 4,
-      ),
-      TeamIteam(
-        name: 'Team 1',
-        id: 3,
-        memberCount: 5,
-        numberOfTeam: 3,
-      ),
-
-      // Add more teams as needed
-    ];
-    // return BlocBuilder<GetTeamsCubit, GetTeamsState>(
-    //   builder: (context, state) {
-    //     if (state is GetTeamsFailure) {
-    //       return CustomError(message: state.errorMessage);
-    //     } else if (state is GetTeamsSuccess) {
-    return Expanded(
-        child: Container(
-      width: 1000, // Set the desired width of the box
-      height: 300, // Set the desired height of the box
-      decoration: BoxDecoration(
-        color: Colors.white, // Set the background color
-        borderRadius: BorderRadius.circular(10.0), // Apply rounded corners
-        border: Border.all(
-          // Add the border
-          color: Colors.grey, // Set the color of the border
-          width: 2.0, // Set the thickness of the border
-        ),
-      ),
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 8.0, right: 8.0, top: 4.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return BlocBuilder<ShowWorkersCubit, ShowWorkersState>(
+      builder: (context, state) {
+        if (state is ShowWorkersSuccess) {
+          return Expanded(
+              child: Container(
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: 300,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(
+                color: Colors.grey,
+                width: 2.0,
+              ),
+            ),
+            child: Column(
               children: [
-                Text(
-                  "اسم العامل  ",
-                  style: TextStyle(
-                      color: Colors.grey[600], fontWeight: FontWeight.bold),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 8.0, right: 8.0, top: 4.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "اسم العامل  ",
+                        style: TextStyle(
+                            color: Colors.grey[600],
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "ايميل العامل ",
+                        style: TextStyle(
+                            color: Colors.grey[600],
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        " المنصب الوظيفي ",
+                        style: TextStyle(
+                            color: Colors.grey[600],
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        " حذف العامل ",
+                        style: TextStyle(
+                            color: Colors.grey[600],
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
                 ),
-                Text(
-                  "ايميل العامل ",
-                  style: TextStyle(
-                      color: Colors.grey[600], fontWeight: FontWeight.bold),
+                const Divider(
+                  color: Colors.grey,
+                  height: 20,
+                  thickness: 2,
+                  indent: 0,
+                  endIndent: 0,
                 ),
-                Text(
-                  " المنصب الوظيفي ",
-                  style: TextStyle(
-                      color: Colors.grey[600], fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  "                 ",
-                  style: TextStyle(
-                      color: Colors.grey[600], fontWeight: FontWeight.bold),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: state.workers.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                state.workers[index].user?.name ?? "",
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                state.workers[index].user?.email ?? "",
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                state.workers[index].user!.role ?? "",
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                               DeleteButton(id: state.workers[index].id!,teamId: state.workers[index].maintenanceTeamId!,)
+                            ],
+                          ),
+                          Divider(
+                            color: Colors.grey.shade100,
+                            height: 20,
+                            thickness: 2,
+                            indent: 0,
+                            endIndent: 0,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
-          ),
-          const Divider(
-            color: Colors.grey,
-            height: 20,
-            thickness: 2,
-            indent: 0,
-            endIndent: 0,
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: teams.length,
-              itemBuilder: (context, index) {
-                final team = teams[index];
-                return Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          team.name,
-                          style: TextStyle(
-                              color: Colors.grey[400],
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          team.id.toString(),
-                          style: TextStyle(
-                              color: Colors.grey[400],
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          team.numberOfTeam.toString(),
-                          style: TextStyle(
-                              color: Colors.grey[400],
-                              fontWeight: FontWeight.bold),
-                        ),
-                        IconButton(
-                            onPressed: () {}, icon: Icon(Icons.more_vert))
-                      ],
-                    ),
-                    Divider(
-                      color: Colors.grey.shade100,
-                      height: 20,
-                      thickness: 2,
-                      indent: 0,
-                      endIndent: 0,
-                    ),
-                  ],
-                );
-                
-              },
-            ),
-          ),
-        ],
-      ),
-    
-    ));
-   
+          ));
+        } else if (state is ShowWorkersFailureState) {
+          return CustomError(message: state.errMessage);
+        } else {
+          return const CustomProgressIndicator();
+        }
+      },
+    );
   }
- 
 }

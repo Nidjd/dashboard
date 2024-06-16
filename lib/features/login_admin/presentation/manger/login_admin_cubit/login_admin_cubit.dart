@@ -1,14 +1,15 @@
 import 'package:bloc/bloc.dart';
 
 import 'package:dashboard/core/errors/failures.dart';
-import 'package:dashboard/core/utils/app_router.dart';
+
 
 import 'package:dashboard/core/utils/shared_preference_store.dart';
+import 'package:dashboard/features/home_page/presentation/home_page.dart';
 import 'package:dashboard/features/login_admin/data/models/admin_inforation_login/admin_inforation_login.dart';
 import 'package:dashboard/features/login_admin/data/repos/login_page_admin_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
 
 
 
@@ -36,7 +37,7 @@ class LoginAdminCubit extends Cubit<LoginAdminState> {
       emit(LoginAdminSuccess(a));
       if(a.user!.id != null)
       {
-         GoRouter.of(context).pushReplacement(AppRouter.kHomePage);
+         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage(),),);
       }
     });
   }
