@@ -6,10 +6,11 @@ class QrCodePage extends StatelessWidget {
   final String data;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: QrImageView(
-          data: data.substring(0,1852),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        body: QrImageView(
+          data: data.substring(0, 1852),
           version: QrVersions.auto,
           size: 200.0,
         ),
