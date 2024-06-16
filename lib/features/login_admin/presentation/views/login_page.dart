@@ -7,8 +7,17 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SignForm(),
+    return Scaffold(
+      body: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage(
+              "images/x.png",
+            ),
+            opacity: 0.1,
+          )),
+          child: const SignForm()),
     );
   }
 }
