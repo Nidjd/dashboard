@@ -1,5 +1,5 @@
 import 'package:dashboard/core/widgets/custom_text_button.dart';
-import 'package:dashboard/features/processes_orders/presentation/views/processes_orders.dart';
+import 'package:dashboard/features/processes_orders/presentation/views/wiggets/processes_order.dart';
 import 'package:dashboard/features/show_teams/presentation/views/show_teams.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class _HomePageBodyState extends State<HomePageBody> {
     const AddMaintenanceWorker(),
     const AddElectrical(),
     const ShowTeam(),
-    const ProcessesOrders(),
+    const ProcessesOrder(),
   ];
   int indexPage = 0;
 

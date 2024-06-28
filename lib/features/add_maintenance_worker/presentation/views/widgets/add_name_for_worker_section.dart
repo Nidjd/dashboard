@@ -35,72 +35,72 @@ class _AddNameForWorkerSectionState extends State<AddNameForWorkerSection> {
     return BlocListener<AddWorkerCubit, AddWorkerState>(
       child: Padding(
         padding: const EdgeInsets.only(top: 20, bottom: 20),
-        child: Row(
-          children: [
-            SizedBox(
-                width: size.width * 0.15,
-                child: const Text(
-                  "الفرق ",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40),
-                )),
-            SizedBox(
-              width: size.width * 0.25,
-            ),
-            SizedBox(
-      
-              height: size.height * 0.07,
-              child: Row(
-                children: [
-                  CustomTextButton(
-                    backGroundColor: Colors.blue.shade500,
-                    label: "اضافة عامل ",
-                    icon: const Icon(
-                      Icons.add,
-                      size: 12,
-                      color: Colors.white,
-                    ),
-                    textStyle: const TextStyle(color: Colors.white),
-                    onPressed: () async {
-                      if (idSelectedItem == null) {
-                        showCustomAlertDialog(
-                            context, "تحذير !", "رجاء اختر الفريق ");
-                      } else {
-                        if (nameWorker.text.isEmpty) {
+        child: Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                  width: size.width * 0.15,
+                  child: const Text(
+                    "الفرق ",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 40),
+                  )),
+              // SizedBox(
+              //   width: size.width * 0.2,
+              // ),
+
+              SizedBox(
+                height: size.height * 0.07,
+                child: Row(
+                  children: [
+                    CustomTextButton(
+                      backGroundColor: Colors.blue.shade500,
+                      label: "اضافة عامل ",
+                      icon: const Icon(
+                        Icons.add,
+                        size: 12,
+                        color: Colors.white,
+                      ),
+                      textStyle: const TextStyle(color: Colors.white),
+                      onPressed: () async {
+                        if (idSelectedItem == null) {
                           showCustomAlertDialog(
-                              context, "تحذير", "رجاء ادخل اسم العامل  !");
-                        } else if (nameWorker.text.isNotEmpty) {
-                          await BlocProvider.of<AddWorkerCubit>(context)
-                              .addNewWorker(
-                            name: nameWorker.text,
-                            id: idSelectedItem!,
-                          );
-                          setState(() {
-                            
-                          });
+                              context, "تحذير !", "رجاء اختر الفريق ");
+                        } else {
+                          if (nameWorker.text.isEmpty) {
+                            showCustomAlertDialog(
+                                context, "تحذير", "رجاء ادخل اسم العامل  !");
+                          } else if (nameWorker.text.isNotEmpty) {
+                            await BlocProvider.of<AddWorkerCubit>(context)
+                                .addNewWorker(
+                              name: nameWorker.text,
+                              id: idSelectedItem!,
+                            );
+                            setState(() {});
+                          }
                         }
-                      }
-                    },
-                  ),
-                ],
+                      },
+                    ),
+                    SizedBox(
+                      width: size.width * 0.01,
+                    ),
+                    SizedBox(
+                      width: size.width * 0.2,
+                      height: size.height * 0.06,
+                      child: CustomTextFormFiled(
+                        sizee: 0.2,
+                        controller: nameWorker,
+                        label: 'ادخل اسم العامل',
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              width: size.width * 0.01,
-            ),
-            SizedBox(
-              width: size.width * 0.2,
-              height: size.height * 0.06,
-              child: CustomTextFormFiled(
-                sizee: 0.2,
-                controller: nameWorker,
-                label: 'ادخل اسم العامل',
-                
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       listener: (BuildContext context, AddWorkerState state) {
