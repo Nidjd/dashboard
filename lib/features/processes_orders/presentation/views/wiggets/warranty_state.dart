@@ -38,10 +38,9 @@ class _WarrantyStateState extends State<WarrantyState> {
           print(text);
           print(isWarranted);
         });
-       
       },
       child: Container(
-        width: size.width * 0.06,
+        width: size.width * 0.08,
         height: size.height * 0.1,
         // child: ,
         decoration: BoxDecoration(
