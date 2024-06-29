@@ -1,14 +1,16 @@
+import 'dart:typed_data';
+
 import 'package:dashboard/core/utils/custom_alert_dialog.dart';
 import 'package:dashboard/core/utils/shared_preference_store.dart';
 import 'package:dashboard/core/widgets/custom_error.dart';
 import 'package:dashboard/core/widgets/custom_progress_indicator.dart';
-
 import 'package:dashboard/features/add_electrical/presentation/manager/cubit/add_electronic_device_cubit.dart';
 import 'package:dashboard/features/add_electrical/presentation/views/widgets/forms_section.dart';
 import 'package:dashboard/features/add_electrical/presentation/views/widgets/qr_code_page.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddElectricalBody extends StatefulWidget {
   const AddElectricalBody({super.key});
@@ -29,6 +31,20 @@ class _DeviceFormState extends State<AddElectricalBody> {
       TextEditingController();
   final TextEditingController _warrantyDurationController =
       TextEditingController();
+  XFile? image;
+  Uint8List? imageBytes;
+
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? selectedImage = await picker.pickImage(source: ImageSource.gallery);
+    if (selectedImage != null) {
+      final Uint8List bytes = await selectedImage.readAsBytes();
+      setState(() {
+        image = selectedImage;
+        imageBytes = bytes;
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -50,7 +66,7 @@ class _DeviceFormState extends State<AddElectricalBody> {
         if (state is AddElectronicDeviceSuccess) {
           showDialog(
             context: context,
-            builder: (context) => Container(
+            builder: (context) => SizedBox(
               width: 2,
               child: QrCodePage(
                 data: state.qrCodeModel.qrCode!.qrBase64!,
@@ -65,32 +81,19 @@ class _DeviceFormState extends State<AddElectricalBody> {
         } else if (state is AddElectronicDeviceFailure) {
           return CustomError(message: state.errMessage);
         } else {
-          return
-              // Scaffold(
-              //   // appBar: AppBar(
-              //   //   title: const Text('إضافة جهاز إلكتروني'),
-              //   //   backgroundColor: Colors.teal,
-              //   // ),
-              //   body:
-              //   Padding(
-              // padding: const EdgeInsets.all(16.0),
-              // child:
-
-              Padding(
+          return Padding(
             padding: const EdgeInsets.only(right: 2.0, left: 2.0),
             child: Container(
-              width: size.width * 0.59, // Set the desired width of the box
-              height: size.height * 1, // Set the desired height of the box
+              width: size.width * 0.59,
+              height: size.height * 1,
               decoration: BoxDecoration(
-                color: Colors.white, // Set the background color
-                borderRadius:
-                    BorderRadius.circular(2.0), // Apply rounded corners
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(2.0),
                 border: Border.all(
-                  color: Colors.grey, // Set the color of the border
-                  width: 2.0, // Set the thickness of the border
+                  color: Colors.grey,
+                  width: 2.0,
                 ),
               ),
-
               child: SingleChildScrollView(
                 child: Form(
                   key: _formKey,
@@ -98,11 +101,9 @@ class _DeviceFormState extends State<AddElectricalBody> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(10.0),
                         width: size.width * 0.6,
                         child: const Text(
-                          //textDirection: TextDirection.ltr,
-
                           "جهاز جديد",
                           style: TextStyle(
                               color: Colors.black,
@@ -117,30 +118,84 @@ class _DeviceFormState extends State<AddElectricalBody> {
                         indent: 0,
                         endIndent: 0,
                       ),
+                      SizedBox(
+                        width: size.width * 0.4,
+                        height: size.height * 0.25,
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                              onTap: _pickImage,
+                              child: Center(
+                                  child: DottedBorder(
+                                color: Colors.blue,
+                                strokeWidth: 2,
+                                child: Container(
+                                  width: 100,
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[100],
+                                  ),
+                                  child: const Icon(
+                                    Icons.camera_alt,
+                                    color: Colors.blue,
+                                    size: 50.0,
+                                  ),
+                                ),
+                              )),
+                            ),
+                            const SizedBox(width: 40),
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: imageBytes == null
+                                  ? const Text(
+                                      "No Image Selected",
+                                      style: TextStyle(color: Colors.black),
+                                    )
+                                  : Container(
+                                      width: 100,
+                                      height: 150,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[100],
+                                        border: Border.all(
+                                          color: Colors.blue,
+                                          width: 2.0,
+                                          style: BorderStyle.solid,
+                                        ),
+                                      ),
+                                      child: Image.memory(
+                                        imageBytes!,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                            ),
+                          ],
+                        ),
+                      ),
                       FormsSection(
-                          nameController: _nameController,
-                          sizeController: _sizeController,
-                          warningsController: _warningsController,
-                          notesController: _notesController,
-                          howToUseController: _howToUseController,
-                          warrantyStatusController: _warrantyStatusController,
-                          warrantyDurationController:
-                              _warrantyDurationController),
+                        nameController: _nameController,
+                        sizeController: _sizeController,
+                        warningsController: _warningsController,
+                        notesController: _notesController,
+                        howToUseController: _howToUseController,
+                        warrantyStatusController: _warrantyStatusController,
+                        warrantyDurationController: _warrantyDurationController,
+                      ),
                       Container(
-                        padding: EdgeInsets.only(right: 9.0),
+                        padding: const EdgeInsets.only(right: 9.0),
                         height: size.height * 0.08,
                         width: size.width * 0.15,
                         child: ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              if (_sizeController is String) {
+                              if (_sizeController.text.isEmpty) {
                                 showCustomAlertDialog(
                                   context,
-                                  "!!!",
-                                  "the size must be integer",
+                                  "Error",
+                                  "The size must be an integer",
                                 );
                               } else {
-                                String token = prefs.getString('token')!;
+                                if (image != null) {
+                                  String token = prefs.getString('token')!;
                                 await BlocProvider.of<AddElectronicDeviceCubit>(
                                         context)
                                     .addNewElectronicDevice(
@@ -153,7 +208,11 @@ class _DeviceFormState extends State<AddElectricalBody> {
                                   wayOfWork: _howToUseController.text,
                                   warranteState: _warrantyStatusController.text,
                                   warantyDate: _warrantyDurationController.text,
+                                  file: image!,
                                 );
+                                } else {
+                                  showDialog(context: context, builder: (context) => const SizedBox(width: 300,height: 150,child: Center(child: Text("قم بتحميل صورة للجهاز"))),);
+                                }
                               }
                             }
                           },
@@ -162,8 +221,6 @@ class _DeviceFormState extends State<AddElectricalBody> {
                               borderRadius: BorderRadius.circular(4.0),
                             ),
                             backgroundColor: Colors.blue,
-                            // padding: const EdgeInsets.symmetric(
-                            //     horizontal: 50, vertical: 15),
                             textStyle: const TextStyle(fontSize: 18),
                           ),
                           child: const Text('إضافة الجهاز',

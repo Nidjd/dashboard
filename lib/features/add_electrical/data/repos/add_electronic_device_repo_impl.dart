@@ -1,9 +1,11 @@
+
 import 'package:dartz/dartz.dart';
 import 'package:dashboard/core/errors/failures.dart';
 import 'package:dashboard/core/utils/api_service.dart';
 import 'package:dashboard/features/add_electrical/data/models/qr_code_model/qr_code_model.dart';
 import 'package:dashboard/features/add_electrical/data/repos/add_electronic_device_repo.dart';
 import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddElectronicDeviceRepoImpl implements AddElectronicDeviceRepo {
   final ApiService _apiService;
@@ -19,7 +21,8 @@ class AddElectronicDeviceRepoImpl implements AddElectronicDeviceRepo {
       required String notes,
       required String wayOfWork,
       required String warranteState,
-      required String warantyDate}) async {
+      required String warantyDate,
+      required XFile file,}) async {
     try {
       var data = await _apiService.postElectronicDevice(
           endPoint: endPoint,
@@ -30,7 +33,7 @@ class AddElectronicDeviceRepoImpl implements AddElectronicDeviceRepo {
           notes: notes,
           wayOfWork: wayOfWork,
           warranteState: warranteState,
-          warantyDate: warantyDate);
+          warantyDate: warantyDate, file: file);
 
       QrCodeModel qrCodeModel = QrCodeModel.fromJson(data);
      

@@ -41,9 +41,9 @@ class _HomePageBodyState extends State<HomePageBody> {
         children: [
           Container(
             width: 250,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
                   color: Colors.black12,
                   blurRadius: 6,

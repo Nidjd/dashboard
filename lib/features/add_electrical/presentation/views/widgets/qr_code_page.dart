@@ -9,10 +9,12 @@ class QrCodePage extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        body: QrImageView(
-          data: data.substring(0, 1852),
-          version: QrVersions.auto,
-          size: 200.0,
+        body: Center(
+          child: QrImageView(
+            data: data,
+            version: QrVersions.auto,
+            size: 500,
+          ),
         ),
       ),
     );

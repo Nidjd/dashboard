@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:universal_html/html.dart' as html;
 
 class ApiService {
   final Dio _dio;
@@ -50,24 +54,53 @@ class ApiService {
     required String wayOfWork,
     required String warranteState,
     required String warantyDate,
+    required XFile file,
   }) async {
-    var response = await _dio.post(
-      '$_baseUrl$endPoint',
-      data: {
-        "name": name,
-        "size": size,
-        "warning": warning,
-        "notes": notes,
-        "way_of_work": wayOfWork,
-        "warranty_state": warranteState,
-        "warranty_date": warantyDate
-      },
-      options: Options(headers: {
-        "Authorization": "Bearer $token",
-      }),
-    );
+    final Completer<Map<String, dynamic>> completer = Completer<Map<String, dynamic>>();
+    final html.FileReader reader = html.FileReader();
+    
+    reader.readAsArrayBuffer(html.File([await file.readAsBytes()], file.name));
+    reader.onLoad.listen((event) async {
+      if (reader.readyState == html.FileReader.DONE) {
+        // تحويل Blob إلى MultipartFile
+        final blob = reader.result as List<int>;
+        MultipartFile multipartFile =
+            MultipartFile.fromBytes(blob, filename: file.name);
 
-    return response.data;
+        FormData formData = FormData.fromMap({
+          "name": name,
+          "size": size,
+          "warning": warning,
+          "notes": notes,
+          "way_of_work": wayOfWork,
+          "warranty_state": warranteState,
+          "warranty_date": warantyDate,
+          'photo': multipartFile,
+        });
+
+      final  response = await _dio.post(
+          '$_baseUrl$endPoint', // ضع هنا عنوان URL الخاص بخادمك المحلي
+          data: formData,
+          options: Options(
+            headers: {
+              "Authorization": "Bearer $token",
+            },
+          ),
+        );
+
+       if (response.statusCode == 200 || response.statusCode == 201) {
+          completer.complete(response.data);
+        } else {
+          completer.completeError("Failed to upload data: ${response.statusCode}");
+        }
+      }
+    });
+   reader.onError.listen((event) {
+    completer.completeError("File reading error");
+  });
+
+  return completer.future;
+    
   }
 
   Future<List<dynamic>> get({
@@ -80,7 +113,7 @@ class ApiService {
         headers: {"Authorization": token},
       ),
     );
-    // print(response.data);
+
     return response.data;
   }
 
@@ -121,7 +154,6 @@ class ApiService {
       {required String endPoint,
       required int id,
       required String token}) async {
-   
     var response = await _dio.delete(
       '$_baseUrl$endPoint',
       queryParameters: {
@@ -136,7 +168,7 @@ class ApiService {
         responseType: ResponseType.json,
       ),
     );
-    
+
     return response.data;
   }
 }
