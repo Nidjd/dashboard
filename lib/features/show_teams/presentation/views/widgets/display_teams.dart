@@ -6,9 +6,7 @@ import 'package:dashboard/features/show_teams/presentation/views/widgets/titles_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class DisplayTeams extends StatelessWidget {
-  
   const DisplayTeams({
     super.key,
   });
@@ -20,7 +18,7 @@ class DisplayTeams extends StatelessWidget {
         if (state is ShowTeamsSuccessState) {
           return Expanded(
               child: Container(
-            width: 1250,
+            width: MediaQuery.of(context).size.width * 0.9,
             height: 300,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -40,8 +38,13 @@ class DisplayTeams extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
-                              context, MaterialPageRoute(builder: (context) =>  ShowUsers(id: state.teams[index].id!,),),);
-                              
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ShowUsers(
+                                id: state.teams[index].id!,
+                              ),
+                            ),
+                          );
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(

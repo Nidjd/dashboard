@@ -10,6 +10,7 @@ class ApiService {
   ApiService(this._dio);
 
   final String _baseUrl = 'http://127.0.0.1:8000/api/';
+  
 
   Future<Map<String, dynamic>> postForLogin(
       {required String endPoint,
@@ -56,9 +57,10 @@ class ApiService {
     required String warantyDate,
     required XFile file,
   }) async {
-    final Completer<Map<String, dynamic>> completer = Completer<Map<String, dynamic>>();
+    final Completer<Map<String, dynamic>> completer =
+        Completer<Map<String, dynamic>>();
     final html.FileReader reader = html.FileReader();
-    
+
     reader.readAsArrayBuffer(html.File([await file.readAsBytes()], file.name));
     reader.onLoad.listen((event) async {
       if (reader.readyState == html.FileReader.DONE) {
@@ -78,7 +80,7 @@ class ApiService {
           'photo': multipartFile,
         });
 
-      final  response = await _dio.post(
+        final response = await _dio.post(
           '$_baseUrl$endPoint', // ضع هنا عنوان URL الخاص بخادمك المحلي
           data: formData,
           options: Options(
@@ -88,19 +90,19 @@ class ApiService {
           ),
         );
 
-       if (response.statusCode == 200 || response.statusCode == 201) {
+        if (response.statusCode == 200 || response.statusCode == 201) {
           completer.complete(response.data);
         } else {
-          completer.completeError("Failed to upload data: ${response.statusCode}");
+          completer
+              .completeError("Failed to upload data: ${response.statusCode}");
         }
       }
     });
-   reader.onError.listen((event) {
-    completer.completeError("File reading error");
-  });
+    reader.onError.listen((event) {
+      completer.completeError("File reading error");
+    });
 
-  return completer.future;
-    
+    return completer.future;
   }
 
   Future<List<dynamic>> get({
@@ -127,7 +129,7 @@ class ApiService {
         headers: {"Authorization": token},
       ),
     );
-    // print(response.data);
+     print(response.data);
     return response.data;
   }
 

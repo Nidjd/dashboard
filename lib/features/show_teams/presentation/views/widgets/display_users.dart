@@ -42,7 +42,7 @@ class DisplayUsers extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "ايميل العامل ",
+                        "              ايميل العامل             ",
                         style: TextStyle(
                             color: Colors.grey[600],
                             fontWeight: FontWeight.bold),
@@ -56,8 +56,7 @@ class DisplayUsers extends StatelessWidget {
                       Text(
                         " حذف العامل ",
                         style: TextStyle(
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.bold),
+                            color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -73,40 +72,57 @@ class DisplayUsers extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: state.workers.length,
                     itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                state.workers[index].user?.name ?? "",
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                state.workers[index].user?.email ?? "",
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                state.workers[index].user!.role ?? "",
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                               DeleteButton(id: state.workers[index].id!,teamId: state.workers[index].maintenanceTeamId!,)
-                            ],
-                          ),
-                          Divider(
-                            color: Colors.grey.shade100,
-                            height: 20,
-                            thickness: 2,
-                            indent: 0,
-                            endIndent: 0,
-                          ),
-                        ],
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                            left: 8.0, right: 8.0, top: 4.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  state.workers[index].user?.name ?? "",
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 40),
+                                  child: Text(
+                                    state.workers[index].user?.email ?? "",
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 40),
+                                  child: Text(
+                                    state.workers[index].user!.role ?? "",
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 40),
+                                  child: DeleteButton(
+                                    id: state.workers[index].id!,
+                                    teamId:
+                                        state.workers[index].maintenanceTeamId!,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Divider(
+                              color: Colors.grey.shade100,
+                              height: 20,
+                              thickness: 2,
+                              indent: 0,
+                              endIndent: 0,
+                            ),
+                          ],
+                        ),
                       );
                     },
                   ),

@@ -1,5 +1,6 @@
 import 'package:dashboard/core/widgets/custom_text_button.dart';
 import 'package:dashboard/features/processes_orders/presentation/views/wiggets/processes_order.dart';
+import 'package:dashboard/features/reporting/presentation/views/reporting.dart';
 import 'package:dashboard/features/show_teams/presentation/views/show_teams.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,7 @@ class _HomePageBodyState extends State<HomePageBody> {
     const AddElectrical(),
     const ShowTeam(),
     const ProcessesOrder(),
+    const Reporting()
   ];
   int indexPage = 0;
 
@@ -177,6 +179,39 @@ class _HomePageBodyState extends State<HomePageBody> {
                         backGroundColor: Colors.transparent,
                         label: "الفرق ",
                         onPressed: () => changeIndexOfPages(2),
+                        textStyle: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(
+                  color: Colors.blue,
+                  height: 20,
+                  thickness: 2,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+                  Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        //radius: .0,
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                       Icons.insert_chart_outlined,
+                          color: Colors.grey[500],
+                          size: 20,
+                        ),
+                      ),
+                      CustomTextButton(
+                        backGroundColor: Colors.transparent,
+                        label: "التقارير  ",
+                        onPressed: () => changeIndexOfPages(4),
                         textStyle: const TextStyle(
                           color: Colors.grey,
                           fontSize: 18,
