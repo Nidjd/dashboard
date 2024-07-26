@@ -10,7 +10,6 @@ class ApiService {
   ApiService(this._dio);
 
   final String _baseUrl = 'http://127.0.0.1:8000/api/';
-  
 
   Future<Map<String, dynamic>> postForLogin(
       {required String endPoint,
@@ -23,6 +22,7 @@ class ApiService {
         "password": password,
       },
     );
+
     return response.data;
   }
 
@@ -129,7 +129,7 @@ class ApiService {
         headers: {"Authorization": token},
       ),
     );
-     print(response.data);
+    print(response.data);
     return response.data;
   }
 
@@ -172,5 +172,45 @@ class ApiService {
     );
 
     return response.data;
+  }
+
+  Future<Map<String, dynamic>> postGenerateStatistics({
+    required String endPoint,
+    required String startDate,
+    required String endDate,
+    required String token,
+  }) async {
+    var response = await _dio.post(
+      '$_baseUrl$endPoint',
+      queryParameters: {"start_date": startDate, "end_date": endDate},
+      options: Options(
+        headers: {"Authorization": "Bearer $token"},
+        method: "POST",
+      ),
+    );
+
+    return response.data;
+  }
+
+  Future<Map<String, dynamic>> postGenerateRatio({
+    required String startMonth,
+    required String endMonth,
+    required String endPoint,
+    required String token,
+  }) async {
+    var response = await _dio.post(
+      '$_baseUrl$endPoint',
+      queryParameters: {
+        "start_month": startMonth,
+        "end_month": endMonth,
+      },
+      options: Options(
+        headers: {"Authorization": "Bearer $token"},
+        method: "POST",
+      ),
+    );
+  
+    return response.data;
+   
   }
 }

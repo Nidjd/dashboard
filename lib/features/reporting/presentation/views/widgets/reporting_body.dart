@@ -1,13 +1,23 @@
-import 'package:dashboard/features/reporting/presentation/views/widgets/order_overview.dart';
-import 'package:flutter/foundation.dart';
+import 'package:dashboard/core/utils/service_locator.dart';
+import 'package:dashboard/features/reporting/data/repos/generate_ratio_repo_impl.dart';
+import 'package:dashboard/features/reporting/data/repos/generate_statistics_repo_impl.dart';
+import 'package:dashboard/features/reporting/presentation/manager/generate_ratio_cubit/generate_ratio_cubit.dart';
+import 'package:dashboard/features/reporting/presentation/manager/generate_statistics_cubit/generate_statistics_cubit.dart';
+import 'package:dashboard/features/reporting/presentation/views/widgets/ratio_generate_section.dart';
+import 'package:dashboard/features/reporting/presentation/views/widgets/statistics_generate_section.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/widgets/custom_text_button.dart';
-import 'show_datepicker.dart';
+class ReportingBody extends StatefulWidget {
+  const ReportingBody({
+    super.key,
+  });
 
-class ReportingBody extends StatelessWidget {
-  const ReportingBody({super.key});
+  @override
+  State<ReportingBody> createState() => _ReportingBodyState();
+}
 
+class _ReportingBodyState extends State<ReportingBody> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -33,19 +43,45 @@ class ReportingBody extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: <Widget>[
-                  OrderOverview(
-                    totalAndFirstMonth: 'عدد الطلبات الكلية ',
-                    completedAndSecond: 'عدد الطلبات المنجزة ',
-                    pendingAndRelativeChange: 'عدد الطبات قيد الانتظار',
-                    numm: 1,
-                    onPressed: () {},
+                  //////////////////////
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    height: MediaQuery.of(context).size.height * 0.9,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: BlocProvider(
+                       
+                      create: (context) =>  GenerateStatisticsCubit(getIt.get<GenerateStatisticsRepoImpl>()),
+                      child: const StatisticsGenerateSection(),
+                    ),
                   ),
-                  OrderOverview(
-                    totalAndFirstMonth: 'عدد طلبات الشهر الأول  ',
-                    completedAndSecond: 'عدد طلبات الشهر الثاني  ',
-                    pendingAndRelativeChange: 'التغير النسبي',
-                    numm: 2,
-                    onPressed: () {},
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  ////////////////////// 
+                   Container(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    height: MediaQuery.of(context).size.height * 0.9,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: BlocProvider(
+                       
+                      create: (context) =>  GenerateRatioCubit(getIt.get<GenerateRatioRepoImpl>()),
+                      child: const RatioGenerateSection(),
+                    ),
                   ),
                 ],
               ),

@@ -3,7 +3,7 @@ import 'package:dashboard/core/utils/service_locator.dart';
 import 'package:dashboard/core/utils/shared_preference_store.dart';
 import 'package:dashboard/features/home_page/presentation/home_page.dart';
 import 'package:dashboard/features/login_admin/presentation/views/login_page.dart';
-
+import 'package:flutter_stripe_web/flutter_stripe_web.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.white),
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: const LoginPage(),
     );
   }
 }

@@ -100,7 +100,7 @@ class ProcessesOrdersBody extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Expanded(
                         child: Row(
@@ -127,7 +127,7 @@ class ProcessesOrdersBody extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -156,7 +156,7 @@ class ProcessesOrdersBody extends StatelessWidget {
                       indent: 10,
                       endIndent: 10,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     const Padding(
