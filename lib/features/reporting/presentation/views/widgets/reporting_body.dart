@@ -46,7 +46,7 @@ class _ReportingBodyState extends State<ReportingBody> {
                   //////////////////////
                   Container(
                     width: MediaQuery.of(context).size.width * 0.5,
-                    height: MediaQuery.of(context).size.height * 0.9,
+                    height: MediaQuery.of(context).size.height * 0.7,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10.0),
@@ -56,8 +56,8 @@ class _ReportingBodyState extends State<ReportingBody> {
                       ),
                     ),
                     child: BlocProvider(
-                       
-                      create: (context) =>  GenerateStatisticsCubit(getIt.get<GenerateStatisticsRepoImpl>()),
+                      create: (context) => GenerateStatisticsCubit(
+                          getIt.get<GenerateStatisticsRepoImpl>()),
                       child: const StatisticsGenerateSection(),
                     ),
                   ),
@@ -65,10 +65,10 @@ class _ReportingBodyState extends State<ReportingBody> {
                     height: 20,
                   ),
 
-                  ////////////////////// 
-                   Container(
+                  //////////////////////
+                  Container(
                     width: MediaQuery.of(context).size.width * 0.5,
-                    height: MediaQuery.of(context).size.height * 0.9,
+                    height: MediaQuery.of(context).size.height * 0.7,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10.0),
@@ -78,8 +78,8 @@ class _ReportingBodyState extends State<ReportingBody> {
                       ),
                     ),
                     child: BlocProvider(
-                       
-                      create: (context) =>  GenerateRatioCubit(getIt.get<GenerateRatioRepoImpl>()),
+                      create: (context) => GenerateRatioCubit(
+                          getIt.get<GenerateRatioRepoImpl>()),
                       child: const RatioGenerateSection(),
                     ),
                   ),

@@ -60,7 +60,7 @@ class _RatioGenerateSectionState extends State<RatioGenerateSection> {
     return BlocBuilder<GenerateRatioCubit, GenerateRatioState>(
         builder: (context, state) {
       return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -156,111 +156,114 @@ class _RatioGenerateSectionState extends State<RatioGenerateSection> {
             ],
           ),
           const SizedBox(
-            height: 80,
+            height: 40,
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 20.0),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: 100,
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "${selectedFirstMonth.toLocal()}"
-                          .split(' ')[0]
-                          .substring(0, 7),
-                      style: const TextStyle(
-                        color: Colors.black,
-                      ),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 0.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.28,
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "${selectedFirstMonth.toLocal()}"
+                              .split(' ')[0]
+                              .substring(0, 7),
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        if (state is GenerateRatioFailureState)
+                          CustomError(message: state.errorMessage),
+                        ElevatedButton(
+                          onPressed: () {
+                            selectFirstMonth(context);
+                          },
+                          child: const Text('اختر الشهر الأول'),
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    if (state is GenerateRatioFailureState)
-                      CustomError(message: state.errorMessage),
-                    ElevatedButton(
-                      onPressed: () {
-                        selectFirstMonth(context);
-                      },
-                      child: const Text('اختر الشهر الأول'),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 20.0),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: 100,
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "${selectedEndMonth.toLocal()}"
-                          .split(' ')[0]
-                          .substring(0, 7),
-                      style: const TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        selectEndMonth(context);
-                      },
-                      child: const Text('اختر الشهر الثاني'),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.14,
-            height: MediaQuery.of(context).size.height * 0.1,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(
-                color: Colors.grey,
-                width: 2.0,
-              ),
-            ),
-            child: state is GenerateRatioLoadingState
-                ? const CustomProgressIndicator()
-                : CustomTextButton(
-                    icon: Icon(
-                      Icons.insert_chart_outlined,
-                      color: Colors.white,
-                      size: MediaQuery.of(context).size.width * 0.013,
-                    ),
-                    label: 'طلب التقرير ',
-                    textStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: MediaQuery.of(context).size.width * 0.013),
-                    onPressed: () async {
-                    await  BlocProvider.of<GenerateRatioCubit>(context)
-                          .generateRatio(
-                              startMonth: firstMonth.text.substring(0, 7),
-                              endMonth: endMonth.text.substring(0, 7),
-                              endPoint: 'generateRatio',
-                              token: prefs.getString('token')!);
-                    },
-                    backGroundColor: Colors.blue,
                   ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 0.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.28,
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "${selectedEndMonth.toLocal()}"
+                              .split(' ')[0]
+                              .substring(0, 7),
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            selectEndMonth(context);
+                          },
+                          child: const Text('اختر الشهر الثاني'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.14,
+              height: MediaQuery.of(context).size.height * 0.1,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+                border: Border.all(
+                  color: Colors.grey,
+                  width: 2.0,
+                ),
+              ),
+              child: state is GenerateRatioLoadingState
+                  ? const CustomProgressIndicator()
+                  : CustomTextButton(
+                      icon: Icon(
+                        Icons.insert_chart_outlined,
+                        color: Colors.white,
+                        size: MediaQuery.of(context).size.width * 0.013,
+                      ),
+                      label: 'طلب التقرير ',
+                      textStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: MediaQuery.of(context).size.width * 0.013),
+                      onPressed: () async {
+                        await BlocProvider.of<GenerateRatioCubit>(context)
+                            .generateRatio(
+                                startMonth: firstMonth.text.substring(0, 7),
+                                endMonth: endMonth.text.substring(0, 7),
+                                endPoint: 'generateRatio',
+                                token: prefs.getString('token')!);
+                      },
+                      backGroundColor: Colors.blue,
+                    ),
+            ),
           ),
         ],
       );

@@ -61,7 +61,7 @@ class _StatisticsGenerateSectionState extends State<StatisticsGenerateSection> {
     return BlocBuilder<GenerateStatisticsCubit, GenerateStatisticsState>(
         builder: (context, state) {
       return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -157,108 +157,111 @@ class _StatisticsGenerateSectionState extends State<StatisticsGenerateSection> {
             ],
           ),
           const SizedBox(
-            height: 80,
+            height: 40,
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 20.0),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: 100,
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "${selectedFirstDate.toLocal()}".split(' ')[0],
-                      style: const TextStyle(
-                        color: Colors.black,
-                      ),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 0.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.28,
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "${selectedFirstDate.toLocal()}".split(' ')[0],
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        if (state is GenerateStatisticsFailureState)
+                          CustomError(message: state.errorMessage),
+                        ElevatedButton(
+                          onPressed: () {
+                            _selectFirstDate(context);
+                          },
+                          child: const Text('اختر التاريخ الأول'),
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    if (state is GenerateStatisticsFailureState)
-                      CustomError(message: state.errorMessage),
-                    ElevatedButton(
-                      onPressed: () {
-                        _selectFirstDate(context);
-                      },
-                      child: const Text('اختر التاريخ الأول'),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 20.0),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: 100,
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "${selectedSecondDate.toLocal()}".split(' ')[0],
-                      style: const TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        _selectSecondDate(context);
-                      },
-                      child: const Text('اختر التاريخ الثاني'),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.14,
-            height: MediaQuery.of(context).size.height * 0.1,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(
-                color: Colors.grey,
-                width: 2.0,
-              ),
-            ),
-            child: state is GenerateStatisticsLoadingState
-                ? const CustomProgressIndicator()
-                : CustomTextButton(
-                    icon: Icon(
-                      Icons.insert_chart_outlined,
-                      color: Colors.white,
-                      size: MediaQuery.of(context).size.width * 0.013,
-                    ),
-                    label: 'طلب التقرير ',
-                    textStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: MediaQuery.of(context).size.width * 0.013),
-                    onPressed: () async {
-                      BlocProvider.of<GenerateStatisticsCubit>(context)
-                          .generateStatistics(
-                        startDate: firstDate.text,
-                        endDate: endDate.text,
-                        endPoint: 'generateStatistics',
-                        token: prefs.getString('token')!,
-                      );
-                    },
-                    backGroundColor: Colors.blue,
                   ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 0.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.28,
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "${selectedSecondDate.toLocal()}".split(' ')[0],
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            _selectSecondDate(context);
+                          },
+                          child: const Text('اختر التاريخ الثاني'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.14,
+              height: MediaQuery.of(context).size.height * 0.1,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+                border: Border.all(
+                  color: Colors.grey,
+                  width: 2.0,
+                ),
+              ),
+              child: state is GenerateStatisticsLoadingState
+                  ? const CustomProgressIndicator()
+                  : CustomTextButton(
+                      icon: Icon(
+                        Icons.insert_chart_outlined,
+                        color: Colors.white,
+                        size: MediaQuery.of(context).size.width * 0.013,
+                      ),
+                      label: 'طلب التقرير ',
+                      textStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: MediaQuery.of(context).size.width * 0.013),
+                      onPressed: () async {
+                        BlocProvider.of<GenerateStatisticsCubit>(context)
+                            .generateStatistics(
+                          startDate: firstDate.text,
+                          endDate: endDate.text,
+                          endPoint: 'generateStatistics',
+                          token: prefs.getString('token')!,
+                        );
+                      },
+                      backGroundColor: Colors.blue,
+                    ),
+            ),
           ),
         ],
       );
