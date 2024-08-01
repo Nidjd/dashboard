@@ -44,7 +44,7 @@ class _WarrantyStateState extends State<WarrantyState> {
         height: size.height * 0.1,
         // child: ,
         decoration: BoxDecoration(
-          color: isWarranted ? Colors.green : Colors.red,
+          color: isWarranted ? Colors.blue : Colors.red,
           border: Border.all(
             // Add the border
             color: Colors.grey, // Set the color of the border
