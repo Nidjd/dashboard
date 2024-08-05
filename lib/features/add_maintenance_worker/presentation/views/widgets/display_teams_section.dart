@@ -33,20 +33,20 @@ class _DisplayTeamsSectionState extends State<DisplayTeamsSection> {
           ),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 4.0),
+              const Padding(
+                padding: EdgeInsets.only(left: 8.0, right: 8.0, top: 4.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       "اسم الفريق ",
                       style: TextStyle(
-                          color: Colors.grey[600], fontWeight: FontWeight.bold),
+                          color: Colors.grey, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       "عدد اعضاء الفريق ",
                       style: TextStyle(
-                          color: Colors.grey[600], fontWeight: FontWeight.bold),
+                          color: Colors.grey, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -73,7 +73,6 @@ class _DisplayTeamsSectionState extends State<DisplayTeamsSection> {
                                     bottom: 20.0),
                                 child: GestureDetector(
                                   onTap: () {
-                                    
                                     setState(() {
                                       idSelectedItem = state.teams[index].id;
                                     });
@@ -81,9 +80,12 @@ class _DisplayTeamsSectionState extends State<DisplayTeamsSection> {
                                   child: Container(
                                     padding: const EdgeInsets.all(18),
                                     decoration: BoxDecoration(
-                                      color: state.teams[index].id == idSelectedItem ? Colors.blue[200] : Colors.transparent,
-                                    borderRadius: BorderRadius.circular(12)
-                                    ),
+                                        color: state.teams[index].id ==
+                                                idSelectedItem
+                                            ? Colors.blue[200]
+                                            : Colors.transparent,
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
