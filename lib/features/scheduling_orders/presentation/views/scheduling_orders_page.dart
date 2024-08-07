@@ -7,9 +7,9 @@ class SchedulingOrdersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      child: const SchedulingOrdersBody(),
+    return const Directionality(
       textDirection: TextDirection.rtl,
+      child:   SchedulingOrdersBody(),
     );
   }
 }

@@ -33,6 +33,7 @@ class _StatisticsGenerateSectionState extends State<StatisticsGenerateSection> {
         firstDate.text = "${selectedFirstDate.toLocal()}".split(' ')[0];
       });
     }
+    
   }
 
   Future<void> _selectSecondDate(BuildContext context) async {
@@ -183,7 +184,7 @@ class _StatisticsGenerateSectionState extends State<StatisticsGenerateSection> {
                           CustomError(message: state.errorMessage),
                         ElevatedButton(
                           onPressed: () {
-                            _selectFirstDate(context);
+                      _selectFirstDate(context);
                           },
                           child: const Text('اختر التاريخ الأول'),
                         ),
