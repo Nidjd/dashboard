@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 
 class WarrantyState extends StatefulWidget {
   const WarrantyState(
@@ -41,7 +41,7 @@ class _WarrantyStateState extends State<WarrantyState> {
       },
       child: Container(
         width: size.width * 0.08,
-        height: size.height * 0.1,
+        height: size.height * 0.09,
         // child: ,
         decoration: BoxDecoration(
           color: isWarranted ? Colors.blue : Colors.red,
