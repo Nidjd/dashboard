@@ -1,6 +1,7 @@
 import 'package:dashboard/core/widgets/custom_text_button.dart';
 import 'package:dashboard/features/processes_orders/presentation/views/wiggets/processes_order.dart';
 import 'package:dashboard/features/reporting/presentation/views/reporting.dart';
+import 'package:dashboard/features/scheduling_orders/presentation/views/scheduling_orders_page.dart';
 import 'package:dashboard/features/show_teams/presentation/views/show_teams.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,8 @@ class _HomePageBodyState extends State<HomePageBody> {
     const AddElectrical(),
     const ShowTeam(),
     const ProcessesOrder(),
-    const Reporting()
+    const Reporting(),
+    const SchedulingOrdersPage(),
   ];
   int indexPage = 0;
 
@@ -66,12 +68,12 @@ class _HomePageBodyState extends State<HomePageBody> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         //radius: .0,
                         backgroundColor: Colors.white,
                         child: Icon(
                           Icons.engineering,
-                          color: Colors.grey[500],
+                          color: Colors.blue,
                           size: 20,
                         ),
                       ),
@@ -100,12 +102,12 @@ class _HomePageBodyState extends State<HomePageBody> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         //radius: .0,
                         backgroundColor: Colors.white,
                         child: Icon(
                           Icons.kitchen,
-                          color: Colors.grey[500],
+                          color: Colors.blue,
                           size: 20,
                         ),
                       ),
@@ -133,12 +135,12 @@ class _HomePageBodyState extends State<HomePageBody> {
                   padding: const EdgeInsets.all(4.0),
                   child: Row(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         //radius: .0,
                         backgroundColor: Colors.white,
                         child: Icon(
                           FontAwesomeIcons.recycle,
-                          color: Colors.grey[500],
+                          color: Colors.blue,
                           size: 20,
                         ),
                       ),
@@ -166,12 +168,12 @@ class _HomePageBodyState extends State<HomePageBody> {
                   padding: const EdgeInsets.all(4.0),
                   child: Row(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         //radius: .0,
                         backgroundColor: Colors.white,
                         child: Icon(
                           Icons.groups,
-                          color: Colors.grey[500],
+                          color: Colors.blue,
                           size: 20,
                         ),
                       ),
@@ -195,16 +197,16 @@ class _HomePageBodyState extends State<HomePageBody> {
                   indent: 0,
                   endIndent: 0,
                 ),
-                  Padding(
+                Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Row(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         //radius: .0,
                         backgroundColor: Colors.white,
                         child: Icon(
-                       Icons.insert_chart_outlined,
-                          color: Colors.grey[500],
+                          Icons.insert_chart_outlined,
+                          color: Colors.blue,
                           size: 20,
                         ),
                       ),
@@ -212,6 +214,39 @@ class _HomePageBodyState extends State<HomePageBody> {
                         backGroundColor: Colors.transparent,
                         label: "التقارير  ",
                         onPressed: () => changeIndexOfPages(4),
+                        textStyle: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(
+                  color: Colors.blue,
+                  height: 20,
+                  thickness: 2,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Row(
+                    children: [
+                      const CircleAvatar(
+                        //radius: .0,
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          Icons.checklist,
+                          color: Colors.blue,
+                          size: 20,
+                        ),
+                      ),
+                      CustomTextButton(
+                        backGroundColor: Colors.transparent,
+                        label: "جدولة الطلبات   ",
+                        onPressed: () => changeIndexOfPages(5),
                         textStyle: const TextStyle(
                           color: Colors.grey,
                           fontSize: 18,
