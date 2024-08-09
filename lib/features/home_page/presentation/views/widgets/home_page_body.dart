@@ -1,5 +1,5 @@
 import 'package:dashboard/core/widgets/custom_text_button.dart';
-import 'package:dashboard/features/processes_orders/presentation/views/wiggets/processes_order.dart';
+import 'package:dashboard/features/processes_orders/presentation/views/processes_order.dart';
 import 'package:dashboard/features/reporting/presentation/views/reporting.dart';
 import 'package:dashboard/features/scheduling_orders/presentation/views/scheduling_orders_page.dart';
 import 'package:dashboard/features/show_teams/presentation/views/show_teams.dart';

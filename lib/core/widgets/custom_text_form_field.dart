@@ -17,23 +17,24 @@ class CustomTextFormFiled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       width: size.width * sizee!,
       child: TextFormField(
         keyboardType:keyboardType,
         controller: controller,
         decoration: InputDecoration(
             labelText: label,
+            labelStyle: const TextStyle(color: Colors.black,),
             border: option == false
                 ? const UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.grey,
+                      color: Colors.black,
                       width: 2.0,
                     ),
                   )
                 : const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.grey,
+                      color: Colors.black,
                       width: 2.0,
                     ),
                   ),

@@ -1,4 +1,4 @@
-import 'package:dashboard/constants.dart';
+import 'package:dashboard/global_variable.dart';
 import 'package:dashboard/core/widgets/custom_error.dart';
 import 'package:dashboard/core/widgets/custom_progress_indicator.dart';
 import 'package:dashboard/features/add_maintenance_worker/presentation/manager/get_teams_cubit/get_teams_cubit.dart';

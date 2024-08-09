@@ -209,8 +209,43 @@ class ApiService {
         method: "POST",
       ),
     );
-  
+
     return response.data;
-   
+  }
+
+  Future<Map<String, dynamic>> showScheduling({
+    required String endPoint,
+    required String token,
+  }) async {
+    var response = await _dio.get(
+      '$_baseUrl$endPoint',
+      options: Options(
+        headers: {"Authorization": "Bearer $token"},
+        method: "GET",
+      ),
+    );
+
+    return response.data;
+  }
+
+  Future<Map<String, dynamic>> updateRequestByAdmin({
+    required String endPoint,
+    required String token,
+    required double salary,
+    required int id,
+  }) async {
+    var response = await _dio.post(
+      '$_baseUrl$endPoint',
+      queryParameters: {
+        "id": id,
+        "salary": salary,
+      },
+      options: Options(
+        headers: {"Authorization": "Bearer $token"},
+        method: "POST",
+      ),
+    );
+
+    return response.data;
   }
 }

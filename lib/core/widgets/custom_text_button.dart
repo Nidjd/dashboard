@@ -34,7 +34,7 @@ class CustomTextButton extends StatelessWidget {
             if (icon != null)
               icon!, // Use the icon! to unwrap the nullable value
 
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(
