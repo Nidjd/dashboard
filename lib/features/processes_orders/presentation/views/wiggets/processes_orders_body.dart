@@ -1,6 +1,5 @@
 import 'package:dashboard/core/widgets/custom_text_form_field.dart';
 import 'package:dashboard/features/add_electrical/presentation/views/widgets/qr_code_page.dart';
-import 'package:dashboard/features/processes_orders/presentation/views/wiggets/warranty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -13,12 +12,12 @@ class ProcessesOrdersBody extends StatefulWidget {
 
 class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
   TextEditingController priceController = TextEditingController();
-  String text = "مكفول ";
-
+  bool isSelected = false;
+  
   @override
   void dispose() {
     priceController.dispose();
-    // super.dispose();
+    super.dispose();
   }
 
   @override
@@ -92,40 +91,28 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            text = "مكفول";
-                            print("object");
-                            print(text);
+                            isSelected = true;
+                            setState(() {});
                           });
                         },
                         child: Container(
-                          width: size.width * 0.08,
-                          height: size.height * 0.1,
-                          // child: ,
                           decoration: BoxDecoration(
-                            // color: Colors.blue,
+                            color: isSelected
+                                ? Colors.green
+                                : Colors.transparent,
                             border: Border.all(
-                              // Add the border
                               color: Colors.blue, // Set the color of the border
                               width: 2.0, // Set the thickness of the border
                             ),
                           ),
-                          child: Column(
+                          child: const Column(
                             children: [
                               // Text("hh"),
-                              IconButton(
-                                  icon: Icon(
-                                    FontAwesomeIcons.calendarCheck,
-                                    color: Colors.blue,
-                                  ),
-                                  onPressed: () {
-                                    // setState(() {
-                                    //   text == "مكفول";
-                                    // });
-                                    print(text);
-                                  }),
+                             Icon(FontAwesomeIcons.calendarCheck,color: Colors.black,),
 
                               Text(
                                 "مكفول",
+                                style: TextStyle(color: Colors.black),
                               )
                             ],
                           ),
@@ -136,36 +123,30 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                       ),
                       GestureDetector(
                         onTap: () {
+                          isSelected = false;
                           setState(() {
-                            text = "غير مكفول ";
-
-                            print(text);
+                            
                           });
+                      
                         },
                         child: Container(
-                          width: size.width * 0.08,
-                          height: size.height * 0.1,
                           // child: ,
                           decoration: BoxDecoration(
-                            // color: Colors.blue,
+                         color: isSelected ? Colors.transparent : Colors.red,
                             border: Border.all(
                               // Add the border
                               color: Colors.blue, // Set the color of the border
                               width: 2.0, // Set the thickness of the border
                             ),
                           ),
-                          child: Column(
+                          child: const Column(
                             children: [
                               // Text("hh"),
-                              IconButton(
-                                  icon: Icon(
-                                    Icons.warning,
-                                    color: Colors.blue,
-                                  ),
-                                  onPressed: () {}),
+                             Icon(Icons.warning,color: Colors.black,),
 
                               Text(
                                 "غير مكفول ",
+                                style: TextStyle(color: Colors.black,),
                               )
                             ],
                           ),

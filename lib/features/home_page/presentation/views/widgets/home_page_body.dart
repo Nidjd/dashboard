@@ -55,11 +55,11 @@ class _HomePageBodyState extends State<HomePageBody> {
                 ),
               ],
             ),
-            child: Column(
+            child: ListView(
               children: [
                 Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Container(
+                    child: SizedBox(
                       width: size.width * 0.5,
                       height: size.height * 0.3,
                       child: Image.asset("images/x.png"),
