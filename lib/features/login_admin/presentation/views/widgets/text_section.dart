@@ -15,7 +15,7 @@ class TextSection extends StatelessWidget {
           height: height * 0.2,
         ),
         const Text(
-          "مرحبًا بك  في MainTainX",
+          "مرحبًا بك  في Maintenance",
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
