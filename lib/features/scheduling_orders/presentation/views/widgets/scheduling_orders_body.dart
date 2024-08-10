@@ -185,7 +185,10 @@ class _SchedulingOrdersBodyState extends State<SchedulingOrdersBody> {
                                                     builder: (context) =>
                                                         BlocProvider(
                                                       create: (context) =>
-                                                          ScheduleCubit(getIt.get<ScheduleRepoImpl>(),),
+                                                          ScheduleCubit(
+                                                        getIt.get<
+                                                            ScheduleRepoImpl>(),
+                                                      ),
                                                       child: Schedule(
                                                         id: state
                                                             .showNotSchedulingModel

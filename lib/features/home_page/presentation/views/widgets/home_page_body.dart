@@ -1,4 +1,5 @@
 import 'package:dashboard/core/widgets/custom_text_button.dart';
+import 'package:dashboard/features/Statistics/presentation/views/statistics.dart';
 import 'package:dashboard/features/processes_orders/presentation/views/processes_order.dart';
 import 'package:dashboard/features/reporting/presentation/views/reporting.dart';
 import 'package:dashboard/features/scheduling_orders/presentation/views/scheduling_orders_page.dart';
@@ -26,6 +27,7 @@ class _HomePageBodyState extends State<HomePageBody> {
     const ProcessesOrder(),
     const Reporting(),
     const SchedulingOrdersPage(),
+    const Statistics(),
   ];
   int indexPage = 0;
 
@@ -247,6 +249,40 @@ class _HomePageBodyState extends State<HomePageBody> {
                         backGroundColor: Colors.transparent,
                         label: "جدولة الطلبات   ",
                         onPressed: () => changeIndexOfPages(5),
+                        textStyle: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(
+                  color: Colors.blue,
+                  height: 20,
+                  thickness: 2,
+                  indent: 0,
+                  endIndent: 0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const CircleAvatar(
+                        //radius: .0,
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          Icons.assignment,
+                          color: Colors.blue,
+                          size: 20,
+                        ),
+                      ),
+                      CustomTextButton(
+                        backGroundColor: Colors.transparent,
+                        label: "التقارير ",
+                        onPressed: () => changeIndexOfPages(6),
                         textStyle: const TextStyle(
                           color: Colors.grey,
                           fontSize: 18,
