@@ -212,7 +212,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                       ),
                       CustomTextButton(
                         backGroundColor: Colors.transparent,
-                        label: "التقارير  ",
+                        label: "الإحصائيات ",
                         onPressed: () => changeIndexOfPages(4),
                         textStyle: const TextStyle(
                           color: Colors.grey,

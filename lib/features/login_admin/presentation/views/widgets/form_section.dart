@@ -58,7 +58,7 @@ class _FormSectionState extends State<FormSection> {
             child: Column(
               children: [
                 const TextWidget(
-                  text: 'Email',
+                  text: 'البريد الإلكتروني',
                 ),
                 Center(
                   child: SizedBox(
@@ -67,18 +67,18 @@ class _FormSectionState extends State<FormSection> {
                     child: LoginTextField(
                       controller: emailController,
                       obscureText: false,
-                      hintText: 'Enter your email',
+                      hintText: 'أدخل بريدك الإلكتروني',
                     ),
                   ),
                 ),
                 const TextWidget(
-                  text: 'password',
+                  text: 'كلمة المرور',
                 ),
                 SizedBox(
                   width: width * 0.3,
                   // height: screenHeight * 0.5,
                   child: LoginTextField(
-                    hintText: 'Enter Your password',
+                    hintText: 'أدخل كلمة مرورك',
                     obscureText: true,
                     controller: passwordController,
                   ),
@@ -90,15 +90,17 @@ class _FormSectionState extends State<FormSection> {
                   width: width * 0.3,
                   height: height * 0.08,
                   child: CustomTextButton(
+                    textStyle: TextStyle(color: Colors.white),
                     // backGroundColor: Colors.blue,
-                    label: 'Sign in',
+                    label: 'تسجيل الدخول',
                     onPressed: () {
                       if (keyForm.currentState!.validate()) {
                         if (emailValidate()) {
                           loginAdmin();
                         }
                       }
-                    }, backGroundColor: Colors.blue,
+                    },
+                    backGroundColor: Colors.blue,
                   ),
                 )
               ],

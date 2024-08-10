@@ -1,13 +1,9 @@
-
 import 'package:flutter/material.dart';
 
 class TextSection extends StatelessWidget {
   const TextSection({
     super.key,
-
   });
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +15,15 @@ class TextSection extends StatelessWidget {
           height: height * 0.2,
         ),
         const Text(
-          "Welcome to MainTainX! Lets make you",
+          "مرحبًا بك  في MainTainX",
           style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 50,),
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 50,
+          ),
         ),
         Text(
-          "and your team more efficient.",
+          "دعنا نجعلك أنت وفريقك أكثر كفاءة.",
           style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
