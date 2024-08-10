@@ -248,4 +248,46 @@ class ApiService {
 
     return response.data;
   }
+
+
+
+  Future<Map<String, dynamic>> showNotScheduling({
+    required String endPoint,
+    required String token,
+  }) async {
+    var response = await _dio.get(
+      '$_baseUrl$endPoint',
+      options: Options(
+        headers: {"Authorization": "Bearer $token"},
+        method: "GET",
+      ),
+    );
+
+    return response.data;
+  }
+
+
+   Future<Map<String, dynamic>> schedule({
+    required String endPoint,
+    required String token,
+    required String startTime,
+    required String endTime,
+    required int id,
+  }) async {
+    var response = await _dio.post(
+      '$_baseUrl$endPoint',
+      queryParameters: {
+        "start_time": startTime,
+        "end_time": endTime,
+        "requestId":id,
+      },
+      options: Options(
+        headers: {"Authorization": "Bearer $token"},
+        method: "POST",
+      ),
+    );
+
+    return response.data;
+  }
+
 }

@@ -28,7 +28,7 @@ class CustomTextButton extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: Row(
-          // mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           //  crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (icon != null)

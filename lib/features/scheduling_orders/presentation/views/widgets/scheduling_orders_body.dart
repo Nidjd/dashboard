@@ -1,5 +1,12 @@
-import 'package:flutter/cupertino.dart';
+import 'package:dashboard/core/utils/service_locator.dart';
+import 'package:dashboard/core/widgets/custom_error.dart';
+import 'package:dashboard/core/widgets/custom_progress_indicator.dart';
+import 'package:dashboard/features/scheduling_orders/data/repos/schedule_repo/schedule_repo_impl.dart';
+import 'package:dashboard/features/scheduling_orders/presentation/manager/schedule/schedule_cubit.dart';
+import 'package:dashboard/features/scheduling_orders/presentation/manager/show_not_scheduling_cubit/show_not_scheduling_cubit.dart';
+import 'package:dashboard/features/scheduling_orders/presentation/views/widgets/schedule.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SchedulingOrdersBody extends StatefulWidget {
   const SchedulingOrdersBody({super.key});
@@ -9,464 +16,211 @@ class SchedulingOrdersBody extends StatefulWidget {
 }
 
 class _SchedulingOrdersBodyState extends State<SchedulingOrdersBody> {
-  TimeOfDay selectedFirstTime = TimeOfDay.now();
-  TimeOfDay selectedSecondTime = TimeOfDay.now();
-  DateTime selectedFirstDate = DateTime.now();
-  DateTime selectedSecondDate = DateTime.now();
-  TextEditingController firstDate = TextEditingController();
-  TextEditingController endDate = TextEditingController();
-
-  Future<DateTime> _selectDate(
-      BuildContext context, DateTime selectedFirstDatee) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedFirstDatee,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != selectedFirstDatee) {
-      setState(() {
-        selectedFirstDatee = picked;
-        firstDate.text = "${selectedFirstDatee.toLocal()}".split(' ')[0];
-        // print(selectedFirstDatee);
-        // print(selectedFirstDate);
-        // print(selectedSecondDate);
-      });
-    }
-    return selectedFirstDatee;
-  }
-
-  Future<TimeOfDay> selectTime(
-      BuildContext context, TimeOfDay pickedTime) async {
-    TimeOfDay? pickedTimefirst;
-
-    pickedTimefirst = await showTimePicker(
-      context: context,
-      initialTime: const TimeOfDay(hour: 20, minute: 47),
-    );
-    if (pickedTimefirst != null) {
-      setState(() {
-        pickedTime = pickedTimefirst!;
-        // endDate.text = "${selectedSecondDate.toLocal()}".split(' ')[0];
-      });
-    }
-    return pickedTime;
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 20),
-        child: SizedBox(
-            width: size.width,
-            child: const Text(
-              "جدولة الطلبات  ",
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 40),
-            )),
-      ),
-      Expanded(
-          child: Container(
-              width: 1250,
-              height: 300,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(
-                  color: Colors.grey,
-                  width: 2.0,
-                ),
+    return BlocBuilder<ShowNotSchedulingCubit, ShowNotSchedulingState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20, bottom: 20),
+                child: SizedBox(
+                    width: size.width,
+                    child: const Text(
+                      "جدولة الطلبات  ",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 40),
+                    )),
               ),
-              child: Column(children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 8.0, right: 8.0, top: 4.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Expanded(
+                child: Container(
+                  width: 1250,
+                  height: 300,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 2.0,
+                    ),
+                  ),
+                  child: Column(
                     children: [
-                      SizedBox(
-                        width: size.width * 0.1,
-                        child: const Text(
-                          "رقم العميل  ",
-                          style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 8.0, right: 8.0, top: 4.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: size.width * 0.1,
+                              child: const Text(
+                                "رقم العميل  ",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(
+                              width: size.width * 0.1,
+                              child: const Text(
+                                "معرف الفريق",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(
+                              width: size.width * 0.2,
+                              child: const Text(
+                                "الأيام المناسبة لقدوم فريق العمل ",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(
+                              width: size.width * 0.2,
+                              child: const Text(
+                                "ملاحظات",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(
+                              width: size.width * 0.02,
+                              child: const Text(
+                                "",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(
-                        width: size.width * 0.1,
-                        child: const Text(
-                          "معرف الفريق",
-                          style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
-                        ),
+                      const Divider(
+                        color: Colors.grey,
+                        height: 20,
+                        thickness: 2,
+                        indent: 0,
+                        endIndent: 0,
                       ),
-                      SizedBox(
-                        width: size.width * 0.2,
-                        child: const Text(
-                          "الأيام المناسبة لقدوم فريق العمل ",
-                          style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(
-                        width: size.width * 0.2,
-                        child: const Text(
-                          "ملاحظات",
-                          style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(
-                        width: size.width * 0.02,
-                        child: const Text(
-                          "",
-                          style: const TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
+                      Expanded(
+                        child: state is ShowNotSchedulingSuccessState
+                            ? ListView.builder(
+                                itemCount: state
+                                    .showNotSchedulingModel.message!.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 8.0,
+                                      right: 8.0,
+                                      top: 4.0,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SizedBox(
+                                          width: size.width * 0.1,
+                                          child: Text(
+                                            state.showNotSchedulingModel
+                                                    .message![index].number ??
+                                                "",
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: size.width * 0.1,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                right: size.width * 0.02),
+                                            child: Text(
+                                              state.showNotSchedulingModel
+                                                  .message![index].id
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: size.width * 0.2,
+                                          child: Text(
+                                            state.showNotSchedulingModel
+                                                    .message![index].freeDay ??
+                                                "",
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: size.width * 0.2,
+                                          child: Text(
+                                            state.showNotSchedulingModel
+                                                    .message![index].notes ??
+                                                "",
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                            width: size.width * 0.02,
+                                            child: IconButton(
+                                              onPressed: () {
+                                                Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        BlocProvider(
+                                                      create: (context) =>
+                                                          ScheduleCubit(getIt.get<ScheduleRepoImpl>(),),
+                                                      child: Schedule(
+                                                        id: state
+                                                            .showNotSchedulingModel
+                                                            .message![index]
+                                                            .id!,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              icon: const Icon(
+                                                Icons.checklist,
+                                                color: Colors.blue,
+                                                size: 20,
+                                              ),
+                                            )),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              )
+                            : state is ShowNotSchedulingLoadingState
+                                ? const CustomProgressIndicator()
+                                : state is ShowNotSchedulingFailureState
+                                    ? CustomError(message: state.errorMessage)
+                                    : Container(),
                       ),
                     ],
                   ),
                 ),
-                const Divider(
-                  color: Colors.grey,
-                  height: 20,
-                  thickness: 2,
-                  indent: 0,
-                  endIndent: 0,
-                ),
-                Expanded(
-                    child: ListView(children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 8.0, right: 8.0, top: 4.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.1,
-                          child: Text(
-                            "0959636242",
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.1,
-                          child: Padding(
-                            padding: EdgeInsets.only(right: size.width * 0.02),
-                            child: Text(
-                              "5",
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.2,
-                          child: Text(
-                            "جمعة, سبت ,احد ,اثنين",
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.2,
-                          child: Text(
-                            "الجهاز لا يقوم بالتشغيل، الشاشة لا تعرض أي شيء، وأحيانًا يصدر صوت طنين غريب",
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        SizedBox(
-                            width: size.width * 0.02,
-                            child: IconButton(
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Dialog(
-                                          backgroundColor:
-                                              Colors.white.withOpacity(0.5),
-                                          child: SizedBox(
-                                              width: size.width * 0.6,
-                                              height: size.height * 0.4,
-                                              child: Column(
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                right: 0.0),
-                                                        child: SizedBox(
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              0.28,
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height *
-                                                              0.2,
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              Text(
-                                                                "${selectedFirstTime.hour.toString()}"
-                                                                        ":"
-                                                                        "${selectedFirstTime.hour.toString()}"
-                                                                    .split(
-                                                                        ' ')[0],
-                                                                style:
-                                                                    const TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                ),
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 20.0,
-                                                              ),
-                                                              ElevatedButton(
-                                                                onPressed:
-                                                                    () async {
-                                                                  selectedFirstTime =
-                                                                      await selectTime(
-                                                                          context,
-                                                                          selectedFirstTime);
-                                                                  print(
-                                                                      "=========");
-                                                                  print(
-                                                                      "الوقت الاول");
-                                                                  print(
-                                                                      "${selectedFirstTime.format(context).substring(0, 4)} ");
-
-                                                                  print(
-                                                                      "=========");
-                                                                },
-                                                                child: const Text(
-                                                                    'اختر الوقت'),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                right: 0.0),
-                                                        child: SizedBox(
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              0.28,
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height *
-                                                              0.2,
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              Text(
-                                                                "${"${selectedFirstDate.toLocal()}".split(' ')[0]}"
-                                                                    .split(
-                                                                        ' ')[0],
-                                                                style:
-                                                                    const TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                ),
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 20.0,
-                                                              ),
-                                                              ElevatedButton(
-                                                                onPressed:
-                                                                    () async {
-                                                                  selectedFirstDate =
-                                                                      await _selectDate(
-                                                                          context,
-                                                                          selectedFirstDate);
-                                                                  print(
-                                                                      "=============");
-                                                                  print(
-                                                                      "التاريخ الاول ");
-                                                                  print(
-                                                                      "${selectedFirstDate.toLocal()}");
-
-                                                                  print(
-                                                                      "=========");
-                                                                },
-                                                                child: const Text(
-                                                                    'اختر التاريخ الأول'),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                right: 0.0),
-                                                        child: SizedBox(
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              0.28,
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height *
-                                                              0.2,
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              Text(
-                                                                "${selectedSecondTime.hour.toString()}"
-                                                                        ":"
-                                                                        "${selectedSecondTime.minute.toString()}"
-                                                                    .split(
-                                                                        ' ')[0],
-                                                                style:
-                                                                    const TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                ),
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 20.0,
-                                                              ),
-                                                              ElevatedButton(
-                                                                onPressed:
-                                                                    () async {
-                                                                  selectedSecondTime =
-                                                                      await selectTime(
-                                                                          context,
-                                                                          selectedSecondTime);
-
-                                                                  print(
-                                                                      "=========");
-                                                                  print(
-                                                                      "الوقت الثاني ");
-                                                                  print(
-                                                                      "${selectedSecondTime.format(context).substring(0, 4)} ");
-
-                                                                  print(
-                                                                      "=========");
-                                                                },
-                                                                child: const Text(
-                                                                    'اختر الوقت'),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                right: 0.0),
-                                                        child: SizedBox(
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              0.28,
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height *
-                                                              0.2,
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              Text(
-                                                                "${"${selectedSecondDate.toLocal()}".split(' ')[0]}"
-                                                                    .split(
-                                                                        ' ')[0],
-                                                                style:
-                                                                    const TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                ),
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 20.0,
-                                                              ),
-                                                              ElevatedButton(
-                                                                onPressed:
-                                                                    () async {
-                                                                  selectedSecondDate =
-                                                                      await _selectDate(
-                                                                          context,
-                                                                          selectedSecondDate);
-                                                                  print(
-                                                                      "=============");
-                                                                  print(
-                                                                      "التاريخ الثاني  ");
-                                                                  print(
-                                                                      "${selectedSecondDate.toLocal()}");
-
-                                                                  print(
-                                                                      "=========");
-                                                                },
-                                                                child: const Text(
-                                                                    'اختر التاريخ الثاني'),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              )));
-                                    });
-                              },
-                              icon: const Icon(
-                                Icons.checklist,
-                                color: Colors.blue,
-                                size: 20,
-                              ),
-                            )),
-                      ],
-                    ),
-                  ),
-                  Divider(
-                    color: Colors.grey.shade100,
-                    height: 20,
-                    thickness: 2,
-                    indent: 0,
-                    endIndent: 0,
-                  ),
-                ]))
-              ])))
-    ]));
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
