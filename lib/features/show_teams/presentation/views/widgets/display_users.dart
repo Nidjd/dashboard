@@ -15,10 +15,9 @@ class DisplayUsers extends StatelessWidget {
     return BlocBuilder<ShowWorkersCubit, ShowWorkersState>(
       builder: (context, state) {
         if (state is ShowWorkersSuccess) {
-          return Expanded(
-              child: Container(
+          return Container(
             width: MediaQuery.of(context).size.width * 0.9,
-            height: 300,
+            height: MediaQuery.of(context).size.height * 0.5,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.0),
@@ -42,7 +41,7 @@ class DisplayUsers extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "              ايميل العامل             ",
+                        "              البريد الإلكتروني للعامل             ",
                         style: TextStyle(
                             color: Colors.grey[600],
                             fontWeight: FontWeight.bold),
@@ -129,7 +128,7 @@ class DisplayUsers extends StatelessWidget {
                 ),
               ],
             ),
-          ));
+          );
         } else if (state is ShowWorkersFailureState) {
           return CustomError(message: state.errMessage);
         } else {

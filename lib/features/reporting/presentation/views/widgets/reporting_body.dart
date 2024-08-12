@@ -33,7 +33,7 @@ class _ReportingBodyState extends State<ReportingBody> {
               child: SizedBox(
                   width: size.width,
                   child: const Text(
-                    "التقارير ",
+                    "الإحصائيات ",
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,

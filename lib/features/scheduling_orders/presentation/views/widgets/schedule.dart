@@ -106,197 +106,215 @@ class _ScheduleState extends State<Schedule> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: BlocBuilder<ScheduleCubit, ScheduleState>(
         builder: (context, state) {
           return Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 0.0),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.28,
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "${selectedFirstTime.hour.toString()}"
-                                      ":"
-                                      "${selectedFirstTime.minute.toString()}"
-                                  .split(' ')[0],
-                              style: const TextStyle(
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20.0,
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                selectedFirstTime = await selectFirstTime(
-                                    context, selectedFirstTime);
-                              },
-                              child: const Text('اختر الوقت'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 0.0),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.28,
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "${selectedFirstDate.toLocal()}"
-                                  .split(' ')[0]
-                                  .split(' ')[0],
-                              style: const TextStyle(
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20.0,
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                selectedFirstDate = await selectFirstDate(
-                                    context, selectedFirstDate);
-                              },
-                              child: const Text('اختر التاريخ الأول'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+            child: Center(
+              child: Container(
+                width: size.width * 0.6,
+                height: size.height * 0.5,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 2.0,
+                  ),
                 ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 0.0),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.28,
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "${selectedSecondTime.hour.toString()}"
-                                      ":"
-                                      "${selectedSecondTime.minute.toString()}"
-                                  .split(' ')[0],
-                              style: const TextStyle(
-                                color: Colors.black,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 0.0),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.28,
+                              height: MediaQuery.of(context).size.height * 0.2,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "${selectedFirstTime.hour.toString()}"
+                                            ":"
+                                            "${selectedFirstTime.minute.toString()}"
+                                        .split(' ')[0],
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      selectedFirstTime = await selectFirstTime(
+                                          context, selectedFirstTime);
+                                    },
+                                    child: const Text('اختر الوقت'),
+                                  ),
+                                ],
                               ),
                             ),
-                            const SizedBox(
-                              height: 20.0,
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                selectedSecondTime = await selectEndTime(
-                                    context, selectedSecondTime);
-                              },
-                              child: const Text('اختر الوقت'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 0.0),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.28,
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "${selectedSecondDate.toLocal()}"
-                                  .split(' ')[0]
-                                  .split(' ')[0],
-                              style: const TextStyle(
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20.0,
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                selectedSecondDate = await selectEndDate(
-                                    context, selectedSecondDate);
-                              },
-                              child: const Text('اختر التاريخ الثاني'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 200,
-                  child: state is ScheduleLoadingState
-                      ? const CustomProgressIndicator()
-                      : CustomTextButton(
-                          label: "إرسال",
-                          onPressed: () async {
-                            // print("First Date is : ${firstDate.text}");
-                            // print("End Date is : ${endDate.text}");
-                            // print("First Time is : ${firstTime.text}");
-                            // print("End Time is : ${endTime.text}");
-                            if (firstTime.text.isNotEmpty &&
-                                endTime.text.isNotEmpty &&
-                                firstDate.text.isNotEmpty &&
-                                endDate.text.isNotEmpty) {
-                              String finalFirstTime =
-                                  "${firstDate.text} ${firstTime.text}";
-                              String finalEndTime =
-                                  "${endDate.text} ${endTime.text}";
-                              BlocProvider.of<ScheduleCubit>(context).schedule(
-                                endPoint: 'schedling',
-                                token: prefs.getString('token')!,
-                                startTime: finalFirstTime,
-                                endTime: finalEndTime,
-                                id: widget.id,
-                              );
-                            }
-                          },
-                          backGroundColor: Colors.blue,
-                          textStyle: const TextStyle(
-                            color: Colors.white,
                           ),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 0.0),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.28,
+                              height: MediaQuery.of(context).size.height * 0.2,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "${selectedFirstDate.toLocal()}"
+                                        .split(' ')[0]
+                                        .split(' ')[0],
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      selectedFirstDate = await selectFirstDate(
+                                          context, selectedFirstDate);
+                                    },
+                                    child: const Text('اختر التاريخ الأول'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 0.0),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.28,
+                              height: MediaQuery.of(context).size.height * 0.2,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "${selectedSecondTime.hour.toString()}"
+                                            ":"
+                                            "${selectedSecondTime.minute.toString()}"
+                                        .split(' ')[0],
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      selectedSecondTime = await selectEndTime(
+                                          context, selectedSecondTime);
+                                    },
+                                    child: const Text('اختر الوقت'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 0.0),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.28,
+                              height: MediaQuery.of(context).size.height * 0.2,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "${selectedSecondDate.toLocal()}"
+                                        .split(' ')[0]
+                                        .split(' ')[0],
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      selectedSecondDate = await selectEndDate(
+                                          context, selectedSecondDate);
+                                    },
+                                    child: const Text('اختر التاريخ الثاني'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 200,
+                        child: state is ScheduleLoadingState
+                            ? const CustomProgressIndicator()
+                            : CustomTextButton(
+                                label: "جدولة طلب الصيانة",
+                                onPressed: () async {
+                                  // print("First Date is : ${firstDate.text}");
+                                  // print("End Date is : ${endDate.text}");
+                                  // print("First Time is : ${firstTime.text}");
+                                  // print("End Time is : ${endTime.text}");
+                                  if (firstTime.text.isNotEmpty &&
+                                      endTime.text.isNotEmpty &&
+                                      firstDate.text.isNotEmpty &&
+                                      endDate.text.isNotEmpty) {
+                                    String finalFirstTime =
+                                        "${firstDate.text} ${firstTime.text}";
+                                    String finalEndTime =
+                                        "${endDate.text} ${endTime.text}";
+                                    BlocProvider.of<ScheduleCubit>(context)
+                                        .schedule(
+                                      endPoint: 'schedling',
+                                      token: prefs.getString('token')!,
+                                      startTime: finalFirstTime,
+                                      endTime: finalEndTime,
+                                      id: widget.id,
+                                    );
+                                  }
+                                },
+                                backGroundColor: Colors.blue,
+                                textStyle: const TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      if (state is ScheduleSuccessState)
+                        Text(
+                          state.scheduleModel.message!,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      else if (state is ScheduleFailureState)
+                        Text(
+                          state.errMessage,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                    ],
+                  ),
                 ),
-                const SizedBox(
-                  height: 12,
-                ),
-                if (state is ScheduleSuccessState)
-                  Text(
-                    state.scheduleModel.message!,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                else if (state is ScheduleFailureState)
-                  Text(
-                    state.errMessage,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-              ],
+              ),
             ),
           );
         },

@@ -70,7 +70,7 @@ class DisplayTeams extends StatelessWidget {
                                         MediaQuery.of(context).size.width * 0.1,
                                     child: Center(
                                       child: Text(
-                                        state.teams[index].id.toString(),
+                                        state.teams[index].teamTitle.toString(),
                                         style: const TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold),
