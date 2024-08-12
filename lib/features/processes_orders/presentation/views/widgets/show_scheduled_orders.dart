@@ -131,12 +131,7 @@ class _ShowScheduledOrdersState extends State<ShowScheduledOrders> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              TextButton(
-                                  onPressed: () {
-                                    print(state.showSchedulingModel
-                                        .message![index].latitude!);
-                                  },
-                                  child: Text("data"))
+                             
                             ],
                           )
                         ],
