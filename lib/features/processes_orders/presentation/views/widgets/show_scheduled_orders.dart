@@ -19,7 +19,7 @@ class ShowScheduledOrders extends StatefulWidget {
 }
 
 class _ShowScheduledOrdersState extends State<ShowScheduledOrders> {
-  Future<String> getReverseGeocoding(double latitude, double longitude) async {
+  Future<String> getReverseGeocoding(String latitude, String longitude) async {
     final url = Uri.parse(
         'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=$latitude&lon=$longitude');
     final response = await http.get(url);
@@ -62,7 +62,8 @@ class _ShowScheduledOrdersState extends State<ShowScheduledOrders> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => BlocProvider(
-                              create: (context) => UpdateRequestByAdminCubit(getIt.get<UpdateRequestByAdminRepoImpl>()),
+                              create: (context) => UpdateRequestByAdminCubit(
+                                  getIt.get<UpdateRequestByAdminRepoImpl>()),
                               child: ProcessesOrdersBody(
                                 data: state.showSchedulingModel.message![index],
                               ),
@@ -85,15 +86,12 @@ class _ShowScheduledOrdersState extends State<ShowScheduledOrders> {
                               Center(
                                 child: FutureBuilder(
                                   future: getReverseGeocoding(
-                                    double.parse(
                                       state.showSchedulingModel.message![index]
                                           .latitude!,
-                                    ),
-                                    double.parse(
                                       state.showSchedulingModel.message![index]
-                                          .latitude!,
-                                    ),
-                                  ),
+                                          .longitude!
+                                     
+                                      ),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -133,8 +131,12 @@ class _ShowScheduledOrdersState extends State<ShowScheduledOrders> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              
-
+                              TextButton(
+                                  onPressed: () {
+                                    print(state.showSchedulingModel
+                                        .message![index].latitude!);
+                                  },
+                                  child: Text("data"))
                             ],
                           )
                         ],
