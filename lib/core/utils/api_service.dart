@@ -298,7 +298,7 @@ class ApiService {
         method: "GET",
       ),
     );
-    
+
     return response.data;
   }
 }
