@@ -40,9 +40,11 @@ class _ShowScheduledOrdersState extends State<ShowScheduledOrders> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(body: BlocBuilder<ShowSchedulingCubit, ShowSchedulingState>(
       builder: (context, state) {
         return Container(
+          width: size.width * 0.5,
           decoration: BoxDecoration(
             color: Colors.white, // Set the background color
             // borderRadius:
@@ -89,9 +91,7 @@ class _ShowScheduledOrdersState extends State<ShowScheduledOrders> {
                                       state.showSchedulingModel.message![index]
                                           .latitude!,
                                       state.showSchedulingModel.message![index]
-                                          .longitude!
-                                     
-                                      ),
+                                          .longitude!),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -131,7 +131,6 @@ class _ShowScheduledOrdersState extends State<ShowScheduledOrders> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                             
                             ],
                           )
                         ],

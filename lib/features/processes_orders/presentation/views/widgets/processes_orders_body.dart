@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 import 'package:dashboard/core/utils/shared_preference_store.dart';
 import 'package:dashboard/core/widgets/custom_error.dart';
 import 'package:dashboard/core/widgets/custom_progress_indicator.dart';
@@ -32,312 +35,372 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
     super.dispose();
   }
 
+  Future<String> getReverseGeocoding(String latitude, String longitude) async {
+    final url = Uri.parse(
+        'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=$latitude&lon=$longitude');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      final displayName = data['display_name'] as String;
+      final addressParts = displayName.split(', ');
+      String name = addressParts[0];
+      String suburb = addressParts[1];
+      String street = addressParts[2];
+
+      return '$name, $suburb, $street';
+    } else {
+      throw Exception('Failed to fetch address');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: BlocBuilder<UpdateRequestByAdminCubit, UpdateRequestByAdminState>(
-        builder: (context, state) {
-          return Container(
-            decoration: BoxDecoration(
-              color: Colors.white, // Set the background color
-              // borderRadius:
-              //   BorderRadius.circular(10.0), // Apply rounded corners
-              border: Border.all(
-                // Add the border
-                color: Colors.grey, // Set the color of the border
-                width: 2.0, // Set the thickness of the border
-              ),
-            ),
-            child: ListView(
-              //  Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    child: Text(
-                      "طلب جديد",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                    ),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        body: BlocBuilder<UpdateRequestByAdminCubit, UpdateRequestByAdminState>(
+          builder: (context, state) {
+            return Container(
+                height: size.height * 0.7,
+                decoration: BoxDecoration(
+                  color: Colors.white, // Set the background color
+                  // borderRadius:
+                  //   BorderRadius.circular(10.0), // Apply rounded corners
+                  border: Border.all(
+                    // Add the border
+                    color: Colors.grey, // Set the color of the border
+                    width: 2.0, // Set the thickness of the border
                   ),
                 ),
-                const Divider(
-                  color: Colors.grey,
-                  height: 20,
-                  thickness: 2,
-                  indent: 0,
-                  endIndent: 0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    child: Row(
-                      children: [
-                        const Text(
-                          "حالة الضمان ",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
-                        ),
-                        Text(
-                          "(اظغط للتحديث)",
-                          style: TextStyle(
-                              color: Colors.grey[600],
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
+                child: Column(children: [
+                  Column(
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            isSelected = true;
-                            setState(() {});
-                            if (isSelected) {
-                              warrantyStateController.text = 'مكفول';
-                            }
-                          });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color:
-                                isSelected ? Colors.green : Colors.transparent,
-                            border: Border.all(
-                              color: Colors.blue, // Set the color of the border
-                              width: 2.0, // Set the thickness of the border
-                            ),
-                          ),
-                          child: const Column(
-                            children: [
-                              // Text("hh"),
-                              Icon(
-                                FontAwesomeIcons.calendarCheck,
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          child: Text(
+                            "طلب جديد",
+                            style: TextStyle(
                                 color: Colors.black,
-                              ),
-
-                              Text(
-                                "مكفول",
-                                style: TextStyle(color: Colors.black),
-                              )
-                            ],
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: size.width * 0.03,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          isSelected = false;
-                          setState(() {});
-                          if (isSelected == false) {
-                            warrantyStateController.text = 'غير مكفول';
-                          }
-                        },
-                        child: Container(
-                          // child: ,
-                          decoration: BoxDecoration(
-                            color: isSelected ? Colors.transparent : Colors.red,
-                            border: Border.all(
-                              // Add the border
-                              color: Colors.blue, // Set the color of the border
-                              width: 2.0, // Set the thickness of the border
-                            ),
-                          ),
-                          child: const Column(
-                            children: [
-                              // Text("hh"),
-                              Icon(
-                                Icons.warning,
-                                color: Colors.black,
-                              ),
-
-                              Text(
-                                "غير مكفول ",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    "رقم العميل ",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    widget.data.number ?? " No Number",
-                    style: const TextStyle(
+                      const Divider(
                         color: Colors.grey,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
-                  ),
-                ),
-                const Divider(
-                  color: Colors.grey,
-                  height: 20,
-                  thickness: 2,
-                  indent: 15,
-                  endIndent: 15,
-                ),
-                SizedBox(
-                  height: size.height * 0.02,
-                ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(40, 8, 8, 8),
-                  child: Text(
-                    "القطع المستهلكة  ",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        widget.data.consumableParts ?? "No Consumable parts",
-                        style: const TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15),
+                        height: 20,
+                        thickness: 2,
+                        indent: 0,
+                        endIndent: 0,
                       ),
                     ],
                   ),
-                ),
-                const Divider(
-                    color: Colors.grey,
-                    height: 20,
-                    thickness: 2,
-                    indent: 15,
-                    endIndent: 15),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(40, 8, 8, 8),
-                  child: Text(
-                    "الإصلاحات",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    widget.data.repairs ?? "No Repairs",
-                    style: const TextStyle(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
-                  ),
-                ),
-                const Divider(
-                  color: Colors.grey,
-                  height: 20,
-                  thickness: 2,
-                  indent: 1,
-                  endIndent: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   crossAxisAlignment: CrossAxisAlignment.,
+
                     children: [
-                      CustomTextFormFiled(
-                        sizee: 0.2,
-                        controller: priceController,
-                        label: 'السعر النهائي',
-                        option: true,
-                        keyboardType: TextInputType.number,
-                      ),
-                      const SizedBox(
-                        width: 12.0,
-                      ),
-                      state is UpdateRequestByAdminLoadingState
-                          ? const CustomProgressIndicator()
-                          : state is UpdateRequestByAdminFailureState
-                              ? CustomError(message: state.errorMessage)
-                              : CustomTextButton(
-                                  label: 'إرسال',
-                                  backGroundColor: Colors.blue,
-                                  textStyle: const TextStyle(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: size.width * 0.3,
+                            child: Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
                                     color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    border: Border.all(
+                                      color: Colors.blue,
+                                      width: 2.0,
+                                    ),
                                   ),
-                                  onPressed: () {
-                                    double? price;
-                                    try {
-                                      price =
-                                          double.parse(priceController.text);
-                                    } catch (e) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => const Center(
-                                          child: Text(
-                                            "price should be double value",
+                                  child: const Text(
+                                    "الإصلاحات",
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Text(
+                                  widget.data.repairs ?? " No repairs",
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * 0.3,
+                            child: Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    border: Border.all(
+                                      color: Colors.blue,
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    "القطع المستبدلة",
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Text(
+                                  widget.data.consumableParts ??
+                                      " No consumableParts",
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * 0.3,
+                            child: Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    border: Border.all(
+                                      color: Colors.blue,
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    "حالة الطلب",
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Text(
+                                  widget.data.requestState ??
+                                      " No requestState",
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        // mainAxisAlignment: MainAxisAlignment.start,
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: size.width * 0.3,
+                            child: Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    border: Border.all(
+                                      color: Colors.blue,
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    "تفاصيل الطلب",
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Text(
+                                  widget.data.requestDetails ??
+                                      " No requestDetails",
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: size.width * 0.05),
+                          SizedBox(
+                            width: size.width * 0.3,
+                            child: Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    border: Border.all(
+                                      color: Colors.blue,
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    "ملاحظات",
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Text(
+                                  widget.data.notes ?? " No notes",
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: size.width * 0.3,
+                            child: CustomTextFormFiled(
+                              sizee: 0.1,
+                              controller: priceController,
+                              label: 'السعر النهائي',
+                              option: true,
+                              keyboardType: TextInputType.number,
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * 0.05,
+                          ),
+                          SizedBox(
+                            width: size.width * 0.3,
+                            child: Center(
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: size.width * 0.05,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isSelected = true;
+                                          setState(() {});
+                                          if (isSelected) {
+                                            warrantyStateController.text =
+                                                'مكفول';
+                                          }
+                                        });
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: isSelected
+                                              ? Colors.green
+                                              : Colors.transparent,
+                                          border: Border.all(
+                                            color: Colors
+                                                .blue, // Set the color of the border
+                                            width:
+                                                2.0, // Set the thickness of the border
                                           ),
                                         ),
-                                      );
-                                    }
+                                        child: const Column(
+                                          children: [
+                                            // Text("hh"),
+                                            Icon(
+                                              FontAwesomeIcons.calendarCheck,
+                                              color: Colors.black,
+                                            ),
 
-                                    if (warrantyStateController.text.isNotEmpty && priceController.text.isNotEmpty) {
-                                      BlocProvider.of<UpdateRequestByAdminCubit>(
-                                            context)
-                                        .updateRequestByAdmin(
-                                      token: prefs.getString('token')!,
-                                      endPoint: 'updateRequestByAdmin',
-                                      id: widget.data.id!,
-                                      salary: price!,
-                                    );
-                                    }
-                                  },
-                                ),
-                                const SizedBox(width: 8,),
-                      state is UpdateRequestByAdminSuccessState
-                          ? Text(state.updateRequestByAdminModel.message!,style: const TextStyle(color: Colors.black,),)
-                          : Container(),
-                      Expanded(
-                        child: SizedBox(
-                          height: 250,
-                          width: 100,
-                          child: widget.data.qrCode == null
-                              ? Container()
-                              : QrCodePage(
-                                  data: widget.data.qrCode,
-                                ),
-                        ),
+                                            Text(
+                                              "مكفول",
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: size.width * 0.05,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        isSelected = false;
+                                        setState(() {});
+                                        if (isSelected == false) {
+                                          warrantyStateController.text =
+                                              'غير مكفول';
+                                        }
+                                      },
+                                      child: Container(
+                                        // child: ,
+                                        decoration: BoxDecoration(
+                                          color: isSelected
+                                              ? Colors.transparent
+                                              : Colors.red,
+                                          border: Border.all(
+                                            // Add the border
+                                            color: Colors
+                                                .blue, // Set the color of the border
+                                            width:
+                                                2.0, // Set the thickness of the border
+                                          ),
+                                        ),
+                                        child: const Column(
+                                          children: [
+                                            // Text("hh"),
+                                            Icon(
+                                              Icons.warning,
+                                              color: Colors.black,
+                                            ),
+
+                                            Text(
+                                              "غير مكفول ",
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.2,
+                            width: size.width * 0.3,
+                            child: widget.data.qrCode == null
+                                ? Container()
+                                : QrCodePage(
+                                    data: widget.data.qrCode,
+                                  ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ),
-              ],
-            ),
-          );
-        },
+                ]));
+          },
+        ),
       ),
     );
   }

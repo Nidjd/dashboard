@@ -18,26 +18,26 @@ class ProcessesOrder extends StatefulWidget {
 class _ProcessesOrderState extends State<ProcessesOrder> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        body: 
-            BlocProvider(
-              create: (context) =>
-                  ShowSchedulingCubit(getIt.get<ShowSchedulingRepoImpl>())
-                    ..showSceduling(
-                        endPoint: 'show_schedling',
-                        token: "Bearer ${prefs.getString('token')}"),
-            
-           
-         
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+        body: BlocProvider(
+          create: (context) =>
+              ShowSchedulingCubit(getIt.get<ShowSchedulingRepoImpl>())
+                ..showSceduling(
+                    endPoint: 'show_schedling',
+                    token: "Bearer ${prefs.getString('token')}"),
+          child: Row(
+            //  mainAxisAlignment: MainAxisAlignment.start,
             // crossAxisAlignment: CrossAxisAlignment.,
             children: [
               Expanded(
                 child: ShowScheduledOrders(),
               ),
+              Container(
+                width: size.width * 0.3,
+              )
             ],
           ),
         ),
