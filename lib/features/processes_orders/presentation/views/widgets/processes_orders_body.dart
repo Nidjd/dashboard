@@ -75,9 +75,9 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                   ),
                 ),
                 child: Column(children: [
-                  Column(
+                  const Column(
                     children: [
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.all(8.0),
                         child: SizedBox(
                           child: Text(
@@ -89,7 +89,7 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                           ),
                         ),
                       ),
-                      const Divider(
+                      Divider(
                         color: Colors.grey,
                         height: 20,
                         thickness: 2,
@@ -397,17 +397,34 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                         ],
                       ),
                       Center(
-                          child: SizedBox(
-                        width: size.width * 0.3,
-                        height: size.height * 0.08,
-                        child: CustomTextButton(
-                          textStyle: TextStyle(color: Colors.white),
-                          // backGroundColor: Colors.blue,
-                          label: 'إنهاء طلب الصيانة',
-                          onPressed: () {},
-                          backGroundColor: Colors.blue,
+                        child: SizedBox(
+                          width: size.width * 0.3,
+                          height: size.height * 0.08,
+                          child: state is UpdateRequestByAdminLoadingState ? const CustomProgressIndicator() : CustomTextButton(
+                            textStyle: const TextStyle(color: Colors.white),
+                            // backGroundColor: Colors.blue,
+                            label: 'إنهاء طلب الصيانة',
+                            onPressed: () async {
+                              if (priceController.text.isNotEmpty &&
+                                  warrantyStateController.text.isNotEmpty) {
+                                await BlocProvider.of<
+                                        UpdateRequestByAdminCubit>(context)
+                                    .updateRequestByAdmin(
+                                  token: prefs.getString('token')!,
+                                  endPoint: 'updateRequestByAdmin',
+                                  id: widget.data.id!,
+                                  salary: double.parse(widget.data.salary!),
+                                );
+                              }
+                            },
+                            backGroundColor: Colors.blue,
+                          ),
                         ),
-                      ))
+                      ),
+                      if(state is UpdateRequestByAdminSuccessState)
+                      Text(state.updateRequestByAdminModel.message!,style: const TextStyle(color: Colors.green,fontWeight: FontWeight.bold,),)
+                     else if(state is UpdateRequestByAdminFailureState)
+                     Text(state.errorMessage,style: const TextStyle(color: Colors.red,fontWeight: FontWeight.bold,),)
                     ],
                   ),
                 ]));
