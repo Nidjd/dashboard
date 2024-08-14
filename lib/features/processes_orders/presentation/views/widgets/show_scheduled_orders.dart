@@ -73,66 +73,96 @@ class _ShowScheduledOrdersState extends State<ShowScheduledOrders> {
                           ),
                         );
                       },
-                      child: Row(
+                      child: Column(
                         children: [
-                          const Icon(
-                            Icons.assignment_turned_in,
-                            color: Colors.blue,
-                            size: 50.0,
-                          ),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                          Column(
+                          Row(
                             children: [
-                              Center(
-                                child: FutureBuilder(
-                                  future: getReverseGeocoding(
-                                      state.showSchedulingModel.message![index]
-                                          .latitude!,
-                                      state.showSchedulingModel.message![index]
-                                          .longitude!),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return const Text(
-                                        'Loading...',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold),
-                                      );
-                                    } else if (snapshot.hasError) {
-                                      return Text(
-                                        'Error: ${snapshot.error}',
-                                        style: const TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold),
-                                      );
-                                    } else {
-                                      return Text(
-                                        '${snapshot.data}',
-                                        style: const TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold),
-                                      );
-                                    }
-                                  },
-                                ),
+                              const Icon(
+                                Icons.assignment_turned_in,
+                                color: Colors.blue,
+                                size: 50.0,
                               ),
                               const SizedBox(
-                                height: 6,
+                                width: 12,
                               ),
-                              Text(
-                                state.showSchedulingModel.message![index]
-                                        .number ??
-                                    "",
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        state.showSchedulingModel
+                                                .message![index].number ??
+                                            "",
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.phone,
+                                        color: Colors.blue,
+                                        size: 18.0,
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+                                  Center(
+                                    child: FutureBuilder(
+                                      future: getReverseGeocoding(
+                                          state.showSchedulingModel
+                                              .message![index].latitude!,
+                                          state.showSchedulingModel
+                                              .message![index].longitude!),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return const Text(
+                                            'Loading...',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
+                                          );
+                                        } else if (snapshot.hasError) {
+                                          return Text(
+                                            'Error: ${snapshot.error}',
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
+                                          );
+                                        } else {
+                                          return Row(
+                                            children: [
+                                              Text(
+                                                '${snapshot.data}',
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Icon(
+                                                Icons.location_pin,
+                                                color: Colors.blue,
+                                                size: 18.0,
+                                              )
+                                            ],
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              )
                             ],
-                          )
+                          ),
+                          const Divider(
+                            color: Colors.blue,
+                            height: 20,
+                            thickness: 2,
+                            indent: 0,
+                            endIndent: 0,
+                          ),
                         ],
                       ),
                     );

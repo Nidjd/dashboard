@@ -396,6 +396,18 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                           ),
                         ],
                       ),
+                      Center(
+                          child: SizedBox(
+                        width: size.width * 0.3,
+                        height: size.height * 0.08,
+                        child: CustomTextButton(
+                          textStyle: TextStyle(color: Colors.white),
+                          // backGroundColor: Colors.blue,
+                          label: 'إنهاء طلب الصيانة',
+                          onPressed: () {},
+                          backGroundColor: Colors.blue,
+                        ),
+                      ))
                     ],
                   ),
                 ]));
