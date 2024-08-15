@@ -98,7 +98,7 @@ class _ShowScheduledOrdersState extends State<ShowScheduledOrders> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      Icon(
+                                      const Icon(
                                         Icons.phone,
                                         color: Colors.blue,
                                         size: 18.0,
@@ -141,7 +141,7 @@ class _ShowScheduledOrdersState extends State<ShowScheduledOrders> {
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
-                                              Icon(
+                                              const Icon(
                                                 Icons.location_pin,
                                                 color: Colors.blue,
                                                 size: 18.0,

@@ -114,7 +114,7 @@ class _ScheduleState extends State<Schedule> {
             child: Center(
               child: Container(
                 width: size.width * 0.6,
-                height: size.height * 0.5,
+                height: size.height * 0.8,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10.0),
@@ -293,7 +293,7 @@ class _ScheduleState extends State<Schedule> {
                               ),
                       ),
                       const SizedBox(
-                        height: 12,
+                        height: 20,
                       ),
                       if (state is ScheduleSuccessState)
                         Text(

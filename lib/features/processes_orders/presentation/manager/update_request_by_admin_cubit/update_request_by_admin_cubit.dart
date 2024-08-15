@@ -15,6 +15,7 @@ class UpdateRequestByAdminCubit extends Cubit<UpdateRequestByAdminState> {
     required String endPoint,
     required int id,
     required double salary,
+    required String warrantyState
   }) async {
     emit(UpdateRequestByAdminLoadingState());
     var data = await updateRequestByAdminRepo.updateRequestByAdmin(
@@ -22,6 +23,7 @@ class UpdateRequestByAdminCubit extends Cubit<UpdateRequestByAdminState> {
       endPoint: endPoint,
       id: id,
       salary: salary,
+      warrantyState:warrantyState
     );
     data.fold((l) {
       emit(UpdateRequestByAdminFailureState(l.eerMessage));

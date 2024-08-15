@@ -15,7 +15,6 @@ class ApiService {
       {required String endPoint,
       required String email,
       required String password}) async {
-    
     var response = await _dio.post(
       '$_baseUrl$endPoint',
       data: {
@@ -234,12 +233,15 @@ class ApiService {
     required String token,
     required double salary,
     required int id,
+    required String warrantyState,
   }) async {
+   
     var response = await _dio.post(
       '$_baseUrl$endPoint',
       queryParameters: {
         "id": id,
         "salary": salary,
+        "warranty_state": warrantyState
       },
       options: Options(
         headers: {"Authorization": "Bearer $token"},

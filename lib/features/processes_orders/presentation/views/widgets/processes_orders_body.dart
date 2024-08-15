@@ -1,8 +1,4 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-
 import 'package:dashboard/core/utils/shared_preference_store.dart';
-import 'package:dashboard/core/widgets/custom_error.dart';
 import 'package:dashboard/core/widgets/custom_progress_indicator.dart';
 import 'package:dashboard/core/widgets/custom_text_button.dart';
 import 'package:dashboard/core/widgets/custom_text_form_field.dart';
@@ -35,24 +31,24 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
     super.dispose();
   }
 
-  Future<String> getReverseGeocoding(String latitude, String longitude) async {
-    final url = Uri.parse(
-        'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=$latitude&lon=$longitude');
-    final response = await http.get(url);
+  // Future<String> getReverseGeocoding(String latitude, String longitude) async {
+  //   final url = Uri.parse(
+  //       'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=$latitude&lon=$longitude');
+  //   final response = await http.get(url);
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body) as Map<String, dynamic>;
-      final displayName = data['display_name'] as String;
-      final addressParts = displayName.split(', ');
-      String name = addressParts[0];
-      String suburb = addressParts[1];
-      String street = addressParts[2];
+  //   if (response.statusCode == 200) {
+  //     final data = jsonDecode(response.body) as Map<String, dynamic>;
+  //     final displayName = data['display_name'] as String;
+  //     final addressParts = displayName.split(', ');
+  //     String name = addressParts[0];
+  //     String suburb = addressParts[1];
+  //     String street = addressParts[2];
 
-      return '$name, $suburb, $street';
-    } else {
-      throw Exception('Failed to fetch address');
-    }
-  }
+  //     return '$name, $suburb, $street';
+  //   } else {
+  //     throw Exception('Failed to fetch address');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -400,31 +396,51 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                         child: SizedBox(
                           width: size.width * 0.3,
                           height: size.height * 0.08,
-                          child: state is UpdateRequestByAdminLoadingState ? const CustomProgressIndicator() : CustomTextButton(
-                            textStyle: const TextStyle(color: Colors.white),
-                            // backGroundColor: Colors.blue,
-                            label: 'إنهاء طلب الصيانة',
-                            onPressed: () async {
-                              if (priceController.text.isNotEmpty &&
-                                  warrantyStateController.text.isNotEmpty) {
-                                await BlocProvider.of<
-                                        UpdateRequestByAdminCubit>(context)
-                                    .updateRequestByAdmin(
-                                  token: prefs.getString('token')!,
-                                  endPoint: 'updateRequestByAdmin',
-                                  id: widget.data.id!,
-                                  salary: double.parse(widget.data.salary!),
-                                );
-                              }
-                            },
-                            backGroundColor: Colors.blue,
-                          ),
+                          child: state is UpdateRequestByAdminLoadingState
+                              ? const CustomProgressIndicator()
+                              : CustomTextButton(
+                                  textStyle:
+                                      const TextStyle(color: Colors.white),
+                                  // backGroundColor: Colors.blue,
+                                  label: 'إنهاء طلب الصيانة',
+                                  onPressed: () async {
+                                    if (priceController.text.isNotEmpty &&
+                                        warrantyStateController
+                                            .text.isNotEmpty) {
+                                      
+                                      await BlocProvider.of<
+                                                  UpdateRequestByAdminCubit>(
+                                              context)
+                                          .updateRequestByAdmin(
+                                              token: prefs.getString('token')!,
+                                              endPoint: 'updateRequestByAdmin',
+                                              id: widget.data.id!,
+                                              salary: double.parse(
+                                                  priceController.text,),
+                                              warrantyState:
+                                                  warrantyStateController.text);
+                                    }
+                                  },
+                                  backGroundColor: Colors.blue,
+                                ),
                         ),
                       ),
-                      if(state is UpdateRequestByAdminSuccessState)
-                      Text(state.updateRequestByAdminModel.message!,style: const TextStyle(color: Colors.green,fontWeight: FontWeight.bold,),)
-                     else if(state is UpdateRequestByAdminFailureState)
-                     Text(state.errorMessage,style: const TextStyle(color: Colors.red,fontWeight: FontWeight.bold,),)
+                      if (state is UpdateRequestByAdminSuccessState)
+                        Text(
+                          state.updateRequestByAdminModel.message!,
+                          style: const TextStyle(
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      else if (state is UpdateRequestByAdminFailureState)
+                        Text(
+                          state.errorMessage,
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
                     ],
                   ),
                 ]));

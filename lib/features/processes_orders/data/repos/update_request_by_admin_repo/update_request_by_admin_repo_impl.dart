@@ -14,13 +14,15 @@ class UpdateRequestByAdminRepoImpl implements UpdateRequestByAdminRepo {
       {required String token,
       required String endPoint,
       required int id,
-      required double salary}) async {
+      required double salary,
+      required String warrantyState}) async {
     try {
       var data = await _apiService.updateRequestByAdmin(
         endPoint: endPoint,
         token: token,
         salary: salary,
         id: id,
+        warrantyState:warrantyState
       );
       UpdateRequestByAdminModel updateRequestByAdminModel =
           UpdateRequestByAdminModel.fromJson(data);
