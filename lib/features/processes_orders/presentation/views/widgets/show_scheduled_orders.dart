@@ -85,74 +85,79 @@ class _ShowScheduledOrdersState extends State<ShowScheduledOrders> {
                               const SizedBox(
                                 width: 12,
                               ),
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        state.showSchedulingModel
-                                                .message![index].number ??
-                                            "",
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Icon(
-                                        Icons.phone,
-                                        color: Colors.blue,
-                                        size: 18.0,
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 6,
-                                  ),
-                                  Center(
-                                    child: FutureBuilder(
-                                      future: getReverseGeocoding(
-                                          state.showSchedulingModel
-                                              .message![index].latitude!,
-                                          state.showSchedulingModel
-                                              .message![index].longitude!),
-                                      builder: (context, snapshot) {
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return const Text(
-                                            'Loading...',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                          );
-                                        } else if (snapshot.hasError) {
-                                          return Text(
-                                            'Error: ${snapshot.error}',
+                              SizedBox(
+                                width: size.width * 0.45,
+                                child: Column(
+                                  children: [
+                                    Center(
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            state.showSchedulingModel
+                                                    .message![index].number ??
+                                                "",
                                             style: const TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                          );
-                                        } else {
-                                          return Row(
-                                            children: [
-                                              Text(
-                                                '${snapshot.data}',
-                                                style: const TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              Icon(
-                                                Icons.location_pin,
-                                                color: Colors.blue,
-                                                size: 18.0,
-                                              )
-                                            ],
-                                          );
-                                        }
-                                      },
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.phone,
+                                            color: Colors.blue,
+                                            size: 18.0,
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    const SizedBox(
+                                      height: 6,
+                                    ),
+                                    Center(
+                                      child: FutureBuilder(
+                                        future: getReverseGeocoding(
+                                            state.showSchedulingModel
+                                                .message![index].latitude!,
+                                            state.showSchedulingModel
+                                                .message![index].longitude!),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return const Text(
+                                              'Loading...',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold),
+                                            );
+                                          } else if (snapshot.hasError) {
+                                            return Text(
+                                              'Error: ${snapshot.error}',
+                                              style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold),
+                                            );
+                                          } else {
+                                            return Row(
+                                              children: [
+                                                Text(
+                                                  '${snapshot.data}',
+                                                  style: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Icon(
+                                                  Icons.location_pin,
+                                                  color: Colors.blue,
+                                                  size: 18.0,
+                                                )
+                                              ],
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               )
                             ],
                           ),
