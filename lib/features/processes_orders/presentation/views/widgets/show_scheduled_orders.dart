@@ -44,7 +44,8 @@ class _ShowScheduledOrdersState extends State<ShowScheduledOrders> {
     return Scaffold(body: BlocBuilder<ShowSchedulingCubit, ShowSchedulingState>(
       builder: (context, state) {
         return Container(
-          width: size.width * 0.5,
+         padding: const EdgeInsets.all(16),
+         // width: size.width * 0.75,
           decoration: BoxDecoration(
             color: Colors.white, // Set the background color
             // borderRadius:
@@ -77,6 +78,7 @@ class _ShowScheduledOrdersState extends State<ShowScheduledOrders> {
                         children: [
                           Row(
                             children: [
+                              
                               const Icon(
                                 Icons.assignment_turned_in,
                                 color: Colors.blue,
