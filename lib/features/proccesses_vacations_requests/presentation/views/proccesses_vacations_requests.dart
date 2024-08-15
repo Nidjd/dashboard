@@ -1,5 +1,10 @@
+import 'package:dashboard/core/utils/service_locator.dart';
+import 'package:dashboard/core/utils/shared_preference_store.dart';
+import 'package:dashboard/features/proccesses_vacations_requests/data/repos/get_vacations_repo_impl.dart';
+import 'package:dashboard/features/proccesses_vacations_requests/presentation/manager/cubit/get_vacations_cubit.dart';
 import 'package:dashboard/features/proccesses_vacations_requests/presentation/views/widgets/proccesses_vacations_requests_body.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProccessesVacationsRequests extends StatelessWidget {
   const ProccessesVacationsRequests({super.key});
@@ -16,7 +21,15 @@ class ProccessesVacationsRequests extends StatelessWidget {
           // crossAxisAlignment: CrossAxisAlignment.,
           children: [
             Expanded(
-              child: ProccessesVacationsRequestsBody(),
+              child: BlocProvider(
+                create: (context) =>
+                    GetVacationsCubit(getIt.get<GetVacationsRepoImpl>())
+                      ..getVacations(
+                        token: prefs.getString('token')!,
+                        endPoint: 'showhandlerequest',
+                      ),
+                child: const ProccessesVacationsRequestsBody(),
+              ),
             ),
             Container(
               width: size.width * 0.3,

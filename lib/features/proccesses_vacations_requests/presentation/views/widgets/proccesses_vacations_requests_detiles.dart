@@ -2,7 +2,11 @@ import 'package:dashboard/core/widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
 
 class ProccessesVacationsRequestsDetiles extends StatefulWidget {
-  const ProccessesVacationsRequestsDetiles({super.key});
+  final String name;
+  final String email;
+  final String nameOfTeam;
+  final String reason;
+  const ProccessesVacationsRequestsDetiles({super.key, required this.name, required this.email, required this.nameOfTeam, required this.reason});
 
   @override
   State<ProccessesVacationsRequestsDetiles> createState() =>
@@ -32,9 +36,9 @@ class _ProccessesVacationsRequestsDetilesState
                   ),
                 ),
                 child: Column(children: [
-                  Column(
+                  const Column(
                     children: [
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.all(8.0),
                         child: SizedBox(
                           child: Text(
@@ -46,7 +50,7 @@ class _ProccessesVacationsRequestsDetilesState
                           ),
                         ),
                       ),
-                      const Divider(
+                      Divider(
                         color: Colors.grey,
                         height: 20,
                         thickness: 2,
@@ -84,8 +88,8 @@ class _ProccessesVacationsRequestsDetilesState
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  Text(
-                                    " Majd",
+                                   Text(
+                                    widget.name,
                                     style: const TextStyle(
                                         fontSize: 20,
                                         color: Colors.black,
@@ -115,8 +119,8 @@ class _ProccessesVacationsRequestsDetilesState
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  Text(
-                                    "MAjd@gmail.com",
+                                   Text(
+                                    widget.email,
                                     style: const TextStyle(
                                         fontSize: 20,
                                         color: Colors.black,
@@ -146,8 +150,8 @@ class _ProccessesVacationsRequestsDetilesState
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  Text(
-                                    " Team 1",
+                                   Text(
+                                  widget.nameOfTeam  ,
                                     style: const TextStyle(
                                         fontSize: 20,
                                         color: Colors.black,
@@ -186,8 +190,8 @@ class _ProccessesVacationsRequestsDetilesState
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  Text(
-                                    " مرض شديد",
+                                   Text(
+                                  widget.reason ,
                                     style: const TextStyle(
                                         fontSize: 20,
                                         color: Colors.black,
@@ -218,7 +222,7 @@ class _ProccessesVacationsRequestsDetilesState
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  SizedBox(height: 30.0),
+                                  const SizedBox(height: 30.0),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -230,12 +234,12 @@ class _ProccessesVacationsRequestsDetilesState
                                         },
                                         style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.blue),
-                                        child: Text(
+                                        child: const Text(
                                           'Approved',
                                           style: TextStyle(color: Colors.white),
                                         ),
                                       ),
-                                      SizedBox(width: 30.0),
+                                      const SizedBox(width: 30.0),
                                       ElevatedButton(
                                         onPressed: () {
                                           setState(() {
@@ -244,14 +248,14 @@ class _ProccessesVacationsRequestsDetilesState
                                         },
                                         style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.blue),
-                                        child: Text(
+                                        child: const Text(
                                           'Rejected',
                                           style: TextStyle(color: Colors.white),
                                         ),
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 16.0),
+                                  const SizedBox(height: 16.0),
                                   Text(
                                     _isApproved == 'Approved'
                                         ? 'Order is Approved'
@@ -268,7 +272,7 @@ class _ProccessesVacationsRequestsDetilesState
                           width: size.width * 0.3,
                           height: size.height * 0.08,
                           child: CustomTextButton(
-                            textStyle: TextStyle(color: Colors.white),
+                            textStyle: const TextStyle(color: Colors.white),
                             // backGroundColor: Colors.blue,
                             label: 'إنهاء طلب الصيانة',
                             onPressed: () {},
