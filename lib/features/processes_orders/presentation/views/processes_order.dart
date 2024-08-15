@@ -34,7 +34,7 @@ class _ProcessesOrderState extends State<ProcessesOrder> {
                 child: ShowScheduledOrders(),
               ),
               Container(
-                width: size.width * 0.3,
+                width: size.width * 0.2,
               )
             ],
           ),

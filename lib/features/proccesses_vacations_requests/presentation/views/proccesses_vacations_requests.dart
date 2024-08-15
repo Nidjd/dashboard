@@ -17,7 +17,7 @@ class ProccessesVacationsRequests extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         body: Row(
-          //  mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           // crossAxisAlignment: CrossAxisAlignment.,
           children: [
             Expanded(
@@ -32,7 +32,7 @@ class ProccessesVacationsRequests extends StatelessWidget {
               ),
             ),
             Container(
-              width: size.width * 0.3,
+              width: size.width * 0.2,
             )
           ],
         ),
