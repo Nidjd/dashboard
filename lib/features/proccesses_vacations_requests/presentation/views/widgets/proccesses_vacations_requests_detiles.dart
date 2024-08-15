@@ -6,7 +6,12 @@ class ProccessesVacationsRequestsDetiles extends StatefulWidget {
   final String email;
   final String nameOfTeam;
   final String reason;
-  const ProccessesVacationsRequestsDetiles({super.key, required this.name, required this.email, required this.nameOfTeam, required this.reason});
+  const ProccessesVacationsRequestsDetiles(
+      {super.key,
+      required this.name,
+      required this.email,
+      required this.nameOfTeam,
+      required this.reason});
 
   @override
   State<ProccessesVacationsRequestsDetiles> createState() =>
@@ -88,7 +93,7 @@ class _ProccessesVacationsRequestsDetilesState
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                   Text(
+                                  Text(
                                     widget.name,
                                     style: const TextStyle(
                                         fontSize: 20,
@@ -119,7 +124,7 @@ class _ProccessesVacationsRequestsDetilesState
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                   Text(
+                                  Text(
                                     widget.email,
                                     style: const TextStyle(
                                         fontSize: 20,
@@ -150,8 +155,8 @@ class _ProccessesVacationsRequestsDetilesState
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                   Text(
-                                  widget.nameOfTeam  ,
+                                  Text(
+                                    widget.nameOfTeam,
                                     style: const TextStyle(
                                         fontSize: 20,
                                         color: Colors.black,
@@ -190,8 +195,8 @@ class _ProccessesVacationsRequestsDetilesState
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                   Text(
-                                  widget.reason ,
+                                  Text(
+                                    widget.reason,
                                     style: const TextStyle(
                                         fontSize: 20,
                                         color: Colors.black,
@@ -274,7 +279,7 @@ class _ProccessesVacationsRequestsDetilesState
                           child: CustomTextButton(
                             textStyle: const TextStyle(color: Colors.white),
                             // backGroundColor: Colors.blue,
-                            label: 'إنهاء طلب الصيانة',
+                            label: 'إنهاء طلب الإجازة',
                             onPressed: () {},
                             backGroundColor: Colors.blue,
                           ),
