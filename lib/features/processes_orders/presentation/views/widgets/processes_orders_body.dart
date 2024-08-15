@@ -59,7 +59,7 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
         body: BlocBuilder<UpdateRequestByAdminCubit, UpdateRequestByAdminState>(
           builder: (context, state) {
             return Container(
-                height: size.height * 0.7,
+                height: size.height * 0.9,
                 decoration: BoxDecoration(
                   color: Colors.white, // Set the background color
                   // borderRadius:
@@ -199,6 +199,9 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                           ),
                         ],
                       ),
+                      SizedBox(
+                        height: size.height * 0.07,
+                      ),
                       Row(
                         // mainAxisAlignment: MainAxisAlignment.start,
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -269,6 +272,9 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                           ),
                         ],
                       ),
+                      SizedBox(
+                        height: size.height * 0.07,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -289,9 +295,12 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                             width: size.width * 0.3,
                             child: Center(
                               child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   SizedBox(
-                                    width: size.width * 0.05,
+                                    height: size.height * 0.1,
+                                    width: size.width * 0.08,
                                     child: GestureDetector(
                                       onTap: () {
                                         setState(() {
@@ -334,7 +343,8 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                                     ),
                                   ),
                                   SizedBox(
-                                    width: size.width * 0.05,
+                                    height: size.height * 0.1,
+                                    width: size.width * 0.08,
                                     child: GestureDetector(
                                       onTap: () {
                                         isSelected = false;
@@ -407,7 +417,6 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                                     if (priceController.text.isNotEmpty &&
                                         warrantyStateController
                                             .text.isNotEmpty) {
-                                      
                                       await BlocProvider.of<
                                                   UpdateRequestByAdminCubit>(
                                               context)
@@ -416,7 +425,8 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                                               endPoint: 'updateRequestByAdmin',
                                               id: widget.data.id!,
                                               salary: double.parse(
-                                                  priceController.text,),
+                                                priceController.text,
+                                              ),
                                               warrantyState:
                                                   warrantyStateController.text);
                                     }
