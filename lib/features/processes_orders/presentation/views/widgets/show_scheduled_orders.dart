@@ -44,8 +44,8 @@ class _ShowScheduledOrdersState extends State<ShowScheduledOrders> {
     return Scaffold(body: BlocBuilder<ShowSchedulingCubit, ShowSchedulingState>(
       builder: (context, state) {
         return Container(
-         padding: const EdgeInsets.all(16),
-         // width: size.width * 0.75,
+          padding: const EdgeInsets.all(0),
+          width: size.width * 0.6,
           decoration: BoxDecoration(
             color: Colors.white, // Set the background color
             // borderRadius:
@@ -76,92 +76,101 @@ class _ShowScheduledOrdersState extends State<ShowScheduledOrders> {
                       },
                       child: Column(
                         children: [
-                          Row(
-                            children: [
-                              
-                              const Icon(
-                                Icons.assignment_turned_in,
-                                color: Colors.blue,
-                                size: 50.0,
-                              ),
-                              const SizedBox(
-                                width: 12,
-                              ),
-                              SizedBox(
-                                width: size.width * 0.45,
-                                child: Column(
-                                  children: [
-                                    Center(
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            state.showSchedulingModel
-                                                    .message![index].number ??
-                                                "",
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const Icon(
-                                            Icons.phone,
-                                            color: Colors.blue,
-                                            size: 18.0,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 6,
-                                    ),
-                                    Center(
-                                      child: FutureBuilder(
-                                        future: getReverseGeocoding(
-                                            state.showSchedulingModel
-                                                .message![index].latitude!,
-                                            state.showSchedulingModel
-                                                .message![index].longitude!),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.connectionState ==
-                                              ConnectionState.waiting) {
-                                            return const Text(
-                                              'Loading...',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold),
-                                            );
-                                          } else if (snapshot.hasError) {
-                                            return Text(
-                                              'Error: ${snapshot.error}',
-                                              style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold),
-                                            );
-                                          } else {
-                                            return Row(
-                                              children: [
-                                                Text(
-                                                  '${snapshot.data}',
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                const Icon(
-                                                  Icons.location_pin,
-                                                  color: Colors.blue,
-                                                  size: 18.0,
-                                                )
-                                              ],
-                                            );
-                                          }
-                                        },
-                                      ),
-                                    ),
-                                  ],
+                          SizedBox(
+                            width: size.width * 0.6,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: size.width * 0.03,
+                                  child: Icon(
+                                    Icons.assignment_turned_in,
+                                    color: Colors.blue,
+                                    size: size.width * 0.03,
+                                  ),
                                 ),
-                              )
-                            ],
+                                SizedBox(
+                                  width: size.width * 0.005,
+                                ),
+                                SizedBox(
+                                  width: size.width * 0.4,
+                                  child: Column(
+                                    children: [
+                                      Center(
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              state.showSchedulingModel
+                                                      .message![index].number ??
+                                                  "",
+                                              style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const Icon(
+                                              Icons.phone,
+                                              color: Colors.blue,
+                                              size: 18.0,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 6,
+                                      ),
+                                      Center(
+                                        child: FutureBuilder(
+                                          future: getReverseGeocoding(
+                                              state.showSchedulingModel
+                                                  .message![index].latitude!,
+                                              state.showSchedulingModel
+                                                  .message![index].longitude!),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return const Text(
+                                                'Loading...',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              );
+                                            } else if (snapshot.hasError) {
+                                              return Text(
+                                                'Error: ${snapshot.error}',
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              );
+                                            } else {
+                                              return Row(
+                                                children: [
+                                                  Text(
+                                                    '${snapshot.data}',
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            size.width * 0.01,
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  const Icon(
+                                                    Icons.location_pin,
+                                                    color: Colors.blue,
+                                                    size: 18.0,
+                                                  )
+                                                ],
+                                              );
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                           const Divider(
                             color: Colors.blue,

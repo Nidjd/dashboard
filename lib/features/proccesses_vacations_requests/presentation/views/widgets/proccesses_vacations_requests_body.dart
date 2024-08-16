@@ -18,7 +18,7 @@ class ProccessesVacationsRequestsBody extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           body: Container(
-            width: size.width * 0.5,
+            width: size.width * 0.6,
             decoration: BoxDecoration(
               color: Colors.white, // Set the background color
               // borderRadius:
@@ -39,6 +39,7 @@ class ProccessesVacationsRequestsBody extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
+
                               builder: (context) => BlocProvider(
                                 create: (context) => LeaveRequestCubit(
                                     getIt.get<LeaveRequestRepoImpl>()),
@@ -56,73 +57,78 @@ class ProccessesVacationsRequestsBody extends StatelessWidget {
                                       "  ",
                                   id: state.vacationsModel[index].id!,
                                 ),
+                              
+                            
                               ),
                             ),
                           );
                         },
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.assignment_turned_in,
-                                  color: Colors.blue,
-                                  size: 50.0,
-                                ),
-                                const SizedBox(
-                                  width: 12,
-                                ),
-                                SizedBox(
-                                  width: size.width * 0.45,
-                                  child: Column(
-                                    children: [
-                                      Center(
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              "تاريخ تقديم طلب الإجازة :${state.vacationsModel[index].createdAt}",
-                                              style: const TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            const Icon(
-                                              Icons.date_range,
-                                              color: Colors.blue,
-                                              size: 18.0,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 6,
-                                      ),
-                                      Center(
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              "حالة الطلب  :${state.vacationsModel[index].status}",
-                                              style: const TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                        child: SizedBox(
+                          width: size.width * 0.5,
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.assignment_turned_in,
+                                    color: Colors.blue,
+                                    size: 50.0,
                                   ),
-                                )
-                              ],
-                            ),
-                            const Divider(
-                              color: Colors.blue,
-                              height: 20,
-                              thickness: 2,
-                              indent: 0,
-                              endIndent: 0,
-                            ),
-                          ],
+                                  const SizedBox(
+                                    width: 12,
+                                  ),
+                                  SizedBox(
+                                    width: size.width * 0.35,
+                                    child: Column(
+                                      children: [
+                                        Center(
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                "تاريخ تقديم طلب الإجازة :${state.vacationsModel[index].createdAt}",
+                                                style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              const Icon(
+                                                Icons.date_range,
+                                                color: Colors.blue,
+                                                size: 18.0,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 6,
+                                        ),
+                                        Center(
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                "حالة الطلب  :${state.vacationsModel[index].status}",
+                                                style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                              const Divider(
+                                color: Colors.blue,
+                                height: 20,
+                                thickness: 2,
+                                indent: 0,
+                                endIndent: 0,
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },
