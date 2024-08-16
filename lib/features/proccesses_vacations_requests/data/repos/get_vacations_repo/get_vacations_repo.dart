@@ -4,5 +4,5 @@ import 'package:dashboard/features/proccesses_vacations_requests/data/models/vac
 
 abstract class GetVacationsRepo
 {
-  Future<Either<Failure,List<VacationsModel>>> getVacations({required String token,required String endPoint,});
+  Future<Either<Failure,List<VacationsModel>>> getVacations({required String token,required String endPoint});
 }

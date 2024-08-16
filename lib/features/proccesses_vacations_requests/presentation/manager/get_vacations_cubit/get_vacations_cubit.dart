@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dashboard/features/proccesses_vacations_requests/data/models/vacations_model/vacations_model.dart';
-import 'package:dashboard/features/proccesses_vacations_requests/data/repos/get_vacations_repo.dart';
+import 'package:dashboard/features/proccesses_vacations_requests/data/repos/get_vacations_repo/get_vacations_repo.dart';
 import 'package:equatable/equatable.dart';
 
 part 'get_vacations_state.dart';

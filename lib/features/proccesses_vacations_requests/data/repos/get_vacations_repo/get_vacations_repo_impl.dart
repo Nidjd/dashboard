@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dashboard/core/errors/failures.dart';
 import 'package:dashboard/core/utils/api_service.dart';
 import 'package:dashboard/features/proccesses_vacations_requests/data/models/vacations_model/vacations_model.dart';
-import 'package:dashboard/features/proccesses_vacations_requests/data/repos/get_vacations_repo.dart';
+import 'package:dashboard/features/proccesses_vacations_requests/data/repos/get_vacations_repo/get_vacations_repo.dart';
 import 'package:dio/dio.dart';
 
 class GetVacationsRepoImpl implements GetVacationsRepo {

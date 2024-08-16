@@ -1,6 +1,9 @@
+import 'package:dashboard/core/utils/service_locator.dart';
 import 'package:dashboard/core/widgets/custom_error.dart';
 import 'package:dashboard/core/widgets/custom_progress_indicator.dart';
-import 'package:dashboard/features/proccesses_vacations_requests/presentation/manager/cubit/get_vacations_cubit.dart';
+import 'package:dashboard/features/proccesses_vacations_requests/data/repos/leave_request_repo/leave_request_repo_impl.dart';
+import 'package:dashboard/features/proccesses_vacations_requests/presentation/manager/get_vacations_cubit/get_vacations_cubit.dart';
+import 'package:dashboard/features/proccesses_vacations_requests/presentation/manager/leave_request_cubit/leave_request_cubit.dart';
 import 'package:dashboard/features/proccesses_vacations_requests/presentation/views/widgets/proccesses_vacations_requests_detiles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,15 +31,32 @@ class ProccessesVacationsRequestsBody extends StatelessWidget {
             ),
             child: state is GetVacationsSuccessState
                 ? ListView.builder(
-                  itemCount: state.vacationsModel.length,
+                    itemCount: state.vacationsModel.length,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
+                         
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                   ProccessesVacationsRequestsDetiles(name: state.vacationsModel[index].worker!.user!.name ?? " ", email:  state.vacationsModel[index].worker!.user!.email ?? " ",nameOfTeam: state.vacationsModel[index].worker!.team!.name ?? "  ",reason: state.vacationsModel[index].reason ?? "  ",),
+                              builder: (context) => BlocProvider(
+                                create: (context) => LeaveRequestCubit(
+                                    getIt.get<LeaveRequestRepoImpl>()),
+                                child: ProccessesVacationsRequestsDetiles(
+                                  name: state.vacationsModel[index].worker!
+                                          .user!.name ??
+                                      " ",
+                                  email: state.vacationsModel[index].worker!
+                                          .user?.email ??
+                                      " ",
+                                  nameOfTeam: state.vacationsModel[index]
+                                          .worker?.team?.name ??
+                                      "  ",
+                                  reason: state.vacationsModel[index].reason ??
+                                      "  ",
+                                  id: state.vacationsModel[index].id!,
+                                ),
+                              ),
                             ),
                           );
                         },

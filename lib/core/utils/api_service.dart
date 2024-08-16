@@ -235,7 +235,6 @@ class ApiService {
     required int id,
     required String warrantyState,
   }) async {
-   
     var response = await _dio.post(
       '$_baseUrl$endPoint',
       queryParameters: {
@@ -305,16 +304,37 @@ class ApiService {
     return response.data;
   }
 
-
   Future<List<dynamic>> showhandlerequest({
     required String endPoint,
     required String token,
+    
   }) async {
     var response = await _dio.get(
       '$_baseUrl$endPoint',
+      
       options: Options(
         headers: {"Authorization": "Bearer $token"},
         method: "GET",
+      ),
+    );
+
+    return response.data;
+  }
+
+  Future<Map<String, dynamic>> leaveRequest({
+    required String token,
+    required String endPoint,
+    required int id,
+    required String status,
+  }) async {
+    var response = await _dio.post(
+      '$_baseUrl$endPoint/$id',
+      queryParameters: {
+        "status": status,
+      },
+      options: Options(
+        headers: {"Authorization": "Bearer $token"},
+        method: "POST",
       ),
     );
 

@@ -3,7 +3,8 @@ import 'package:dashboard/features/Statistics/data/repos/get_reports_repo_impl.d
 import 'package:dashboard/features/add_electrical/data/repos/add_electronic_device_repo_impl.dart';
 import 'package:dashboard/features/add_maintenance_worker/data/repos/add_maintenance_worker_repo_impl.dart';
 import 'package:dashboard/features/login_admin/data/repos/login_page_admin_repo_impl.dart';
-import 'package:dashboard/features/proccesses_vacations_requests/data/repos/get_vacations_repo_impl.dart';
+import 'package:dashboard/features/proccesses_vacations_requests/data/repos/get_vacations_repo/get_vacations_repo_impl.dart';
+import 'package:dashboard/features/proccesses_vacations_requests/data/repos/leave_request_repo/leave_request_repo_impl.dart';
 import 'package:dashboard/features/processes_orders/data/repos/show_scheduling_repo/show_scheduling_repo_impl.dart';
 import 'package:dashboard/features/processes_orders/data/repos/update_request_by_admin_repo/update_request_by_admin_repo_impl.dart';
 import 'package:dashboard/features/reporting/data/repos/generate_ratio_repo_impl.dart';
@@ -61,4 +62,5 @@ void setupServiceLocator() {
   getIt.registerSingleton(ScheduleRepoImpl(getIt.get<ApiService>()));
   getIt.registerSingleton(GetReportsRepoImpl(getIt.get<ApiService>()));
   getIt.registerSingleton(GetVacationsRepoImpl(getIt.get<ApiService>()));
+  getIt.registerSingleton(LeaveRequestRepoImpl(getIt.get<ApiService>()));
 }
