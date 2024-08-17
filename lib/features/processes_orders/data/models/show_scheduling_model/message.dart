@@ -23,7 +23,7 @@ class Message extends Equatable {
 	final String? endTime;
 	final DateTime? createdAt;
 	final DateTime? updatedAt;
-
+  final String? idApplication;
 	const Message({
 		this.id, 
 		this.freeDay, 
@@ -47,6 +47,7 @@ class Message extends Equatable {
 		this.endTime, 
 		this.createdAt, 
 		this.updatedAt, 
+    this.idApplication, 
 	});
 
 	factory Message.fromJson(Map<String, dynamic> json) => Message(
@@ -76,6 +77,7 @@ class Message extends Equatable {
 				updatedAt: json['updated_at'] == null
 						? null
 						: DateTime.parse(json['updated_at'] as String),
+            idApplication: json['idapplication'] as String?
 			);
 
 	Map<String, dynamic> toJson() => {
@@ -101,6 +103,7 @@ class Message extends Equatable {
 				'end_time': endTime,
 				'created_at': createdAt?.toIso8601String(),
 				'updated_at': updatedAt?.toIso8601String(),
+        'idapplication':idApplication
 			};
 
 	@override
@@ -128,6 +131,7 @@ class Message extends Equatable {
 				endTime,
 				createdAt,
 				updatedAt,
+        idApplication
 		];
 	}
 }

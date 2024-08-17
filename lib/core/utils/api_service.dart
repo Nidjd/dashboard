@@ -307,11 +307,9 @@ class ApiService {
   Future<List<dynamic>> showhandlerequest({
     required String endPoint,
     required String token,
-    
   }) async {
     var response = await _dio.get(
       '$_baseUrl$endPoint',
-      
       options: Options(
         headers: {"Authorization": "Bearer $token"},
         method: "GET",

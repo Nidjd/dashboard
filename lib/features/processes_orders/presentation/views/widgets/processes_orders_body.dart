@@ -442,9 +442,9 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                                               warrantyState:
                                                   warrantyStateController.text);
                                     }
-                                    sendNotificationToClient(
-                                        "e5TegjhUQD6z7p37Q7upqA:APA91bE9q1POj2KrG_KsxNUHL42_EYDEaI6g9pRdDg_KOXOZ1EK7wbOnkVhdBpYHzPjR7jXTWEODnoCTt-v5kipEEoH0EWaaG4J8rA-qdll8NTjuDX1lD6xwpkwIPVZKODTNgkdP5ApI",
-                                        "عزيزي العميل .تم الانتهاء من صيانة طلبك رقم 1234بتاريخ 15_4_2024تم اصلاح المشكلة التالية في جهازك :استبدال البطارية -فحص واصلاح ودة التبريد _اجمالي تكلفة الصيانة 5000مع تحيات فريق الصيانة ");
+                                  await  sendNotificationToClient(
+                                        widget.data.idApplication!,
+                                        'عزيزي العميل التكلفة الإجمالية هي ${widget.data.salary}');
                                   },
                                   backGroundColor: Colors.blue,
                                 ),
