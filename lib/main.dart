@@ -4,8 +4,14 @@ import 'package:dashboard/core/utils/shared_preference_store.dart';
 import 'package:dashboard/features/login_admin/presentation/views/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   Bloc.observer = MyBlocObserver();
   await initSharedPrefernce();
   setupServiceLocator();

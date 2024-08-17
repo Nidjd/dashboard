@@ -9,6 +9,8 @@ import 'package:dashboard/features/processes_orders/presentation/manager/update_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class ProcessesOrdersBody extends StatefulWidget {
   final Message data;
@@ -31,24 +33,34 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
     super.dispose();
   }
 
-  // Future<String> getReverseGeocoding(String latitude, String longitude) async {
-  //   final url = Uri.parse(
-  //       'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=$latitude&lon=$longitude');
-  //   final response = await http.get(url);
+  Future<void> sendNotificationToClient(
+      String clientToken, String message) async {
+    final url = Uri.parse('https://fcm.googleapis.com/fcm/send');
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization':
+          'key=AAAAZaaWJZM:APA91bGkr97K6LoCN8if6j4rohB9XZvCBOvk7mRyJzYKvorNVE3nxEWOlb8OvIfdUr8TGgsXH8R6foDVn93r4_eJwNoiqUmbG3SPfe1IoM0j2ej7fW3dauAgW-AVAvURV1_9cGsFhvJy',
+    };
 
-  //   if (response.statusCode == 200) {
-  //     final data = jsonDecode(response.body) as Map<String, dynamic>;
-  //     final displayName = data['display_name'] as String;
-  //     final addressParts = displayName.split(', ');
-  //     String name = addressParts[0];
-  //     String suburb = addressParts[1];
-  //     String street = addressParts[2];
+    final body = jsonEncode({
+      'to': clientToken,
+      'notification': {
+        'title': 'Maintenance Request',
+        'body': message,
+      },
+    });
 
-  //     return '$name, $suburb, $street';
-  //   } else {
-  //     throw Exception('Failed to fetch address');
-  //   }
-  // }
+    try {
+      final response = await http.post(url, headers: headers, body: body);
+      if (response.statusCode == 200) {
+        print('Notification sent successfully');
+      } else {
+        print('Failed to send notification: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error sending notification: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -430,6 +442,9 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                                               warrantyState:
                                                   warrantyStateController.text);
                                     }
+                                    sendNotificationToClient(
+                                        "e5TegjhUQD6z7p37Q7upqA:APA91bE9q1POj2KrG_KsxNUHL42_EYDEaI6g9pRdDg_KOXOZ1EK7wbOnkVhdBpYHzPjR7jXTWEODnoCTt-v5kipEEoH0EWaaG4J8rA-qdll8NTjuDX1lD6xwpkwIPVZKODTNgkdP5ApI",
+                                        "عزيزي العميل .تم الانتهاء من صيانة طلبك رقم 1234بتاريخ 15_4_2024تم اصلاح المشكلة التالية في جهازك :استبدال البطارية -فحص واصلاح ودة التبريد _اجمالي تكلفة الصيانة 5000مع تحيات فريق الصيانة ");
                                   },
                                   backGroundColor: Colors.blue,
                                 ),
