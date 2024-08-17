@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:dashboard/core/utils/shared_preference_store.dart';
 import 'package:dashboard/core/widgets/custom_progress_indicator.dart';
 import 'package:dashboard/core/widgets/custom_text_button.dart';
 import 'package:dashboard/features/scheduling_orders/presentation/manager/schedule/schedule_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
 
 class Schedule extends StatefulWidget {
   final int id;
@@ -102,6 +105,35 @@ class _ScheduleState extends State<Schedule> {
     firstTime.dispose();
     endTime.dispose();
     super.dispose();
+  }
+
+  Future<void> sendNotificationToClient(
+      String clientToken, String message) async {
+    final url = Uri.parse('https://fcm.googleapis.com/fcm/send');
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization':
+          'key=AAAAZaaWJZM:APA91bGkr97K6LoCN8if6j4rohB9XZvCBOvk7mRyJzYKvorNVE3nxEWOlb8OvIfdUr8TGgsXH8R6foDVn93r4_eJwNoiqUmbG3SPfe1IoM0j2ej7fW3dauAgW-AVAvURV1_9cGsFhvJy',
+    };
+
+    final body = jsonEncode({
+      'to': clientToken,
+      'notification': {
+        'title': 'Maintenance Request',
+        'body': message,
+      },
+    });
+
+    try {
+      final response = await http.post(url, headers: headers, body: body);
+      if (response.statusCode == 200) {
+        print('Notification sent successfully');
+      } else {
+        print('Failed to send notification: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error sending notification: $e');
+    }
   }
 
   @override
@@ -285,6 +317,7 @@ class _ScheduleState extends State<Schedule> {
                                       id: widget.id,
                                     );
                                   }
+                                  sendNotificationToClient("", "mmmmm");
                                 },
                                 backGroundColor: Colors.blue,
                                 textStyle: const TextStyle(
