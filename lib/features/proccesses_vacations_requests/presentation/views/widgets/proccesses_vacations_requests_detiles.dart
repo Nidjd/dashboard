@@ -197,7 +197,7 @@ class _ProccessesVacationsRequestsDetilesState
                                     ),
                                   ),
                                   child: const Text(
-                                    "سبب طلب الإجازة",
+                                    "سبب الطلب ",
                                     style: TextStyle(
                                         fontSize: 30,
                                         color: Colors.black,
@@ -241,32 +241,50 @@ class _ProccessesVacationsRequestsDetilesState
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          _isApproved = "Approved";
-                                        });
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.blue),
-                                      child: const Text(
-                                        'Approved',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
+                                        onPressed: () {
+                                          setState(() {
+                                            _isApproved = "Approved";
+                                          });
+                                        },
+                                        style: _isApproved == "Approved"
+                                            ? ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.blue)
+                                            : ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.white),
+                                        child: _isApproved == "Approved"
+                                            ? const Text(
+                                                'Approved',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              )
+                                            : const Text(
+                                                'Approved',
+                                                style: TextStyle(
+                                                    color: Colors.blue),
+                                              )),
                                     const SizedBox(width: 30.0),
                                     ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          _isApproved = "Rejected";
-                                        });
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.blue),
-                                      child: const Text(
-                                        'Rejected',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
+                                        onPressed: () {
+                                          setState(() {
+                                            _isApproved = "Rejected";
+                                          });
+                                        },
+                                        style: _isApproved == "Rejected"
+                                            ? ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.blue)
+                                            : ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.white),
+                                        child: _isApproved == "Rejected"
+                                            ? const Text(
+                                                'Rejected',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              )
+                                            : const Text(
+                                                'Rejected',
+                                                style: TextStyle(
+                                                    color: Colors.blue),
+                                              )),
                                   ],
                                 ),
                                 const SizedBox(height: 16.0),
@@ -285,7 +303,7 @@ class _ProccessesVacationsRequestsDetilesState
                                   textStyle:
                                       const TextStyle(color: Colors.white),
                                   // backGroundColor: Colors.blue,
-                                  label: 'إنهاء طلب الصيانة',
+                                  label: 'إنهاء الطلب ',
                                   onPressed: () async {
                                     await BlocProvider.of<LeaveRequestCubit>(
                                             context)

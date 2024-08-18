@@ -35,11 +35,9 @@ class ProccessesVacationsRequestsBody extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
-                         
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-
                               builder: (context) => BlocProvider(
                                 create: (context) => LeaveRequestCubit(
                                     getIt.get<LeaveRequestRepoImpl>()),
@@ -50,15 +48,13 @@ class ProccessesVacationsRequestsBody extends StatelessWidget {
                                   email: state.vacationsModel[index].worker!
                                           .user?.email ??
                                       " ",
-                                  nameOfTeam: state.vacationsModel[index]
-                                          .worker?.team?.name ??
+                                  nameOfTeam: state.vacationsModel[index].worker
+                                          ?.team?.name ??
                                       "  ",
                                   reason: state.vacationsModel[index].reason ??
                                       "  ",
                                   id: state.vacationsModel[index].id!,
                                 ),
-                              
-                            
                               ),
                             ),
                           );
@@ -85,7 +81,7 @@ class ProccessesVacationsRequestsBody extends StatelessWidget {
                                           child: Row(
                                             children: [
                                               Text(
-                                                "تاريخ تقديم طلب الإجازة :${state.vacationsModel[index].createdAt}",
+                                                "تاريخ تقديم الطلب  :${state.vacationsModel[index].createdAt}",
                                                 style: const TextStyle(
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.bold,
@@ -107,6 +103,23 @@ class ProccessesVacationsRequestsBody extends StatelessWidget {
                                             children: [
                                               Text(
                                                 "حالة الطلب  :${state.vacationsModel[index].status}",
+                                                style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              const Padding(
+                                                padding: EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  "_",
+                                                  style: TextStyle(
+                                                    color: Colors.blue,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                "نوع الطلب :${state.vacationsModel[index].status}",
                                                 style: const TextStyle(
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.bold,

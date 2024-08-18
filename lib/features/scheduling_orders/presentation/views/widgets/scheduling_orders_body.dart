@@ -205,6 +205,16 @@ class _SchedulingOrdersBodyState extends State<SchedulingOrdersBody> {
                                                 size: 20,
                                               ),
                                             )),
+                                        SizedBox(
+                                            width: size.width * 0.02,
+                                            child: IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                Icons.delete,
+                                                color: Colors.blue,
+                                                size: 20,
+                                              ),
+                                            )),
                                       ],
                                     ),
                                   );

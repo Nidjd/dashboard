@@ -310,14 +310,14 @@ class _HomePageBodyState extends State<HomePageBody> {
                         //radius: .0,
                         backgroundColor: Colors.white,
                         child: Icon(
-                          Icons.person_off,
+                          Icons.group_outlined,
                           color: Colors.blue,
                           size: 20,
                         ),
                       ),
                       CustomTextButton(
                         backGroundColor: Colors.transparent,
-                        label: "إدارة الإجازات",
+                        label: "طلبات العاملين ",
                         onPressed: () => changeIndexOfPages(7),
                         textStyle: const TextStyle(
                           color: Colors.grey,
