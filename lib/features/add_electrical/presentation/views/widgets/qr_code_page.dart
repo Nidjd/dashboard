@@ -1,20 +1,24 @@
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
-class QrCodePage extends StatelessWidget {
+class QrCodePage extends StatefulWidget {
   const QrCodePage({super.key, required this.data});
   final String data;
+
   @override
+  State<QrCodePage> createState() => _QrCodePageState();
+}
+
+class _QrCodePageState extends State<QrCodePage> {
+
+   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         body: Center(
-          child: QrImageView(
-            data: data,
-            version: QrVersions.auto,
-            size: 1000,
-          ),
+          child: Image.memory(base64.decode(widget.data))
         ),
       ),
     );

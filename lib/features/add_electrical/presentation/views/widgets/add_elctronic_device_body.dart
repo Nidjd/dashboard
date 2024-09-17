@@ -36,7 +36,8 @@ class _DeviceFormState extends State<AddElectricalBody> {
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
-    final XFile? selectedImage = await picker.pickImage(source: ImageSource.gallery);
+    final XFile? selectedImage =
+        await picker.pickImage(source: ImageSource.gallery);
     if (selectedImage != null) {
       final Uint8List bytes = await selectedImage.readAsBytes();
       setState(() {
@@ -64,6 +65,7 @@ class _DeviceFormState extends State<AddElectricalBody> {
     return BlocConsumer<AddElectronicDeviceCubit, AddElectronicDeviceState>(
       listener: (context, state) {
         if (state is AddElectronicDeviceSuccess) {
+        
           showDialog(
             context: context,
             builder: (context) => SizedBox(
@@ -196,22 +198,32 @@ class _DeviceFormState extends State<AddElectricalBody> {
                               } else {
                                 if (image != null) {
                                   String token = prefs.getString('token')!;
-                                await BlocProvider.of<AddElectronicDeviceCubit>(
-                                        context)
-                                    .addNewElectronicDevice(
-                                  endPoint: "addelectrical",
-                                  token: token,
-                                  name: _nameController.text,
-                                  size: int.parse(_sizeController.text),
-                                  warning: _warningsController.text,
-                                  notes: _notesController.text,
-                                  wayOfWork: _howToUseController.text,
-                                  warranteState: _warrantyStatusController.text,
-                                  warantyDate: _warrantyDurationController.text,
-                                  file: image!,
-                                );
+                                  await BlocProvider.of<
+                                          AddElectronicDeviceCubit>(context)
+                                      .addNewElectronicDevice(
+                                    endPoint: "addelectrical",
+                                    token: token,
+                                    name: _nameController.text,
+                                    size: int.parse(_sizeController.text),
+                                    warning: _warningsController.text,
+                                    notes: _notesController.text,
+                                    wayOfWork: _howToUseController.text,
+                                    warranteState:
+                                        _warrantyStatusController.text,
+                                    warantyDate:
+                                        _warrantyDurationController.text,
+                                    file: image!,
+                                  );
                                 } else {
-                                  showDialog(context: context, builder: (context) => const SizedBox(width: 300,height: 150,child: Center(child: Text("قم بتحميل صورة للجهاز"))),);
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => const SizedBox(
+                                        width: 300,
+                                        height: 150,
+                                        child: Center(
+                                            child:
+                                                Text("قم بتحميل صورة للجهاز"))),
+                                  );
                                 }
                               }
                             }

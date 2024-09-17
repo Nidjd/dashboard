@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:js_interop';
 
 import 'package:dashboard/core/utils/shared_preference_store.dart';
 import 'package:dashboard/core/widgets/custom_progress_indicator.dart';
@@ -296,10 +297,6 @@ class _ScheduleState extends State<Schedule> {
                             : CustomTextButton(
                                 label: "جدولة طلب الصيانة",
                                 onPressed: () async {
-                                  // print("First Date is : ${firstDate.text}");
-                                  // print("End Date is : ${endDate.text}");
-                                  // print("First Time is : ${firstTime.text}");
-                                  // print("End Time is : ${endTime.text}");
                                   if (firstTime.text.isNotEmpty &&
                                       endTime.text.isNotEmpty &&
                                       firstDate.text.isNotEmpty &&
@@ -317,7 +314,10 @@ class _ScheduleState extends State<Schedule> {
                                       id: widget.id,
                                     );
                                   }
-                                  sendNotificationToClient("", "mmmmm");
+                                  await sendNotificationToClient(
+                                    "${firstDate.text} ${firstTime.text}",
+                                    "${endDate.text} ${endTime.text}",
+                                  );
                                 },
                                 backGroundColor: Colors.blue,
                                 textStyle: const TextStyle(
