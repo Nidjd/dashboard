@@ -119,7 +119,7 @@ class ProccessesVacationsRequestsBody extends StatelessWidget {
                                                 ),
                                               ),
                                               Text(
-                                                "نوع الطلب :${state.vacationsModel[index].status}",
+                                                "نوع الطلب :${state.vacationsModel[index].type}",
                                                 style: const TextStyle(
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.bold,
