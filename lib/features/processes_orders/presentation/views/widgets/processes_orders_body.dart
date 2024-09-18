@@ -403,15 +403,7 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: size.height * 0.2,
-                            width: size.width * 0.3,
-                            child: widget.data.qrCode == null
-                                ? Container()
-                                : QrCodePage(
-                                    data: widget.data.qrCode,
-                                  ),
-                          ),
+                          
                         ],
                       ),
                       Center(
@@ -444,7 +436,7 @@ class _ProcessesOrdersBodyState extends State<ProcessesOrdersBody> {
                                     }
                                   await  sendNotificationToClient(
                                         widget.data.idApplication!,
-                                        'عزيزي العميل التكلفة الإجمالية هي ${widget.data.salary}');
+                                        'عزيزي العميل التكلفة الإجمالية هي ${priceController.text}');
                                   },
                                   backGroundColor: Colors.blue,
                                 ),
