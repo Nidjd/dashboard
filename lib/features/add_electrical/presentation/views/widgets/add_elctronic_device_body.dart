@@ -6,7 +6,6 @@ import 'package:dashboard/core/widgets/custom_error.dart';
 import 'package:dashboard/core/widgets/custom_progress_indicator.dart';
 import 'package:dashboard/features/add_electrical/presentation/manager/cubit/add_electronic_device_cubit.dart';
 import 'package:dashboard/features/add_electrical/presentation/views/widgets/forms_section.dart';
-import 'package:dashboard/features/add_electrical/presentation/views/widgets/qr_code_page.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,18 +63,7 @@ class _DeviceFormState extends State<AddElectricalBody> {
     final size = MediaQuery.of(context).size;
     return BlocConsumer<AddElectronicDeviceCubit, AddElectronicDeviceState>(
       listener: (context, state) {
-        if (state is AddElectronicDeviceSuccess) {
-        
-          showDialog(
-            context: context,
-            builder: (context) => SizedBox(
-              width: 2,
-              child: QrCodePage(
-                data: state.qrCodeModel.qrCode!.qrBase64!,
-              ),
-            ),
-          );
-        }
+        if (state is AddElectronicDeviceSuccess) {}
       },
       builder: (context, state) {
         if (state is AddElectronicDeviceLoading) {
@@ -241,6 +229,17 @@ class _DeviceFormState extends State<AddElectricalBody> {
                               )),
                         ),
                       ),
+                      if (state is AddElectronicDeviceSuccess)
+                        const Center(
+                            child: Text(
+                          "تم إضافة الجهاز بنجاح",
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ))
+                      else if (state is AddElectronicDeviceFailure)
+                        CustomError(message: state.errMessage),
                     ],
                   ),
                 ),

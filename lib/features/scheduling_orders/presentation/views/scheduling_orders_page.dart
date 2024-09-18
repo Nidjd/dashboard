@@ -1,6 +1,8 @@
 import 'package:dashboard/core/utils/service_locator.dart';
 import 'package:dashboard/core/utils/shared_preference_store.dart';
+import 'package:dashboard/features/scheduling_orders/data/repos/delete_request_repo/delete_request_repo_impl.dart';
 import 'package:dashboard/features/scheduling_orders/data/repos/show_not_schedulong/show_not_schediling_repo_impl.dart';
+import 'package:dashboard/features/scheduling_orders/presentation/manager/delete_request_cubit/delete_request_cubit.dart';
 import 'package:dashboard/features/scheduling_orders/presentation/manager/show_not_scheduling_cubit/show_not_scheduling_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,10 +14,22 @@ class SchedulingOrdersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Directionality(
+    return Directionality(
       textDirection: TextDirection.rtl,
-      child: BlocProvider(
-        create: (context) => ShowNotSchedulingCubit(getIt.get<ShowNotSchedilingRepoImpl>())..showNotScheduling(token: prefs.getString('token')!, endPoint: 'show_schedling_not',),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) =>
+                ShowNotSchedulingCubit(getIt.get<ShowNotSchedilingRepoImpl>())
+                  ..showNotScheduling(
+                    token: prefs.getString('token')!,
+                    endPoint: 'show_schedling_not',
+                  ),
+          ),
+          BlocProvider(
+            create: (context) => DeleteRequestCubit(getIt.get<DeleteRequestRepoImpl>()),
+          ),
+        ],
         child: const SchedulingOrdersBody(),
       ),
     );

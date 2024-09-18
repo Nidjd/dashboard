@@ -338,4 +338,24 @@ class ApiService {
 
     return response.data;
   }
+
+
+  Future<String> deleteRequest({
+    required String token,
+    required String endPoint,
+    required int id,
+  }) async {
+    var response = await _dio.delete(
+      '$_baseUrl$endPoint',
+      queryParameters: {
+        'id':id,
+      },
+      options: Options(
+        headers: {"Authorization": "Bearer $token"},
+        method: "DELETE",
+      ),
+    );
+
+    return response.data;
+  }
 }

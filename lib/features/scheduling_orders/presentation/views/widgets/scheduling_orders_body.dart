@@ -1,7 +1,10 @@
 import 'package:dashboard/core/utils/service_locator.dart';
+import 'package:dashboard/core/utils/shared_preference_store.dart';
 import 'package:dashboard/core/widgets/custom_error.dart';
 import 'package:dashboard/core/widgets/custom_progress_indicator.dart';
+import 'package:dashboard/features/processes_orders/presentation/manager/show_scheduling_cubit/show_scheduling_cubit.dart';
 import 'package:dashboard/features/scheduling_orders/data/repos/schedule_repo/schedule_repo_impl.dart';
+import 'package:dashboard/features/scheduling_orders/presentation/manager/delete_request_cubit/delete_request_cubit.dart';
 import 'package:dashboard/features/scheduling_orders/presentation/manager/schedule/schedule_cubit.dart';
 import 'package:dashboard/features/scheduling_orders/presentation/manager/show_not_scheduling_cubit/show_not_scheduling_cubit.dart';
 import 'package:dashboard/features/scheduling_orders/presentation/views/widgets/schedule.dart';
@@ -205,16 +208,50 @@ class _SchedulingOrdersBodyState extends State<SchedulingOrdersBody> {
                                                 size: 20,
                                               ),
                                             )),
-                                        SizedBox(
-                                            width: size.width * 0.02,
-                                            child: IconButton(
-                                              onPressed: () {},
-                                              icon: const Icon(
-                                                Icons.delete,
-                                                color: Colors.blue,
-                                                size: 20,
-                                              ),
-                                            )),
+                                        BlocBuilder<DeleteRequestCubit,
+                                            DeleteRequestState>(
+                                          builder: (context, deleteState) {
+                                            return state
+                                                    is DeleteRequestLoadingState
+                                                ? const CustomProgressIndicator()
+                                                : SizedBox(
+                                                    width: size.width * 0.02,
+                                                    child: IconButton(
+                                                      onPressed: () async {
+                                                        await BlocProvider.of<
+                                                                    DeleteRequestCubit>(
+                                                                context)
+                                                            .deleteRequest(
+                                                          id: state
+                                                              .showNotSchedulingModel
+                                                              .message![index]
+                                                              .id!,
+                                                          token:
+                                                              prefs.getString(
+                                                                  'token')!,
+                                                          endPoint: 'delete',
+                                                        );
+
+                                                        await BlocProvider.of<
+                                                                    ShowNotSchedulingCubit>(
+                                                                context)
+                                                            .showNotScheduling(
+                                                          token:
+                                                              prefs.getString(
+                                                                  'token')!,
+                                                          endPoint:
+                                                              'show_schedling_not',
+                                                        );
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons.delete,
+                                                        color: Colors.blue,
+                                                        size: 20,
+                                                      ),
+                                                    ),
+                                                  );
+                                          },
+                                        ),
                                       ],
                                     ),
                                   );
