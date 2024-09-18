@@ -202,6 +202,9 @@ class _DeviceFormState extends State<AddElectricalBody> {
                                         _warrantyDurationController.text,
                                     file: image!,
                                   );
+                                  if (state is AddElectronicDeviceSuccess) {
+                                    print(state.qrCodeModel.qrCode!.qrBase64);
+                                  }
                                 } else {
                                   showDialog(
                                     context: context,

@@ -53,7 +53,7 @@ class ProccessesVacationsRequestsBody extends StatelessWidget {
                                       "  ",
                                   reason: state.vacationsModel[index].reason ??
                                       "  ",
-                                  id: state.vacationsModel[index].id!,
+                                  id: state.vacationsModel[index].id!, idApplication:  state.vacationsModel[index].idApplication!,
                                 ),
                               ),
                             ),

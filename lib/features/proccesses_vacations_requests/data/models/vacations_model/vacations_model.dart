@@ -12,6 +12,7 @@ class VacationsModel extends Equatable {
   final DateTime? updatedAt;
   final Worker? worker;
   final String? type;
+  final String? idApplication;
 
   const VacationsModel({
     this.id,
@@ -23,6 +24,7 @@ class VacationsModel extends Equatable {
     this.updatedAt,
     this.worker,
     this.type,
+    this.idApplication
   });
 
   factory VacationsModel.fromJson(Map<String, dynamic> json) {
@@ -33,6 +35,7 @@ class VacationsModel extends Equatable {
       reason: json['reason'] as String?,
       endDate: json['end_date'] as String?,
       type: json['type'],
+      idApplication: json['idapplication'],
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
@@ -54,7 +57,8 @@ class VacationsModel extends Equatable {
         'created_at': createdAt?.toIso8601String(),
         'updated_at': updatedAt?.toIso8601String(),
         'worker': worker?.toJson(),
-        'type':type
+        'type': type,
+        'idapplication':idApplication
       };
 
   @override
@@ -69,6 +73,7 @@ class VacationsModel extends Equatable {
       updatedAt,
       worker,
       type,
+      idApplication
     ];
   }
 }

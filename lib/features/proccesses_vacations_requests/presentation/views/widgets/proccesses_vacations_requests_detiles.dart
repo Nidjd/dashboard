@@ -1,23 +1,26 @@
+import 'dart:convert';
+
 import 'package:dashboard/core/utils/shared_preference_store.dart';
 import 'package:dashboard/core/widgets/custom_progress_indicator.dart';
 import 'package:dashboard/core/widgets/custom_text_button.dart';
 import 'package:dashboard/features/proccesses_vacations_requests/presentation/manager/leave_request_cubit/leave_request_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:http/http.dart' as http;
 class ProccessesVacationsRequestsDetiles extends StatefulWidget {
   final String name;
   final String email;
   final String nameOfTeam;
   final String reason;
   final int id;
+  final String idApplication;
   const ProccessesVacationsRequestsDetiles(
       {super.key,
       required this.name,
       required this.email,
       required this.nameOfTeam,
       required this.reason,
-      required this.id});
+      required this.id, required this.idApplication});
 
   @override
   State<ProccessesVacationsRequestsDetiles> createState() =>
@@ -27,6 +30,35 @@ class ProccessesVacationsRequestsDetiles extends StatefulWidget {
 class _ProccessesVacationsRequestsDetilesState
     extends State<ProccessesVacationsRequestsDetiles> {
   String _isApproved = "Approved";
+
+  Future<void> sendNotificationToClient(
+      String clientToken, String message) async {
+    final url = Uri.parse('https://fcm.googleapis.com/fcm/send');
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization':
+          'key=AAAAZaaWJZM:APA91bGkr97K6LoCN8if6j4rohB9XZvCBOvk7mRyJzYKvorNVE3nxEWOlb8OvIfdUr8TGgsXH8R6foDVn93r4_eJwNoiqUmbG3SPfe1IoM0j2ej7fW3dauAgW-AVAvURV1_9cGsFhvJy',
+    };
+
+    final body = jsonEncode({
+      'to': clientToken,
+      'notification': {
+        'title': 'Maintenance Request',
+        'body': message,
+      },
+    });
+
+    try {
+      final response = await http.post(url, headers: headers, body: body);
+      if (response.statusCode == 200) {
+        print('Notification sent successfully');
+      } else {
+        print('Failed to send notification: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error sending notification: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -312,6 +344,11 @@ class _ProccessesVacationsRequestsDetilesState
                                             endPoint: 'leaverequests',
                                             id: widget.id,
                                             status: _isApproved);
+
+                                  await  sendNotificationToClient(
+                                        widget.idApplication,
+                                        'حالة طلبك هي : $_isApproved');
+                                            
                                   },
                                   backGroundColor: Colors.blue,
                                 ),
